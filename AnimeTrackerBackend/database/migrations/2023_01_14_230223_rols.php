@@ -14,6 +14,14 @@ return new class extends Migration
     public function up()
     {
         //
+
+        Schema::create('rols', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('descripcion');
+        });  
+
+
     }
 
     /**
@@ -24,5 +32,6 @@ return new class extends Migration
     public function down()
     {
         //
+        Schema::dropIfExists('rols');
     }
 };
