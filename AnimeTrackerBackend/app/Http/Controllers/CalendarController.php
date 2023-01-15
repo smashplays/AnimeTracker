@@ -57,7 +57,7 @@ class CalendarController extends Controller
     {
         try {
             Calendar::create($request->validate([
-                'id' => 'required|integer',
+                'id' => 'integer',
             ]));
         } catch (PDOException $ex) {
             return response($ex->errorInfo, 500);
