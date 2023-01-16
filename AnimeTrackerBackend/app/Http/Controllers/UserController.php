@@ -12,8 +12,7 @@ class UserController extends Controller
 {
     public function getAll(Request $request)
     {
-        //return DB::table('students')->get();
-        //$students = 
+
         try {
             return User::all();
         } catch (PDOException $ex) {
@@ -24,7 +23,7 @@ class UserController extends Controller
 
     public function getById(Request $request, $id)
     {
-        //return DB::table('students')->where('id',$id)->get();
+
 
         try {
             if (User::find($id)) {
@@ -46,7 +45,6 @@ class UserController extends Controller
 
                 User::findOrFail($id)->delete();
                 return response('Ha sido eliminado', 200);
-                //return $student->delete();
             } else {
                 return response('Id no encontrada', 404);
             }
@@ -60,7 +58,7 @@ class UserController extends Controller
         try {
             User::create($request->validate([
                 'name' => 'required|string',
-                'age'=> 'required|integer',
+                'age' => 'required|integer',
                 'password' => 'required|string',
                 'email' => 'required|email:rfc|unique:users',
                 'rol_id' => 'nullable|integer'
@@ -68,7 +66,6 @@ class UserController extends Controller
         } catch (PDOException $ex) {
             return response($ex->errorInfo, 500);
         }
-        //return Student::upsetOrCreate();
     }
 
     public function update(Request $request, $id)
@@ -93,14 +90,16 @@ class UserController extends Controller
     }
 
 
-    public function rol(Request $request, $id){
+    public function rol(Request $request, $id)
+    {
         $user = User::find($id);
-       return response()->json($user->rol);
-}
+        return response()->json($user->rol);
+    }
 
 
-public function calendar(Request $request, $id){
-    $user = User::find($id);
-   return response()->json($user->calendar);
-}
+    public function calendar(Request $request, $id)
+    {
+        $user = User::find($id);
+        return response()->json($user->calendar);
+    }
 }

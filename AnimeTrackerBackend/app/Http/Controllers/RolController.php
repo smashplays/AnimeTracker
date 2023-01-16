@@ -12,8 +12,7 @@ class RolController extends Controller
     //
     public function getAll(Request $request)
     {
-        //return DB::table('students')->get();
-        //$students = 
+
         try {
             return Rol::all();
         } catch (PDOException $ex) {
@@ -24,7 +23,6 @@ class RolController extends Controller
 
     public function getById(Request $request, $id)
     {
-        //return DB::table('students')->where('id',$id)->get();
 
         try {
             if (Rol::find($id)) {
@@ -65,7 +63,6 @@ class RolController extends Controller
         } catch (PDOException $ex) {
             return response($ex->errorInfo, 500);
         }
-        //return Student::upsetOrCreate();
     }
 
     public function update(Request $request, $id)
@@ -76,7 +73,7 @@ class RolController extends Controller
 
                 Rol::findOrFail($id)->update($request->validate([
                     'name' => 'nullable|string',
-                    'descripcion'=>'nullable|string',
+                    'descripcion' => 'nullable|string',
                 ]));
             } else {
                 return response('Id no encontrada', 404);
@@ -86,10 +83,9 @@ class RolController extends Controller
         }
     }
 
-    public function users(Request $request, $id){
-            $rol = Rol::find($id);
-           return response()->json($rol->usuarios);
+    public function users(Request $request, $id)
+    {
+        $rol = Rol::find($id);
+        return response()->json($rol->usuarios);
     }
-
-   
 }

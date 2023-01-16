@@ -11,7 +11,7 @@ class CalendarController extends Controller
     //
     public function getAll(Request $request)
     {
-    
+
         try {
             return Calendar::all();
         } catch (PDOException $ex) {
@@ -22,7 +22,7 @@ class CalendarController extends Controller
 
     public function getById(Request $request, $id)
     {
-        //return DB::table('students')->where('id',$id)->get();
+
 
         try {
             if (Calendar::find($id)) {
@@ -57,12 +57,12 @@ class CalendarController extends Controller
     {
         try {
             Calendar::create($request->validate([
-                'id' => 'integer',
+                'id' => 'required|integer',
+                'user_id' => 'required|integer|unique:calendars'
             ]));
         } catch (PDOException $ex) {
             return response($ex->errorInfo, 500);
         }
-        //return Student::upsetOrCreate();
     }
 
     public function update(Request $request, $id)
@@ -73,8 +73,8 @@ class CalendarController extends Controller
 
                 Calendar::findOrFail($id)->update($request->validate([
                     'id' => 'nullable|integer',
-                    'user_id'=> 'nullable|integer'
-                    
+                    'user_id' => 'nullable|integer|unique:calendars'
+
                 ]));
             } else {
                 return response('Id no encontrada', 404);
@@ -85,10 +85,9 @@ class CalendarController extends Controller
     }
 
 
-    public function user(Request $request, $id){
+    public function user(Request $request, $id)
+    {
         $calendar = Calendar::find($id);
-       return response()->json($calendar->user);
-}
-
-    
+        return response()->json($calendar->user);
+    }
 }
