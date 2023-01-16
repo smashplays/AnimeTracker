@@ -82,4 +82,12 @@ class CalendarController extends Controller
             return response($ex->errorInfo, 500);
         }
     }
+
+
+    public function user(Request $request, $id){
+        $calendar = Calendar::find($id);
+       return response()->json($calendar->user);
+}
+
+    
 }

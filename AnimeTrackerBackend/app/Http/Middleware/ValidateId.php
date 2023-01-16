@@ -18,7 +18,7 @@ class ValidateId
     {
         $id = $request->id;
        
-        if(!is_numeric($id) || $id < 0 || is_float($id)){
+        if(!is_numeric($id) || $id < 0 ){
             return response('ERROR: The given data was invalid', 422);
         }
 

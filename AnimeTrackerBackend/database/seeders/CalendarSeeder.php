@@ -19,20 +19,23 @@ class CalendarSeeder extends Seeder
         
         DB::table('calendars')->insert(
             [
-                'id' => 1
+                'id' => 1,
+                'user_id'=>1
                
             ]);
 
             DB::table('calendars')->insert(
                 [
-                    'id' => 2
+                    'id' => 2,
+                    'user_id'=>2
                    
                 ]);
 
 
                 DB::table('calendars')->insert(
                     [
-                        'id' => 3
+                        'id' => 3,
+                        'user_id'=>3
                        
                     ]);
     }

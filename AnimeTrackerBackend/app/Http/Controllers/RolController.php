@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rol;
+use App\Models\User;
 use Illuminate\Http\Request;
 use PDOException;
 
@@ -84,4 +85,11 @@ class RolController extends Controller
             return response($ex->errorInfo, 500);
         }
     }
+
+    public function users(Request $request, $id){
+            $rol = Rol::find($id);
+           return response()->json($rol->usuarios);
+    }
+
+   
 }

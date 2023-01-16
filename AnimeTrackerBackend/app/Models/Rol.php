@@ -19,4 +19,13 @@ class Rol extends Model
         'updated_at',
         'created_at'
     ];
+
+
+
+    public function usuarios()
+    {
+
+        return $this->hasMany(User::class);
+        
+    }
 }

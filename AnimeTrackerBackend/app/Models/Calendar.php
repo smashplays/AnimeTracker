@@ -22,5 +22,11 @@ class Calendar extends Model
         'updated_at',
         'created_at'
     ];
+
+    public function user() {
+        return $this->belongsTo(User::class);
+       
+    }
+
    
 }
