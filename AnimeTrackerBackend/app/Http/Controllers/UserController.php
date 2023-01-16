@@ -62,7 +62,7 @@ class UserController extends Controller
                 'name' => 'required|string',
                 'age'=> 'required|integer',
                 'password' => 'required|string',
-                'email' => 'required|string|unique:users',
+                'email' => 'required|email:rfc|unique:users',
                 'rol_id' => 'nullable|integer'
             ]));
         } catch (PDOException $ex) {
@@ -81,7 +81,7 @@ class UserController extends Controller
                     'name' => 'nullable|string',
                     'age' => 'nullable|integer',
                     'password' => 'nullable|string',
-                    'email' => 'nullable|string|unique:users',
+                    'email' => 'nullable||email:rfc|unique:users',
                     'rol_id' => 'nullable|integer'
                 ]));
             } else {

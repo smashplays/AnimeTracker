@@ -10,7 +10,8 @@ class Calendar extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id'
+        'id',
+        'user_id'
     ];
 
     /**

@@ -73,6 +73,7 @@ class CalendarController extends Controller
 
                 Calendar::findOrFail($id)->update($request->validate([
                     'id' => 'nullable|integer',
+                    'user_id'=> 'nullable|integer'
                     
                 ]));
             } else {
