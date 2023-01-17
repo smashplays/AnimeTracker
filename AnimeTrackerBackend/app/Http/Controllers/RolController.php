@@ -14,7 +14,17 @@ class RolController extends Controller
     {
 
         try {
-            return Rol::all();
+
+            $roles= Rol::all();
+
+            $response = [
+                'success' => true,
+                'message' => "Rols obtained successfully",
+                'data' => $roles
+            ];
+
+            return response()->json($response);
+
         } catch (PDOException $ex) {
             return response($ex->errorInfo, 500);
         }
@@ -26,7 +36,19 @@ class RolController extends Controller
 
         try {
             if (Rol::find($id)) {
-                return Rol::findOrFail($id);
+                
+
+                $rol= Rol::findOrFail($id);
+
+                $response = [
+                    'success' => true,
+                    'message' => "Rol obtained successfully",
+                    'data' => $rol
+                ];
+    
+                return response()->json($response);
+
+
             } else {
                 return response('Id no encontrada', 404);
             }
@@ -85,7 +107,19 @@ class RolController extends Controller
 
     public function users(Request $request, $id)
     {
+
+        if (!Rol::find($id)) {
+            return response('ERROR: Id not found', 404);
+        }
+
         $rol = Rol::find($id);
-        return response()->json($rol->usuarios);
+
+        $response = [
+            'success' => true,
+            'message' => "Users of Rol obtained successfully",
+            'data' => $rol->usuarios
+        ];
+
+        return response()->json($response);
     }
 }

@@ -13,6 +13,20 @@ class CalendarController extends Controller
     {
 
         try {
+
+
+            $calendars=Calendar::all();
+
+            $response = [
+                'success' => true,
+                'message' => "Calendar obtained successfully",
+                'data' => $calendars
+            ];
+
+            return response()->json($response);
+
+
+
             return Calendar::all();
         } catch (PDOException $ex) {
             return response($ex->errorInfo, 500);
@@ -26,6 +40,21 @@ class CalendarController extends Controller
 
         try {
             if (Calendar::find($id)) {
+
+                
+            $calendar=Calendar::find($id);
+
+            $response = [
+                'success' => true,
+                'message' => "Calendar obtained successfully",
+                'data' => $calendar
+            ];
+
+            return response()->json($response);
+
+
+
+
                 return Calendar::findOrFail($id);
             } else {
                 return response('Id no encontrada', 404);
@@ -87,7 +116,21 @@ class CalendarController extends Controller
 
     public function user(Request $request, $id)
     {
+
+        if (!Calendar::find($id)) {
+            return response('ERROR: Id not found', 404);
+        }
+
+
         $calendar = Calendar::find($id);
-        return response()->json($calendar->user);
+
+
+        $response = [
+            'success' => true,
+            'message' => "User Of Calendar obtained successfully",
+            'data' => $calendar->user
+        ];
+
+        return response()->json($response);
     }
 }

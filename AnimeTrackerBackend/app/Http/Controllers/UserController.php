@@ -14,7 +14,14 @@ class UserController extends Controller
     {
 
         try {
-            return User::all();
+            $users= User::all();
+            $response = [
+                'success' => true,
+                'message' => "User Of Calendar obtained successfully",
+                'data' => $users
+            ];
+
+            return response()->json($response);
         } catch (PDOException $ex) {
             return response($ex->errorInfo, 500);
         }
@@ -27,7 +34,17 @@ class UserController extends Controller
 
         try {
             if (User::find($id)) {
-                return User::findOrFail($id);
+                $user= User::findOrFail($id);
+
+
+
+                $response = [
+                    'success' => true,
+                    'message' => "User Of Calendar obtained successfully",
+                    'data' => $user
+                ];
+    
+                return response()->json($response);
             } else {
                 return response('Id no encontrada', 404);
             }
@@ -92,14 +109,40 @@ class UserController extends Controller
 
     public function rol(Request $request, $id)
     {
+
+        if (!User::find($id)) {
+            return response('ERROR: Id not found', 404);
+        }
+
         $user = User::find($id);
-        return response()->json($user->rol);
+       
+        $response = [
+            'success' => true,
+            'message' => "User Of Calendar obtained successfully",
+            'data' => $user->rol
+        ];
+
+        return response()->json($response);
     }
 
 
     public function calendar(Request $request, $id)
     {
+
+        if (!User::find($id)) {
+            return response('ERROR: Id not found', 404);
+        }
+        
         $user = User::find($id);
-        return response()->json($user->calendar);
+
+        
+
+        $response = [
+            'success' => true,
+            'message' => "User Of Calendar obtained successfully",
+            'data' => $user->calendar
+        ];
+
+        return response()->json($response);
     }
 }
