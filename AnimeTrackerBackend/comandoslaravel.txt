@@ -1,0 +1,30 @@
+comando para crear un nuevo proyecto en laravel ------> composer create-project laravel/laravel practica1laravel
+
+comando para crear la migracion -----> php artisan migrate
+
+comando para crear la tabla alumno ----> php artisan make:migration create_alumno_table
+
+comando para crear el modelo ------> php artisan make:model modelo -m (la m es para hacer la migracion directamente)
+
+comando para crear el seeder ----> php artisan make:seeder alumnadoseeder
+
+comando para ejecutar el seeder -----> php artisan db:seed --class=alumnadoseeder
+
+comando para que refesque e introduczca los seeders ----> php artisan migrate:fresh --seed
+
+creamos el controller ------> php artisan make:controller alumnadocontroller
+
+creamos un middleware ----->php artisan make:middleware alumnomiddleware
+
+
+
+
+
+
+
+
+
+
+
+
+
