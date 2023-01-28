@@ -85,8 +85,16 @@ class UserController extends Controller
         try {
             if (User::find($id)) {
 
+                $user = User::findOrFail($id);
+
                 User::findOrFail($id)->delete();
-                return response('Ha sido eliminado', 200);
+                $response = [
+                'success' => true,
+                'message' => "User deleted",
+                'data' => $user
+            ];
+
+            return response($response,200);
             } else {
 
                 $response = [
@@ -126,6 +134,8 @@ class UserController extends Controller
                 'message' => "User Created",
                 'data' => User::find(DB::getPdo()->lastInsertId())
             ];
+
+            return response($response,201);
         } catch (PDOException $ex) {
             $response = [
                 'success' => false,

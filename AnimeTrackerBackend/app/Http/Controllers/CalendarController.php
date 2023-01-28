@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Calendar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use PDOException;
 
 class CalendarController extends Controller
@@ -23,13 +24,18 @@ class CalendarController extends Controller
                 'data' => $calendars
             ];
 
-            return response()->json($response);
+             return response($response,200);
 
 
 
             return Calendar::all();
         } catch (PDOException $ex) {
-            return response($ex->errorInfo, 500);
+              $response = [
+                'success' => false,
+                'message' => "Connection Failed",
+                'data' => $ex->errorInfo
+            ];
+            return response($response, 500);
         }
     }
 
@@ -50,17 +56,29 @@ class CalendarController extends Controller
                 'data' => $calendar
             ];
 
-            return response()->json($response);
+            return response($response,200);
 
 
 
 
                 return Calendar::findOrFail($id);
             } else {
-                return response('Id no encontrada', 404);
+               
+                $response = [
+                    'success' => false,
+                    'message' => "Calendar Not Found",
+                    'data' => null
+                ];
+
+                return response($response, 404);
             }
         } catch (PDOException $ex) {
-            return response($ex->errorInfo, 500);
+            $response = [
+                'success' => false,
+                'message' => "Connection Failed",
+                'data' => $ex->errorInfo
+            ];
+            return response($response, 500);
         }
     }
 
@@ -71,14 +89,33 @@ class CalendarController extends Controller
         try {
             if (Calendar::find($id)) {
 
+                $calendar = Calendar::findOrFail($id);
+
                 Calendar::findOrFail($id)->delete();
-                return response('Ha sido eliminado', 200);
-                //return $student->delete();
+
+                $response = [
+                    'success' => true,
+                    'message' => "Calendar deleted",
+                    'data' => $calendar
+                ];
+                return response($response, 200);
+
             } else {
-                return response('Id no encontrada', 404);
+                $response = [
+                    'success' => false,
+                    'message' => "Calendar Not Found",
+                    'data' => null
+                ];
+
+                return response($response, 404);
             }
         } catch (PDOException $ex) {
-            return response($ex->errorInfo, 500);
+            $response = [
+                'success' => false,
+                'message' => "Connection Failed",
+                'data' => $ex->errorInfo
+            ];
+            return response($response, 500);
         }
     }
 
@@ -89,8 +126,21 @@ class CalendarController extends Controller
                 'id' => 'required|integer',
                 'user_id' => 'required|integer|unique:calendars'
             ]));
+            $response = [
+                'success' => true,
+                'message' => "Calendar Created",
+                'data' => Calendar::find(DB::getPdo()->lastInsertId())
+            ];
+
+            return response($response,201);
+
         } catch (PDOException $ex) {
-            return response($ex->errorInfo, 500);
+            $response = [
+                'success' => false,
+                'message' => "Connection Failed",
+                'data' => $ex->errorInfo
+            ];
+            return response($response, 500);
         }
     }
 
@@ -106,31 +156,56 @@ class CalendarController extends Controller
 
                 ]));
             } else {
-                return response('Id no encontrada', 404);
+                $response = [
+                    'success' => false,
+                    'message' => "Calendar Not Found",
+                    'data' => null
+                ];
+
+                return response($response, 404);
             }
         } catch (PDOException $ex) {
-            return response($ex->errorInfo, 500);
+            $response = [
+                'success' => false,
+                'message' => "Connection Failed",
+                'data' => $ex->errorInfo
+            ];
+            return response($response, 500);
         }
     }
 
 
     public function user(Request $request, $id)
     {
+        try
+        {
+            if (!Calendar::findOrFail($id)) {
+                return response('ERROR: Id not found', 404);
+                $response = [
+                    'success' => false,
+                    'message' => "User Not Found",
+                    'data' => null
+                ];
 
-        if (!Calendar::find($id)) {
-            return response('ERROR: Id not found', 404);
+                return response($response, 404);
+            }
+
+            $response = [
+                'success' => true,
+                'message' => "User Of Calendar obtained successfully",
+                'data' => Calendar::findOrFail($id)->user
+            ];
+    
+            return response($response,200);
+
         }
-
-
-        $calendar = Calendar::find($id);
-
-
-        $response = [
-            'success' => true,
-            'message' => "User Of Calendar obtained successfully",
-            'data' => $calendar->user
-        ];
-
-        return response()->json($response);
+        catch(PDOException $ex){
+            $response = [
+                'success' => false,
+                'message' => "Connection Failed",
+                'data' => $ex->errorInfo
+            ];
+            return response($response, 500);
+        }    
     }
 }
