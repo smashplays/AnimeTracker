@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Rol;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use PDO;
 use PDOException;
 
 
@@ -15,15 +17,24 @@ class UserController extends Controller
 
         try {
             $users= User::all();
+
             $response = [
                 'success' => true,
                 'message' => "User Of Calendar obtained successfully",
                 'data' => $users
             ];
 
-            return response()->json($response);
+            return response($response,200);
+
+
         } catch (PDOException $ex) {
-            return response($ex->errorInfo, 500);
+
+            $response = [
+                'success' => false,
+                'message' => "Connection Failed",
+                'data' => $ex->errorInfo
+            ];
+            return response($response, 500);
         }
     }
 
@@ -44,12 +55,26 @@ class UserController extends Controller
                     'data' => $user
                 ];
     
-                return response()->json($response);
+                return response($response,200);
+
             } else {
-                return response('Id no encontrada', 404);
+                
+                $response = [
+                    'success' => false,
+                    'message' => "User Not Found",
+                    'data' => null
+                ];
+
+                return response($response, 404);
             }
         } catch (PDOException $ex) {
-            return response($ex->errorInfo, 500);
+
+            $response = [
+                'success' => false,
+                'message' => "Connection Failed",
+                'data' => $ex->errorInfo
+            ];
+            return response($response, 500);
         }
     }
 
@@ -63,25 +88,52 @@ class UserController extends Controller
                 User::findOrFail($id)->delete();
                 return response('Ha sido eliminado', 200);
             } else {
-                return response('Id no encontrada', 404);
+
+                $response = [
+                    'success' => false,
+                    'message' => "User Not Found",
+                    'data' => null
+                ];
+
+                return response($response, 404);
+              
             }
         } catch (PDOException $ex) {
-            return response($ex->errorInfo, 500);
+
+            $response = [
+                'success' => false,
+                'message' => "Connection Failed",
+                'data' => $ex->errorInfo
+            ];
+
+            return response($response, 500);
+            
         }
     }
 
     public function post(Request $request)
     {
         try {
-            User::create($request->validate([
+                User::create($request->validate([
                 'name' => 'required|string',
                 'age' => 'required|integer',
                 'password' => 'required|string',
                 'email' => 'required|email:rfc|unique:users',
                 'rol_id' => 'nullable|integer'
             ]));
+            $response = [
+                'success' => true,
+                'message' => "User Created",
+                'data' => User::find(DB::getPdo()->lastInsertId())
+            ];
         } catch (PDOException $ex) {
-            return response($ex->errorInfo, 500);
+            $response = [
+                'success' => false,
+                'message' => "Connection Failed",
+                'data' => $ex->errorInfo
+            ];
+
+            return response($response, 500);
         }
     }
 
@@ -99,31 +151,28 @@ class UserController extends Controller
                     'rol_id' => 'nullable|integer'
                 ]));
             } else {
-                return response('Id no encontrada', 404);
+                $response = [
+                    'success' => false,
+                    'message' => "User Not Found",
+                    'data' => null
+                ];
+
+                return response($response, 404);
             }
         } catch (PDOException $ex) {
-            return response($ex->errorInfo, 500);
+
+            $response = [
+                'success' => false,
+                'message' => "Connection Failed",
+                'data' => $ex->errorInfo
+            ];
+
+            return response($response, 500);
         }
     }
 
 
-    public function rol(Request $request, $id)
-    {
-
-        if (!User::find($id)) {
-            return response('ERROR: Id not found', 404);
-        }
-
-        $user = User::find($id);
-       
-        $response = [
-            'success' => true,
-            'message' => "User Of Calendar obtained successfully",
-            'data' => $user->rol
-        ];
-
-        return response()->json($response);
-    }
+    
 
 
     public function calendar(Request $request, $id)
@@ -133,16 +182,13 @@ class UserController extends Controller
             return response('ERROR: Id not found', 404);
         }
         
-        $user = User::find($id);
-
-        
 
         $response = [
             'success' => true,
             'message' => "User Of Calendar obtained successfully",
-            'data' => $user->calendar
+            'data' => User::find($id)->calendar
         ];
 
-        return response()->json($response);
+        return response($response,200);
     }
 }
