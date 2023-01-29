@@ -56,16 +56,16 @@ Route::prefix('/actors')->group(function () {
     Route::middleware('validate.id')->get('/{id}', [ActorController::class, 'getById']);
     Route::middleware('validate.id')->get('/{id}/characters', [ActorController::class, 'characters']);
     Route::middleware('validate.id')->get('/{id}/microphone', [ActorController::class, 'microphone']);
-    Route::post('', [ActorController::class, 'create']);
+    Route::post('', [ActorController::class, 'post']);
     Route::middleware('validate.id')->delete('/{id}', [ActorController::class, 'delete']);
-    Route::middleware('validate.id')->patch('/{id}', [ActorController::class, 'modify']);
+    Route::middleware('validate.id')->patch('/{id}', [ActorController::class, 'update']);
 });
 
 Route::prefix('/characters')->group(function () {
     Route::get('', [CharacterController::class, 'getAll']);
     Route::middleware('validate.id')->get('/{id}', [CharacterController::class, 'getById']);
     Route::middleware('validate.id')->get('/{id}/actor', [CharacterController::class, 'actor']);
-    Route::post('', [CharacterController::class, 'create']);
+    Route::post('', [CharacterController::class, 'post']);
     Route::middleware('validate.id')->delete('/{id}', [CharacterController::class, 'delete']);
-    Route::middleware('validate.id')->patch('/{id}', [CharacterController::class, 'modify']);
+    Route::middleware('validate.id')->patch('/{id}', [CharacterController::class, 'update']);
 });

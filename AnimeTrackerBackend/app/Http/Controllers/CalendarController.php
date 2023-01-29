@@ -16,7 +16,7 @@ class CalendarController extends Controller
         try {
 
 
-            $calendars=Calendar::all();
+            $calendars = Calendar::all();
 
             $response = [
                 'success' => true,
@@ -24,13 +24,9 @@ class CalendarController extends Controller
                 'data' => $calendars
             ];
 
-             return response($response,200);
-
-
-
-            return Calendar::all();
+            return response($response, 200);
         } catch (PDOException $ex) {
-              $response = [
+            $response = [
                 'success' => false,
                 'message' => "Connection Failed",
                 'data' => $ex->errorInfo
@@ -47,19 +43,18 @@ class CalendarController extends Controller
         try {
             if (Calendar::find($id)) {
 
-                
-            $calendar=Calendar::find($id);
 
-            $response = [
-                'success' => true,
-                'message' => "Calendar obtained successfully",
-                'data' => $calendar
-            ];
+                $calendar = Calendar::find($id);
 
-            return response($response,200);
+                $response = [
+                    'success' => true,
+                    'message' => "Calendar obtained successfully",
+                    'data' => $calendar
+                ];
 
+                return response($response, 200);
             } else {
-               
+
                 $response = [
                     'success' => false,
                     'message' => "Calendar Not Found",
@@ -95,7 +90,6 @@ class CalendarController extends Controller
                     'data' => $calendar
                 ];
                 return response($response, 200);
-
             } else {
                 $response = [
                     'success' => false,
@@ -128,8 +122,7 @@ class CalendarController extends Controller
                 'data' => Calendar::find(DB::getPdo()->lastInsertId())
             ];
 
-            return response($response,201);
-
+            return response($response, 201);
         } catch (PDOException $ex) {
             $response = [
                 'success' => false,
@@ -156,9 +149,8 @@ class CalendarController extends Controller
                     'message' => "Calendar Updated",
                     'data' => Calendar::find($id)
                 ];
-    
-                return response($response,200);
 
+                return response($response, 200);
             } else {
                 $response = [
                     'success' => false,
@@ -181,8 +173,7 @@ class CalendarController extends Controller
 
     public function user(Request $request, $id)
     {
-        try
-        {
+        try {
             if (!Calendar::find($id)) {
                 $response = [
                     'success' => false,
@@ -198,17 +189,15 @@ class CalendarController extends Controller
                 'message' => "User Of Calendar obtained successfully",
                 'data' => Calendar::findOrFail($id)->user
             ];
-    
-            return response($response,200);
 
-        }
-        catch(PDOException $ex){
+            return response($response, 200);
+        } catch (PDOException $ex) {
             $response = [
                 'success' => false,
                 'message' => "Connection Failed",
                 'data' => $ex->errorInfo
             ];
             return response($response, 500);
-        }    
+        }
     }
 }

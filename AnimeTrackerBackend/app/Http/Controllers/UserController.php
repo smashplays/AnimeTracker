@@ -16,7 +16,7 @@ class UserController extends Controller
     {
 
         try {
-            $users= User::all();
+            $users = User::all();
 
             $response = [
                 'success' => true,
@@ -24,9 +24,7 @@ class UserController extends Controller
                 'data' => $users
             ];
 
-            return response($response,200);
-
-
+            return response($response, 200);
         } catch (PDOException $ex) {
 
             $response = [
@@ -45,7 +43,7 @@ class UserController extends Controller
 
         try {
             if (User::find($id)) {
-                $user= User::findOrFail($id);
+                $user = User::findOrFail($id);
 
 
 
@@ -54,11 +52,10 @@ class UserController extends Controller
                     'message' => "User obtained successfully",
                     'data' => $user
                 ];
-    
-                return response($response,200);
 
+                return response($response, 200);
             } else {
-                
+
                 $response = [
                     'success' => false,
                     'message' => "User Not Found",
@@ -89,12 +86,12 @@ class UserController extends Controller
 
                 User::findOrFail($id)->delete();
                 $response = [
-                'success' => true,
-                'message' => "User deleted",
-                'data' => $user
-            ];
+                    'success' => true,
+                    'message' => "User deleted",
+                    'data' => $user
+                ];
 
-            return response($response,200);
+                return response($response, 200);
             } else {
 
                 $response = [
@@ -104,7 +101,6 @@ class UserController extends Controller
                 ];
 
                 return response($response, 404);
-              
             }
         } catch (PDOException $ex) {
 
@@ -115,19 +111,18 @@ class UserController extends Controller
             ];
 
             return response($response, 500);
-            
         }
     }
 
     public function post(Request $request)
     {
         try {
-                User::create($request->validate([
+            User::create($request->validate([
                 'name' => 'required|string',
                 'age' => 'required|integer',
                 'password' => 'required|string',
                 'email' => 'required|email:rfc|unique:users',
-               
+
             ]));
             $response = [
                 'success' => true,
@@ -135,7 +130,7 @@ class UserController extends Controller
                 'data' => User::find(DB::getPdo()->lastInsertId())
             ];
 
-            return response($response,201);
+            return response($response, 201);
         } catch (PDOException $ex) {
             $response = [
                 'success' => false,
@@ -165,9 +160,8 @@ class UserController extends Controller
                     'message' => "User Updated",
                     'data' => User::find($id)
                 ];
-    
-                return response($response,200);
 
+                return response($response, 200);
             } else {
                 $response = [
                     'success' => false,
@@ -190,12 +184,12 @@ class UserController extends Controller
     }
 
 
-    
+
 
 
     public function calendar(Request $request, $id)
     {
-        try{ 
+        try {
             if (!User::find($id)) {
                 $response = [
                     'success' => false,
@@ -205,15 +199,15 @@ class UserController extends Controller
 
                 return response($response, 404);
             }
-            
+
 
             $response = [
-            'success' => true,
-            'message' => "Calendar of user obtained successfully",
-            'data' => User::find($id)->calendar
+                'success' => true,
+                'message' => "Calendar of user obtained successfully",
+                'data' => User::find($id)->calendar
             ];
 
-                return response($response,200);
+            return response($response, 200);
         } catch (PDOException $ex) {
 
             $response = [
@@ -224,7 +218,5 @@ class UserController extends Controller
 
             return response($response, 500);
         }
-
-       
     }
 }

@@ -17,11 +17,6 @@ class Actor extends Model
     ];
 
     protected $hidden = [];
-
-    public function microphone(){
-        return $this->hasOne(Microphone::class);
-    }
-
     public function characters(){
         return $this->hasMany(Character::class);
     }
