@@ -19,7 +19,13 @@ class ValidateId
         $id = $request->id;
        
         if(!is_numeric($id) || $id < 0 ){
-            return response('ERROR: The given data was invalid', 422);
+            $response = [
+                'success' => false,
+                'message' => "'ERROR: The given data was invalid'",
+                'data' => null
+            ];
+
+            return response($response, 422);
         }
 
         return $next($request);
