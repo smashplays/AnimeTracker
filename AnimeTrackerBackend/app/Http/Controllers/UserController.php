@@ -20,7 +20,7 @@ class UserController extends Controller
 
             $response = [
                 'success' => true,
-                'message' => "User Of Calendar obtained successfully",
+                'message' => "Users obtained successfully",
                 'data' => $users
             ];
 
@@ -51,7 +51,7 @@ class UserController extends Controller
 
                 $response = [
                     'success' => true,
-                    'message' => "User Of Calendar obtained successfully",
+                    'message' => "User obtained successfully",
                     'data' => $user
                 ];
     
@@ -127,7 +127,7 @@ class UserController extends Controller
                 'age' => 'required|integer',
                 'password' => 'required|string',
                 'email' => 'required|email:rfc|unique:users',
-                'rol_id' => 'nullable|integer'
+               
             ]));
             $response = [
                 'success' => true,
@@ -158,8 +158,16 @@ class UserController extends Controller
                     'age' => 'nullable|integer',
                     'password' => 'nullable|string',
                     'email' => 'nullable||email:rfc|unique:users',
-                    'rol_id' => 'nullable|integer'
                 ]));
+
+                $response = [
+                    'success' => true,
+                    'message' => "User Updated",
+                    'data' => User::find($id)
+                ];
+    
+                return response($response,200);
+
             } else {
                 $response = [
                     'success' => false,
@@ -187,18 +195,36 @@ class UserController extends Controller
 
     public function calendar(Request $request, $id)
     {
+        try{ 
+            if (!User::find($id)) {
+                $response = [
+                    'success' => false,
+                    'message' => "User Not Found",
+                    'data' => null
+                ];
 
-        if (!User::find($id)) {
-            return response('ERROR: Id not found', 404);
-        }
-        
+                return response($response, 404);
+            }
+            
 
-        $response = [
+            $response = [
             'success' => true,
-            'message' => "User Of Calendar obtained successfully",
+            'message' => "Calendar of user obtained successfully",
             'data' => User::find($id)->calendar
-        ];
+            ];
 
-        return response($response,200);
+                return response($response,200);
+        } catch (PDOException $ex) {
+
+            $response = [
+                'success' => false,
+                'message' => "Connection Failed",
+                'data' => $ex->errorInfo
+            ];
+
+            return response($response, 500);
+        }
+
+       
     }
 }

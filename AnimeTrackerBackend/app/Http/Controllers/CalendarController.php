@@ -58,10 +58,6 @@ class CalendarController extends Controller
 
             return response($response,200);
 
-
-
-
-                return Calendar::findOrFail($id);
             } else {
                
                 $response = [
@@ -155,6 +151,14 @@ class CalendarController extends Controller
                     'user_id' => 'nullable|integer|unique:calendars'
 
                 ]));
+                $response = [
+                    'success' => true,
+                    'message' => "Calendar Updated",
+                    'data' => Calendar::find($id)
+                ];
+    
+                return response($response,200);
+
             } else {
                 $response = [
                     'success' => false,
@@ -179,8 +183,7 @@ class CalendarController extends Controller
     {
         try
         {
-            if (!Calendar::findOrFail($id)) {
-                return response('ERROR: Id not found', 404);
+            if (!Calendar::find($id)) {
                 $response = [
                     'success' => false,
                     'message' => "User Not Found",
