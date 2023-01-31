@@ -17,8 +17,6 @@ class ActorsSeeder extends Seeder
     {
         DB::table('actors')->insert([
             'name' => 'Mamoru Miyano',
-            'description' => 'A Japanese actor, voice actor, singer and narrator from Saitama Prefecture.            ',
-            'age' => 39,
             'image' => 'https://image.com/1',
         ]);
     }

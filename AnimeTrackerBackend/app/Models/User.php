@@ -14,7 +14,7 @@ class User extends Model
         'email',
         'password',
         'age',
-        'rol_id'
+        'role'
     ];
 
     /**

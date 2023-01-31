@@ -73,8 +73,6 @@ class ActorController extends Controller
         try {
             Actor::create($request->validate([
                 'name' => 'required|string',
-                'description' => 'nullable|string',
-                'age' => 'nullable|integer',
                 'image' => 'nullable|string|'
             ]));
             $response = [
@@ -102,8 +100,6 @@ class ActorController extends Controller
             if (Actor::find($id)) {
                 Actor::findOrFail($id)->update($request->validate([
                     'name' => 'string',
-                    'description' => 'string',
-                    'age' => 'integer',
                     'image' => 'string'
                 ]));
 

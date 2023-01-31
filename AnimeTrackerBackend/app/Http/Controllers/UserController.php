@@ -122,7 +122,7 @@ class UserController extends Controller
                 'age' => 'required|integer',
                 'password' => 'required|string',
                 'email' => 'required|email:rfc|unique:users',
-
+                'role' => 'required|string'
             ]));
             $response = [
                 'success' => true,
@@ -153,6 +153,7 @@ class UserController extends Controller
                     'age' => 'nullable|integer',
                     'password' => 'nullable|string',
                     'email' => 'nullable||email:rfc|unique:users',
+                    'role' => 'nullable|string'
                 ]));
 
                 $response = [

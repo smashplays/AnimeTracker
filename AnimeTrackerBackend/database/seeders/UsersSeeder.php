@@ -22,7 +22,8 @@ class UsersSeeder extends Seeder
                 'name' => 'Javier',
                 'age' => 7,
                 'email' => 'javier@correo.com',
-                'password' => 'contra123'
+                'password' => 'contra123',
+                'role' => 'admin'
             ]
         );
 
@@ -33,7 +34,8 @@ class UsersSeeder extends Seeder
                 'name' => 'Pedro',
                 'age' => 17,
                 'email' => 'Pedro@correo.com',
-                'password' => 'contra123'
+                'password' => 'contra123',
+                'role' => 'user'
             ]
         );
 
@@ -43,7 +45,8 @@ class UsersSeeder extends Seeder
                 'name' => 'Manolo',
                 'age' => 70,
                 'email' => 'Manolo@correo.com',
-                'password' => 'contra123'
+                'password' => 'contra123',
+                'role' => 'user'
             ]
         );
     }

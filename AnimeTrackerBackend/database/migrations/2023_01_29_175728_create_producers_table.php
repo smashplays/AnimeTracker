@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('producers', function (Blueprint $table) {
             $table->id();
             $table->string('name', 64);
-            $table->text('description');
             $table->string('image', 128);
             $table->timestamps();
         });

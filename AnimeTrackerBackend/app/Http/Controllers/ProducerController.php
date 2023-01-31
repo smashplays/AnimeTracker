@@ -73,7 +73,6 @@ class ProducerController extends Controller
         try {
             Producer::create($request->validate([
                 'name' => 'required|string',
-                'description' => 'required|string',
                 'image' => 'required|string'
             ]));
 
@@ -102,7 +101,6 @@ class ProducerController extends Controller
 
                 Producer::findOrFail($id)->update($request->validate([
                     'name' => 'string',
-                    'description' => 'string',
                     'image' => 'string'
                 ]));
 

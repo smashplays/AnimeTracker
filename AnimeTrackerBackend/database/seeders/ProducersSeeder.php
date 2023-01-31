@@ -17,8 +17,7 @@ class ProducersSeeder extends Seeder
     {
         DB::table('producers')->insert([
             'name' => 'MAPPA',
-            'description' => 'Studio Mappa',
-            'image' => 'Mappa_image.jpg',
+            'image' => 'Mappa_image.jpg'
         ]);
     }
 }
