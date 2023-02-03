@@ -166,4 +166,36 @@ class ProducerController extends Controller
             return response($response, 500);
         }
     }
+
+    public function animes(Request $request, $id)
+    {
+        try {
+            if (Producer::find($id)) {
+                $producer = Producer::findOrFail($id);
+
+                $response = [
+                    'success' => true,
+                    'message' => "Animes obtained successfully",
+                    'data' => $producer->animes
+                ];
+                return response($response, 200);
+            } else {
+                $response = [
+                    'success' => false,
+                    'message' => "Producer Not Found",
+                    'data' => null
+                ];
+
+                return response($response, 404);
+            }
+        } catch (PDOException $exception) {
+            $response = [
+                'success' => false,
+                'message' => "Connection Failed",
+                'data' => $exception->errorInfo
+            ];
+
+            return response($response, 500);
+        }
+    }
 }

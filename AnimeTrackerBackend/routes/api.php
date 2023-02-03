@@ -76,6 +76,7 @@ Route::prefix('/characters')->group(function () {
 Route::prefix('/animes')->group(function () {
     Route::get('', [AnimeController::class, 'getAll']);
     Route::middleware('validate.id')->get('/{id}', [AnimeController::class, 'getById']);
+    Route::middleware('validate.id')->get('/{id}/producer', [AnimeController::class, 'producer']);
     Route::post('', [AnimeController::class, 'post']);
     Route::middleware('validate.id')->delete('/{id}', [AnimeController::class, 'delete']);
     Route::middleware('validate.id')->patch('/{id}', [AnimeController::class, 'update']);
@@ -84,6 +85,7 @@ Route::prefix('/animes')->group(function () {
 Route::prefix('/producers')->group(function () {
     Route::get('', [ProducerController::class, 'getAll']);
     Route::middleware('validate.id')->get('/{id}', [ProducerController::class, 'getById']);
+    Route::middleware('validate.id')->get('/{id}/animes', [ProducerController::class, 'animes']);
     Route::post('', [ProducerController::class, 'post']);
     Route::middleware('validate.id')->delete('/{id}', [ProducerController::class, 'delete']);
     Route::middleware('validate.id')->patch('/{id}', [ProducerController::class, 'update']);

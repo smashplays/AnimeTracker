@@ -13,4 +13,8 @@ class Producer extends Model
         'name',
         'image'
     ];
+
+    public function animes(){
+        return $this->hasMany(Anime::class);
+    }
 }
