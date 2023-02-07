@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('animes', function (Blueprint $table) {
-            $table->foreignId('producer_id')->constrained('producers');
+            $table->foreignId('producer_id')->constrained('producers')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -25,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('animes', function (Blueprint $table) {
+            $table->dropForeign('producer_id');
+        });
     }
 };

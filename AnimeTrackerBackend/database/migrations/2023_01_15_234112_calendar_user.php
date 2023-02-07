@@ -15,7 +15,7 @@ return new class extends Migration
     {
         //
         Schema::table('calendars',function(Blueprint $table){
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -26,8 +26,8 @@ return new class extends Migration
      */
     public function down()
     {
-        //
-
-
+        Schema::table('calendars', function (Blueprint $table) {
+            $table->dropForeign('user_id');
+        });
     }
 };
