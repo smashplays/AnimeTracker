@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\ActorController;
 use App\Http\Controllers\AnimeController;
@@ -98,3 +99,14 @@ Route::prefix('/petitions')->group(function () {
     Route::middleware('validate.id')->delete('/{id}', [PetitionController::class, 'delete']);
     Route::middleware('validate.id')->patch('/{id}', [PetitionController::class, 'update']);
 });
+
+
+Route::post('/login',[LoginController::class,'login']);
+
+
+Route::middleware('login')->get('/logout',[LoginController::class,'logout']);
+
+
+Route::post('/create',[LoginController::class,'crearUser']);
+
+Route::middleware('login')->get('/me',[LoginController::class,'whoAmI']);
