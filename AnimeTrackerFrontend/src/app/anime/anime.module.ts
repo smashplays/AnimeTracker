@@ -7,7 +7,6 @@ import { PopularListComponent } from './pages/popular-list/popular-list.componen
 import { InfoComponent } from './pages/info/info.component';
 
 
-
 @NgModule({
   declarations: [
     ProducerComponent,
@@ -24,7 +23,7 @@ import { InfoComponent } from './pages/info/info.component';
     InfoComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
   ]
 })
 export class AnimeModule { }

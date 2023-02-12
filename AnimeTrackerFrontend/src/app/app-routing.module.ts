@@ -67,7 +67,7 @@ const routes: Routes = [
         component: ProducerComponent
     },
     {
-        path: 'anime/:id/info',
+        path: 'anime/:id',
         component: InfoComponent
     },
     {

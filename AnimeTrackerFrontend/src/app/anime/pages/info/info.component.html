@@ -1,4 +1,50 @@
 <h1 class="text-white">ANIME INFO</h1>
-<p class="text-white">
-    Anime Info works!
-</p>
+<div class="text-white" *ngIf="selectedAnime">
+  {{ selectedAnime.data.title }}
+
+  <button class="bg-[#9229D5] text-white rounded rounded-lg w-2/4">+</button>
+
+  <img src="{{ selectedAnime.data.images.jpg.image_url }}" alt="" />
+
+  {{ selectedAnime.data.synopsis }}
+
+  <div class="bg-[#7F5F93] rounded rounded-lg">
+    <div *ngIf="selectedAnime.data.aired.prop.from.month">
+      START DATE
+      <div class="text-[#221F1F]">
+        {{ selectedAnime.data.aired.prop.from.month }}/{{
+          selectedAnime.data.aired.prop.from.day
+        }}/{{ selectedAnime.data.aired.prop.from.year }}
+      </div>
+    </div>
+    <div *ngIf="selectedAnime.data.aired.prop.to.month">
+      END DATE
+      <div class="text-[#221F1F]">
+        {{ selectedAnime.data.aired.prop.to.month }}/{{
+          selectedAnime.data.aired.prop.to.day
+        }}/{{ selectedAnime.data.aired.prop.to.year }}
+      </div>
+    </div>
+    <div>
+      CHAPTERS
+      <div class="text-[#221F1F]">
+        {{ selectedAnime.data.episodes }}
+      </div>
+    </div>
+    <div>
+      GENRES
+      <div
+        class="text-[#221F1F]"
+        *ngFor="let genre of selectedAnime.data.genres"
+      >
+        {{ genre.name }}
+      </div>
+    </div>
+    <div>
+      POPULARITY
+      <div class="text-[#221F1F]">
+        {{ selectedAnime.data.popularity }}
+      </div>
+    </div>
+  </div>
+</div>
