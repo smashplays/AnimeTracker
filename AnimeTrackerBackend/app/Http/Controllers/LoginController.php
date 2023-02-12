@@ -15,24 +15,35 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-            $comprobar="";
+        $data = '';
 
-        if (!Auth::guard('api')->check()){
-           
-            if ($request->has('name')){
-                $comprobar='name';
-            }
-            else if ($request->has('email')){
-                $comprobar='email';
-            }
-            
-            $data = $request->validate([
-                
-                $comprobar => 'required | string',
-                'password' => 'required | string',
-                
-            ]);
-            
+        if (!Auth::guard('api')->check()) {
+
+            if ($request->has('name')) {
+                $data = $request->validate([
+                    'name' => 'required | string',
+                    'password' => 'required | string',
+                ]);
+            } elseif ($request->has('email')) {
+                $data = $request->validate([
+                    'email' => 'required | email:rfc',
+                    'password' => 'required | string',
+                ]);
+            } else {
+                $response = [
+                    "success" => false,
+                    "message" => "Failed password or user",
+                    "data" => null
+                ];
+
+
+                return response($response, 404);
+            };
+
+
+
+
+
             if (Auth::attempt($data)) {
 
                 $response = [
@@ -42,22 +53,17 @@ class LoginController extends Controller
                 ];
 
                 return response($response, 200);
-            }
-            else{
+            } else {
 
                 $response = [
                     "success" => false,
                     "message" => "Failed password or user",
                     "data" => Auth::user()
                 ];
-                
-    
-                return response($response, 400);
-                }
-        }
 
-            
-         {
+                return response($response, 400);
+            }
+        } {
             $response = [
                 "success" => false,
                 "message" => "You have already logged",
@@ -107,9 +113,9 @@ class LoginController extends Controller
 
     public function crearUser(Request $request)
     {
-        try{
+        try {
 
-        
+
 
             $request->validate([
                 'name' => "required | string",
@@ -122,29 +128,24 @@ class LoginController extends Controller
 
 
             User::create([
-                "name"=> $request -> name,
-                "email" => $request -> email,
-                "password" => Hash::make($request -> password),
-                "age" => $request -> age,
+                "name" => $request->name,
+                "email" => $request->email,
+                "password" => Hash::make($request->password),
+                "age" => $request->age,
                 "role" => "User"
             ]);
 
 
-            $response=[
+            $response = [
                 "success" => true,
                 "message" => "User Created",
                 "data" => User::find(DB::getPdo()->lastInsertId())
             ];
 
 
-            return response($response,201);
+            return response($response, 201);
+        } catch (PDOException $ex) {
+            return response($ex->errorInfo, 500);
         }
-        catch(PDOException $ex){
-            return response($ex->errorInfo,500);
-        }
-
-
-
-    
     }
 }
