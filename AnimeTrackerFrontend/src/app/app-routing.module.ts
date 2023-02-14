@@ -71,8 +71,9 @@ const routes: Routes = [
         component: InfoComponent
     },
     {
-        path: 'anime/popular',
-        component: PopularListComponent
+        path: 'popular',
+        component: PopularListComponent,
+        pathMatch: 'full'
     },
     {
         path: 'search/:name',

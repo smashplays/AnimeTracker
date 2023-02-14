@@ -1,4 +1,22 @@
-<h1 class="text-white">CHARACTER</h1>
-<p class="text-white">
-    Character works!
-</p>
+<div class="text-white" *ngIf="selectedCharacter">
+  {{ selectedCharacter.data.name }}
+
+  <img
+    src="{{ selectedCharacter.data.images.jpg.image_url }}"
+    alt="{{ selectedCharacter.data.name }}"
+  />
+
+  <div class="text-white">
+    {{ selectedCharacter.data.about }}
+  </div>
+
+<div class="p-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-5">
+  <div *ngFor="let anime of characterAnime.data" class="rounded overflow-hidden shadow-xs">
+    <a routerLink="/anime/{{ anime.anime.mal_id }}"
+      ><img
+        src="{{ anime.anime.images.jpg.image_url }}"
+        alt="{{ anime.anime.title }}" /></a>
+      <div class="font-bold text-xl mb-2 text-white">{{ anime.anime.title }}</div>
+  </div>
+</div>
+</div>

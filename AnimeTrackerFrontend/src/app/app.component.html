@@ -1,13 +1,36 @@
 <nav class="bg-[#8509D3]">
   <ul class="text-white">
-    <img class="w-1/4" src="../assets/img/logo.png" alt="Logo">
-    <li><a href="#">Home</a></li>
-    <li><a href="#">List</a></li>
-    <li><a href="#">Anime</a></li>
-    <li><a href="#">Petitions</a></li>
-    <input class="bg-[#4E047D]" type="text" name="search" id="search" placeholder="Search...">
-    <li><a href="#">Insertar campana notificacion</a></li>
-    <li><a href="#">Insertar imagen usuario</a></li>
+    <img class="w-1/4" src="../assets/img/logo.png" alt="Logo" />
+    <li><a routerLink="calendar">Home</a></li>
+    <li><a routerLink="profile">List</a></li>
+    <li><a routerLink="popular">Anime</a></li>
+    <li><a routerLink="petitions">Petitions</a></li>
+    <app-anime-search (onDebounce)="sugerencias($event)"></app-anime-search>
+    <ul *ngIf="suggestedAnimes">
+      <a
+        *ngFor="let anime of suggestedAnimes"
+        class=""
+        href="/anime/{{ anime.mal_id }}"
+        ><li
+          class="w-1/4 block p-4 pl-10 text-sm text-white border border-white rounded-lg bg-[#4E047D]"
+        >
+          <div class="flex flex-box text-center">
+            <img src="{{ anime.images.jpg.small_image_url }}" class="w-[50px] h-[50px]" alt="" /><span>{{
+              anime.title
+            }}</span>
+          </div>
+        </li>
+      </a>
+    </ul>
+    <button
+      *ngIf="moreButton"
+      (click)="more()"
+      class="w-1/4 block bg-[#4E047D] p-4 pl-10 text-sm text-white border border-white rounded-lg"
+    >
+      View more...
+    </button>
+    <li><a routerLink="notifications">Insertar campana notificacion</a></li>
+    <li><a routerLink="config">Insertar imagen usuario</a></li>
   </ul>
 </nav>
 

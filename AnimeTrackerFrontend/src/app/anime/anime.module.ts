@@ -5,6 +5,7 @@ import { CharacterComponent } from './pages/character/character.component';
 import { ResultsComponent } from './pages/results/results.component';
 import { PopularListComponent } from './pages/popular-list/popular-list.component';
 import { InfoComponent } from './pages/info/info.component';
+import { AppRoutingModule } from '../app-routing.module';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { InfoComponent } from './pages/info/info.component';
   ],
   imports: [
     CommonModule,
+    AppRoutingModule
   ]
 })
 export class AnimeModule { }

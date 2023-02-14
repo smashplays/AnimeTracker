@@ -21,11 +21,11 @@ export interface Anime {
         }
     };
     episodes: number;
-    popularity: number;
+    members: number;
     genres: [
         {
             name: string
         }
-    ],
+    ]
   };
 }

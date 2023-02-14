@@ -4,7 +4,10 @@
 
   <button class="bg-[#9229D5] text-white rounded rounded-lg w-2/4">+</button>
 
-  <img src="{{ selectedAnime.data.images.jpg.image_url }}" alt="" />
+  <img
+    src="{{ selectedAnime.data.images.jpg.image_url }}"
+    alt="{{ selectedAnime.data.title }}"
+  />
 
   {{ selectedAnime.data.synopsis }}
 
@@ -41,10 +44,23 @@
       </div>
     </div>
     <div>
-      POPULARITY
+      MEMBERS
       <div class="text-[#221F1F]">
-        {{ selectedAnime.data.popularity }}
+        {{ selectedAnime.data.members }}
       </div>
+    </div>
+  </div>
+
+  <div
+    class="p-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-5"
+  >
+    <div *ngFor="let character of animeCharacters.data" class="rounded overflow-hidden shadow-xs">
+      <a routerLink="/character/{{ character.character.mal_id }}"
+        ><img class="w-3/4"
+          src="{{ character.character.images.jpg.image_url }}"
+          alt="{{ character.character.name }}" /></a
+      >
+      <div class="font-bold text-xl mb-2 text-white">{{ character.character.name }}</div>
     </div>
   </div>
 </div>
