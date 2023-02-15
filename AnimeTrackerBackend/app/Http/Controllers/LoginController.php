@@ -139,7 +139,7 @@ class LoginController extends Controller
             $response = [
                 "success" => true,
                 "message" => "User Created",
-                "data" => User::find(DB::getPdo()->lastInsertId())
+                "data" => User::find(DB::getPdo()->lastInsertId())->createToken("AuthToken")->accessToken
             ];
 
 

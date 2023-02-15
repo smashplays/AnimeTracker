@@ -2,3 +2,40 @@
 <p class="text-white">
     Register works!
 </p>
+
+
+<div>
+    <form [formGroup]="userForm">
+        <input type="text" formControlName="name" name="name" id="name" placeholder="name">
+
+        <div *ngIf="userForm.get('name').invalid && userForm.get('name').touched" class="text-red-100">
+            Nombre obligatorio
+        </div>
+
+        <input type="text" formControlName="email" name="email" id="email" placeholder="email">
+
+        <div *ngIf="userForm.get('email').invalid && userForm.get('email').touched
+        && userForm.get('email').dirty " class="text-red-100">
+            email obligatorio
+        </div>
+
+        <input type="password" formControlName="password" name="password" id="password">
+
+        <div *ngIf="userForm.get('password').invalid " class="text-red-100">
+            password obligatorio
+        </div>
+
+
+        <input type="password" formControlName="rpassword" name="rpassword" id="rpassword">
+
+        <div *ngIf="userForm.get('rpassword').invalid " class="text-red-100">
+            password obligatorio
+        </div>
+
+
+        <input type="number" formControlName="age" name="age" id="age" placeholder="age" min>
+
+
+        <button (click)="register()" class="text-white">Register</button>
+    </form>
+</div>

@@ -1,37 +1,50 @@
 <nav class="bg-[#8509D3]">
-  <ul class="text-white">
+
+  <div class="flex flex-wrap items-center">
+
     <img class="w-1/4" src="../assets/img/logo.png" alt="Logo" />
-    <li><a routerLink="calendar">Home</a></li>
-    <li><a routerLink="profile">List</a></li>
-    <li><a routerLink="popular">Anime</a></li>
-    <li><a routerLink="petitions">Petitions</a></li>
-    <app-anime-search (onDebounce)="sugerencias($event)"></app-anime-search>
-    <ul *ngIf="suggestedAnimes">
-      <a
-        *ngFor="let anime of suggestedAnimes"
-        class=""
-        href="/anime/{{ anime.mal_id }}"
-        ><li
-          class="w-1/4 block p-4 pl-10 text-sm text-white border border-white rounded-lg bg-[#4E047D]"
-        >
-          <div class="flex flex-box text-center">
-            <img src="{{ anime.images.jpg.small_image_url }}" class="w-[50px] h-[50px]" alt="" /><span>{{
-              anime.title
+    <div class="inline-block">
+      <ul class="text-white flex flex-wrap p-3">
+        <li><a routerLink="calendar" class="p-3 hover:bg-[#4E047D]">Home</a></li>
+        <li><a routerLink="profile" class="p-3 hover:bg-[#4E047D]">List</a></li>
+        <li><a routerLink="popular" class="p-3 hover:bg-[#4E047D]">Anime</a></li>
+        <li><a routerLink="petitions" class="p-3 hover:bg-[#4E047D]">Petitions</a></li>
+      </ul>
+    </div>
+
+    <div class="inline-block">
+      <a routerLink="notifications">Insertar campana notificacion</a>
+      <a routerLink="config">Insertar imagen usuario</a>
+    </div>
+
+   
+  </div>
+
+  <div class="w-full flex flex-wrap justify-center">
+    
+    <div class="w-full block text-center">
+    <app-anime-search    (onDebounce)="sugerencias($event)"></app-anime-search>
+    </div>
+  <div class="w-1/4 block text-center">
+    <ul *ngIf="suggestedAnimes" class="absolute w-full text-center">
+    <a *ngFor="let anime of suggestedAnimes" class="w-full text-center" routerLink="/anime/{{ anime.mal_id }}">
+      <li class="w-1/4 p-4 pl-10 text-sm text-white border border-white rounded-lg bg-[#4E047D]">
+        <div class="flex flex-box text-center">
+          <img src="{{ anime.images.jpg.small_image_url }}" class="w-[50px] h-[50px]" alt="" /><span class="ml-1">{{
+            anime.title
             }}</span>
-          </div>
-        </li>
-      </a>
+        </div>
+      </li>
+    </a>
+    <button *ngIf="moreButton" (click)="more()"
+    class="w-1/4 block bg-[#4E047D] p-4 pl-10 text-sm text-white border border-white rounded-lg">
+    View more...
+  </button>
     </ul>
-    <button
-      *ngIf="moreButton"
-      (click)="more()"
-      class="w-1/4 block bg-[#4E047D] p-4 pl-10 text-sm text-white border border-white rounded-lg"
-    >
-      View more...
-    </button>
-    <li><a routerLink="notifications">Insertar campana notificacion</a></li>
-    <li><a routerLink="config">Insertar imagen usuario</a></li>
-  </ul>
+  </div>
+
+</div>
+  
 </nav>
 
 <router-outlet></router-outlet>
