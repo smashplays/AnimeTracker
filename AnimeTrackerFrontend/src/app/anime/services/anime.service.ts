@@ -19,24 +19,26 @@ export class AnimeService {
       .pipe(map((resp: Anime) => resp));
   }
 
-  public getAnimeSearch(query: string): Observable<Data[]>{
+  public getAnimeSearch(query: string): Observable<Data[]> {
     if (!query.trim()) {
       return of([]);
     }
     return this.http
       .get<AnimeSearch>(this.animeUrl + '?q=' + query)
-      .pipe(map((resp: AnimeSearch) => resp.data));    
+      .pipe(map((resp: AnimeSearch) => resp.data));
   }
 
-  public getAnimeCharacters(id: number): Observable<Characters>{
+  public getAnimeCharacters(id: number): Observable<Characters> {
     return this.http
       .get<Characters>(this.animeUrl + '/' + id + '/characters')
       .pipe(map((resp: Characters) => resp));
   }
 
-  public getAnimePopular(page: number): Observable<AnimeSearch>{
+  public getAnimePopular(page: number): Observable<AnimeSearch> {
     return this.http
-      .get<AnimeSearch>(this.animeUrl + '?page=' + page + '&order_by=members' + '&sort=desc')
-      .pipe(map((resp: AnimeSearch) => resp)); 
+      .get<AnimeSearch>(
+        this.animeUrl + '?page=' + page + '&order_by=members' + '&sort=desc'
+      )
+      .pipe(map((resp: AnimeSearch) => resp));
   }
 }

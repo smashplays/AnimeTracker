@@ -42,4 +42,8 @@ export class AppComponent {
     this.suggestedAnimesCopy = [];
     this.moreButton = false;
   }
+
+  animeSelect() {
+    this.sugerencias('');
+  }
 }
