@@ -22,13 +22,15 @@ export class InfoComponent implements OnInit{
 
   ngOnInit(): void {
     //el + delante de la variable, la convierte en numerica
-    const id: number = +this.route.snapshot.paramMap.get('id');
-    this.animeService
-      .getAnimeById(id)
+    this.route.paramMap.subscribe(params => {
+      this.animeService
+      .getAnimeById(+params.get('id'))
       .subscribe((anime) => (this.selectedAnime = anime));
-    this.animeService
-      .getAnimeCharacters(id)
+      this.animeService
+      .getAnimeCharacters(+params.get('id'))
       .subscribe((characters) => (this.animeCharacters = characters));
+    })
+    
   }
 
   public back(): void {
