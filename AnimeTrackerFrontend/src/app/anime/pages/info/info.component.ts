@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { Anime } from '../../interfaces/anime';
 import { AnimeService } from '../../services/anime.service';
 import { Characters } from '../../interfaces/characters';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-info',
@@ -19,7 +20,8 @@ export class InfoComponent implements OnInit{
   constructor(
     private route: ActivatedRoute,
     private animeService: AnimeService,
-    private location: Location
+    private location: Location,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit(): void {
@@ -41,6 +43,10 @@ export class InfoComponent implements OnInit{
   trailerBool(){
     this.trailer = true;
     this.characters = false;
+  }
+
+  sanitizedUrl(url: string){
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
 

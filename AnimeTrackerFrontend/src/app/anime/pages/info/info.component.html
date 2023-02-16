@@ -67,15 +67,16 @@
     <button class="p-2 rounded rounded-lg" (click)="characterBool()" [class.bg-[#7F5F93]]="characters">Characters</button>
   </div>
 
-  <div class="justify-items-center" *ngIf="trailer">
+  <div *ngIf="trailer">
     <iframe
       width="560"
       height="315"
-      src="{{ selectedAnime.data.trailer.embed_url }}"
+      [src]=sanitizedUrl(selectedAnime.data.trailer.embed_url)
       title="YouTube video player"
       frameborder="0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       allowfullscreen
+      class="justify-items-center mt-5 m-auto"
     ></iframe>
   </div>
 
