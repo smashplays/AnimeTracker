@@ -4,6 +4,7 @@ import { Character } from '../../interfaces/character';
 import { CharacterService } from '../../services/character.service';
 import { Location } from '@angular/common';
 import { AnimeCharacter } from '../../interfaces/anime-character';
+import { Voices } from '../../interfaces/voices';
 @Component({
   selector: 'app-character',
   templateUrl: './character.component.html',
@@ -12,11 +13,13 @@ import { AnimeCharacter } from '../../interfaces/anime-character';
 export class CharacterComponent {
   selectedCharacter: Character;
   characterAnime: AnimeCharacter;
+  characterVoices: Voices;
+  anime: boolean = true;
+  actor: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
-    private characterService: CharacterService,
-    private location: Location
+    private characterService: CharacterService
   ) {}
 
   ngOnInit(): void {
@@ -28,9 +31,18 @@ export class CharacterComponent {
     this.characterService
       .getCharacterAnime(id)
       .subscribe((anime) => (this.characterAnime = anime));
+    this.characterService
+      .getCharacterVoices(id)
+      .subscribe((voices) => (this.characterVoices = voices));
   }
 
-  public back(): void {
-    this.location.back();
+  animeBool() {
+    this.anime = true;
+    this.actor = false;
+  }
+
+  voiceActorBool() {
+    this.actor = true;
+    this.anime = false;
   }
 }

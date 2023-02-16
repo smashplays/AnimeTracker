@@ -4,6 +4,11 @@ export interface Anime {
     images: {
       jpg: { image_url: string };
     };
+    trailer: {
+      youtube_id: string
+      embed_url: string
+      url: string
+    };
     title: string;
     synopsis: string;
     aired: {

@@ -13,6 +13,8 @@ import { Characters } from '../../interfaces/characters';
 export class InfoComponent implements OnInit{
   selectedAnime: Anime;
   animeCharacters: Characters;
+  characters: boolean = true;
+  trailer: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -21,7 +23,6 @@ export class InfoComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
-    //el + delante de la variable, la convierte en numerica
     this.route.paramMap.subscribe(params => {
       this.animeService
       .getAnimeById(+params.get('id'))
@@ -30,10 +31,17 @@ export class InfoComponent implements OnInit{
       .getAnimeCharacters(+params.get('id'))
       .subscribe((characters) => (this.animeCharacters = characters));
     })
-    
   }
 
-  public back(): void {
-    this.location.back();
+   characterBool(){
+    this.characters = true;
+    this.trailer = false;
   }
+
+  trailerBool(){
+    this.trailer = true;
+    this.characters = false;
+  }
+
+
 }

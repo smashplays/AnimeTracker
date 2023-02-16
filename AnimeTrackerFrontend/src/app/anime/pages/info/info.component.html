@@ -1,66 +1,101 @@
-<h1 class="text-white">ANIME INFO</h1>
-<div class="text-white" *ngIf="selectedAnime">
-  {{ selectedAnime.data.title }}
+<div class="text-white p-5" *ngIf="selectedAnime">
+  <div class="float-left mr-10">
+    <img
+      src="{{ selectedAnime.data.images.jpg.image_url }}"
+      alt="{{ selectedAnime.data.title }}"
+      class="rounded rounded-lg"
+    />
 
-  <button class="bg-[#9229D5] text-white rounded rounded-lg w-2/4">+</button>
-
-  <img
-    src="{{ selectedAnime.data.images.jpg.image_url }}"
-    alt="{{ selectedAnime.data.title }}"
-  />
-
-  {{ selectedAnime.data.synopsis }}
-
-  <div class="bg-[#7F5F93] rounded rounded-lg">
-    <div *ngIf="selectedAnime.data.aired.prop.from.month">
-      START DATE
-      <div class="text-[#221F1F]">
-        {{ selectedAnime.data.aired.prop.from.month }}/{{
-          selectedAnime.data.aired.prop.from.day
-        }}/{{ selectedAnime.data.aired.prop.from.year }}
+    <div class="bg-[#7F5F93] rounded rounded-lg w-[225px] mt-5">
+      <div *ngIf="selectedAnime.data.aired.prop.from.month">
+        START DATE
+        <div class="text-[#221F1F]">
+          {{ selectedAnime.data.aired.prop.from.month }}/{{
+            selectedAnime.data.aired.prop.from.day
+          }}/{{ selectedAnime.data.aired.prop.from.year }}
+        </div>
       </div>
-    </div>
-    <div *ngIf="selectedAnime.data.aired.prop.to.month">
-      END DATE
-      <div class="text-[#221F1F]">
-        {{ selectedAnime.data.aired.prop.to.month }}/{{
-          selectedAnime.data.aired.prop.to.day
-        }}/{{ selectedAnime.data.aired.prop.to.year }}
+      <div *ngIf="selectedAnime.data.aired.prop.to.month">
+        END DATE
+        <div class="text-[#221F1F]">
+          {{ selectedAnime.data.aired.prop.to.month }}/{{
+            selectedAnime.data.aired.prop.to.day
+          }}/{{ selectedAnime.data.aired.prop.to.year }}
+        </div>
       </div>
-    </div>
-    <div>
-      CHAPTERS
-      <div class="text-[#221F1F]">
-        {{ selectedAnime.data.episodes }}
+      <div>
+        CHAPTERS
+        <div class="text-[#221F1F]">
+          {{ selectedAnime.data.episodes }}
+        </div>
       </div>
-    </div>
-    <div>
-      GENRES
-      <div
-        class="text-[#221F1F]"
-        *ngFor="let genre of selectedAnime.data.genres"
-      >
-        {{ genre.name }}
+      <div>
+        GENRES
+        <div
+          class="text-[#221F1F]"
+          *ngFor="let genre of selectedAnime.data.genres"
+        >
+          {{ genre.name }}
+        </div>
       </div>
-    </div>
-    <div>
-      MEMBERS
-      <div class="text-[#221F1F]">
-        {{ selectedAnime.data.members }}
+      <div>
+        MEMBERS
+        <div class="text-[#221F1F]">
+          {{ selectedAnime.data.members }}
+        </div>
       </div>
     </div>
   </div>
 
+  <div>
+    <h1 class="text-white text-3xl mb-2">
+      {{ selectedAnime.data.title | uppercase }}
+    </h1>
+    <button class="bg-[#9229D5] text-white rounded rounded-lg w-[30px] mb-2">
+      +
+    </button>
+  </div>
+
+  <div class="mb-5">
+    {{ selectedAnime.data.synopsis }}
+  </div>
+
+  <hr />
+
+  <div class="text-center mt-5">
+    <button class="p-2 mr-5 rounded rounded-lg" (click)="trailerBool()" [class.bg-[#7F5F93]]="trailer">Trailer</button>
+    <button class="p-2 rounded rounded-lg" (click)="characterBool()" [class.bg-[#7F5F93]]="characters">Characters</button>
+  </div>
+
+  <div class="justify-items-center" *ngIf="trailer">
+    <iframe
+      width="560"
+      height="315"
+      src="{{ selectedAnime.data.trailer.embed_url }}"
+      title="YouTube video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+    ></iframe>
+  </div>
+
   <div
     class="justify-items-center p-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-5"
+    *ngIf="characters"
   >
-    <div *ngFor="let character of animeCharacters.data" class="rounded overflow-hidden shadow-xs">
+    <div
+      *ngFor="let character of animeCharacters.data"
+      class="rounded overflow-hidden shadow-xs"
+    >
       <a routerLink="/character/{{ character.character.mal_id }}"
-        ><img class="w-[225px] rounded rounded-lg"
+        ><img
+          class="w-[225px] rounded rounded-lg"
           src="{{ character.character.images.jpg.image_url }}"
-          alt="{{ character.character.name }}" /></a
-      >
-      <div class="flex flex-box w-[225px] font-bold text-xl mb-2 text-white">{{ character.character.name }}</div>
+          alt="{{ character.character.name }}"
+      /></a>
+      <div class="flex flex-box w-[225px] font-bold text-xl mb-2 text-white">
+        {{ character.character.name }}
+      </div>
     </div>
   </div>
 </div>

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { Character } from '../interfaces/character';
 import { AnimeCharacter } from '../interfaces/anime-character';
+import { Voices } from '../interfaces/voices';
 
 @Injectable({
   providedIn: 'root',
@@ -23,5 +24,11 @@ export class CharacterService {
     return this.http
       .get<AnimeCharacter>(this.characterUrl + '/' + id + '/anime')
       .pipe(map((resp: AnimeCharacter) => resp));
+  }
+
+  public getCharacterVoices(id: number): Observable<Voices>{
+    return this.http
+      .get<Voices>(this.characterUrl + '/' + id + '/voices')
+      .pipe(map((resp: Voices) => resp));
   }
 }

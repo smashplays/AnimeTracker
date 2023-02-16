@@ -1,22 +1,65 @@
-<div class="text-white" *ngIf="selectedCharacter">
-  {{ selectedCharacter.data.name }}
+<div class="text-white p-5" *ngIf="selectedCharacter">
+  <div class="float-left mr-10">
+    <img
+      src="{{ selectedCharacter.data.images.jpg.image_url }}"
+      alt="{{ selectedCharacter.data.name }}"
+      class="w-[225px] rounded rounded-lg"
+    />
+  </div>
 
-  <img
-    src="{{ selectedCharacter.data.images.jpg.image_url }}"
-    alt="{{ selectedCharacter.data.name }}"
-  />
+  <div>
+    <h1 class="text-white text-3xl mb-2">
+      {{ selectedCharacter.data.name | uppercase }}
+    </h1>
+  </div>
 
-  <div class="text-white">
+  <div class="text-white mb-5">
     {{ selectedCharacter.data.about }}
   </div>
 
-<div class="justify-items-center p-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-5">
-  <div *ngFor="let anime of characterAnime.data" class="rounded overflow-hidden shadow-xs">
-    <a routerLink="/anime/{{ anime.anime.mal_id }}"
-      ><img
-        src="{{ anime.anime.images.jpg.image_url }}"
-        alt="{{ anime.anime.title }}" class="w-[225px] rounded rounded-lg"/></a>
-      <div class="flex flex-box w-[225px] font-bold text-xl mb-2 text-white">{{ anime.anime.title }}</div>
+  <hr />
+
+  <div class="text-center mt-5">
+    <button class="p-2 mr-5 rounded rounded-lg" (click)="animeBool()" [class.bg-[#7F5F93]]="anime">Animes</button>
+    <button class="p-2 rounded rounded-lg" (click)="voiceActorBool()" [class.bg-[#7F5F93]]="actor">Voice Actors</button>
   </div>
-</div>
+
+  <div
+    *ngIf="anime"
+    class="justify-items-center p-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-5"
+  >
+    <div
+      *ngFor="let anime of characterAnime.data"
+      class="rounded overflow-hidden shadow-xs"
+    >
+      <a routerLink="/anime/{{ anime.anime.mal_id }}"
+        ><img
+          src="{{ anime.anime.images.jpg.image_url }}"
+          alt="{{ anime.anime.title }}"
+          class="w-[225px] rounded rounded-lg"
+      /></a>
+      <div class="flex flex-box w-[225px] font-bold text-xl mb-2 text-white">
+        {{ anime.anime.title }}
+      </div>
+    </div>
+  </div>
+
+  <div
+    *ngIf="actor"
+    class="justify-items-center p-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-5"
+  >
+    <div
+      *ngFor="let voices of characterVoices.data"
+      class="rounded overflow-hidden shadow-xs"
+    >
+      <img
+        src="{{ voices.person.images.jpg.image_url }}"
+        alt="{{ voices.person.name }}"
+        class="w-[225px] rounded rounded-lg"
+      />
+      <div class="flex flex-box w-[225px] font-bold text-xl mb-2 text-white">
+        {{ voices.person.name }} ({{voices.language}})
+      </div>
+    </div>
+  </div>
 </div>
