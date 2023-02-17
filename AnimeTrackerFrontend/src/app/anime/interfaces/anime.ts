@@ -31,6 +31,7 @@ export interface Anime {
         {
             name: string
         }
-    ]
+    ];
+    score: number;
   };
 }

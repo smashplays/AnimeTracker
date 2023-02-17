@@ -37,7 +37,7 @@ export class AnimeService {
   public getAnimePopular(page: number): Observable<AnimeSearch> {
     return this.http
       .get<AnimeSearch>(
-        this.animeUrl + '?page=' + page + '&order_by=members' + '&sort=desc'
+        this.animeUrl + '?page=' + page + '&order_by=score' + '&sort=desc'
       )
       .pipe(map((resp: AnimeSearch) => resp));
   }

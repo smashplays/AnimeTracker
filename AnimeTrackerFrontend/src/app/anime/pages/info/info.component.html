@@ -1,4 +1,4 @@
-<div class="text-white p-5" *ngIf="selectedAnime">
+<div class="text-white p-5" *ngIf="animeCharacters.data">
   <div class="float-left mr-10">
     <img
       src="{{ selectedAnime.data.images.jpg.image_url }}"
@@ -39,9 +39,9 @@
         </div>
       </div>
       <div>
-        MEMBERS
+        MAL SCORE
         <div class="text-[#221F1F]">
-          {{ selectedAnime.data.members }}
+          {{ selectedAnime.data.score }}
         </div>
       </div>
     </div>
@@ -63,7 +63,7 @@
   <hr />
 
   <div class="text-center mt-5">
-    <button class="p-2 mr-5 rounded rounded-lg" (click)="trailerBool()" [class.bg-[#7F5F93]]="trailer">Trailer</button>
+    <button *ngIf="selectedAnime.data.trailer.embed_url" class="p-2 mr-5 rounded rounded-lg" (click)="trailerBool()" [class.bg-[#7F5F93]]="trailer">Trailer</button>
     <button class="p-2 rounded rounded-lg" (click)="characterBool()" [class.bg-[#7F5F93]]="characters">Characters</button>
   </div>
 

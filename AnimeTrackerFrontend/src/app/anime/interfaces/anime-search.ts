@@ -8,4 +8,5 @@ export interface Data {
     jpg: { small_image_url: string; image_url: string };
   };
   title: string;
+  synopsis: string;
 }

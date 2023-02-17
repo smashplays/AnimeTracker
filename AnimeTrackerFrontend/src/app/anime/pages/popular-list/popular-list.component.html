@@ -1,12 +1,19 @@
-<h1 class="text-white text-center text-3xl mt-5">POPULAR LIST</h1>
+<h1 class="text-white text-center text-3xl mt-5" *ngIf="popularAnime">
+  TOP RATED ANIME
+</h1>
 
 <div
   class="justify-items-center p-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-5"
+  *ngIf="popularAnime"
 >
   <div
-    *ngFor="let anime of popularAnime.data"
+    *ngFor="let anime of popularAnime.data; let i = index"
     class="rounded overflow-hidden shadow-xs"
   >
+    <span
+      class="absolute ml-auto font-bold text-3xl text-white bg-[#8509D3] rounded rounded-lg "
+      >Nº{{ i + 1 + (page - 1) * 25 }}</span
+    >
     <a routerLink="/anime/{{ anime.mal_id }}"
       ><img
         class="w-[225px] rounded rounded-lg"
@@ -21,7 +28,9 @@
   </div>
 </div>
 
-<div class="text-center text-white text-xl mb-3">Page {{ page }} of 984</div>
+<div class="text-center text-white text-xl mb-3" *ngIf="popularAnime">
+  Page {{ page }} of 984
+</div>
 <div class="text-center mb-10" *ngIf="popularAnime">
   <button
     (click)="back()"
