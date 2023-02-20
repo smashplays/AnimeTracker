@@ -11,28 +11,35 @@ import { AdminUsersComponent } from './admin/pages/admin-users/admin-users.compo
 import { CharacterComponent } from './anime/pages/character/character.component';
 import { InfoComponent } from './anime/pages/info/info.component';
 import { PopularListComponent } from './anime/pages/popular-list/popular-list.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
     {
-        path: '',
+        path: 'login',
         component: LoginComponent,
         pathMatch: 'full'
     },
     {
         path: 'register',
-        component: RegisterComponent
+        component: RegisterComponent,
+        
     },
     {
         path: 'calendar',
-        component: CalendarComponent
+        component: CalendarComponent,
+        canActivate:[AuthGuard]
+        
     },
     {
         path: 'config',
-        component: ConfigComponent
+        component: ConfigComponent,
+        canActivate:[AuthGuard]
     },
     {
         path: 'config/password',
-        component: PasswordComponent
+        component: PasswordComponent,
+        canActivate:[AuthGuard]
+
     },
     {
         path: 'notifications',
@@ -57,11 +64,12 @@ const routes: Routes = [
     {
         path: 'popular',
         component: PopularListComponent,
-        pathMatch: 'full'
+        pathMatch: 'full',
+        canActivate:[AuthGuard]
     },
     {
         path: '**',
-        redirectTo: ''
+        redirectTo: 'login'
     }
 ];
 
