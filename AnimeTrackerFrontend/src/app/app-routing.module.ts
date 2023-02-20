@@ -6,9 +6,7 @@ import { CalendarComponent } from './user/pages/calendar/calendar.component';
 import { ConfigComponent } from './user/pages/config/config.component';
 import { PasswordComponent } from './user/pages/password/password.component';
 import { NotificationsComponent } from './user/pages/notifications/notifications.component';
-import { PetitionsComponent } from './user/pages/petitions/petitions.component';
 import { ProfileComponent } from './user/pages/profile/profile.component';
-import { AddAnimeFormComponent } from './admin/pages/add-anime-form/add-anime-form.component';
 import { AdminUsersComponent } from './admin/pages/admin-users/admin-users.component';
 import { CharacterComponent } from './anime/pages/character/character.component';
 import { InfoComponent } from './anime/pages/info/info.component';
@@ -41,16 +39,8 @@ const routes: Routes = [
         component: NotificationsComponent
     },
     {
-        path: 'petitions',
-        component: PetitionsComponent
-    },
-    {
         path: 'profile',
         component: ProfileComponent
-    },
-    {
-        path: 'add-anime',
-        component: AddAnimeFormComponent
     },
     {
         path: 'admin-users',
