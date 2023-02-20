@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
+import { Router } from '@angular/router';
+import { tap } from 'rxjs';
+import { Respuesta } from '../../interfaces/login';
 
 @Component({
   selector: 'app-register',
@@ -11,6 +14,8 @@ export class RegisterComponent implements OnInit {
 
 
   constructor(
+    private router : Router,
+    private loginservice:LoginService,
     private createService : LoginService,
    
   ){}
@@ -25,15 +30,23 @@ export class RegisterComponent implements OnInit {
    
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
+  
+   
+    // if (this.loginservice.auth()) {
+    //   this.router.navigate(['popular'])
+    // }
     
   }
     register():void{
      
-      //this.userForm.valueChanges.subscribe(values=>console.log(values));
-      //console.log(this.userForm.value);
-       this.createService.register(this.userForm.value).subscribe();
+      
+       this.createService.register(this.userForm.value).pipe(tap((res:Respuesta)=>{
+        if (res.success){
+          localStorage.setItem('token',res.data);
+          this.router.navigate(['popular']);
+        }
+       } )).subscribe(
+       );
     }
 
 

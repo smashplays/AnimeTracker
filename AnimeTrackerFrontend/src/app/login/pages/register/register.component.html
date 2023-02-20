@@ -4,37 +4,42 @@
 </p>
 
 
-<div>
+<div class=" text-center m-auto ">
     <form [formGroup]="userForm">
-        <input type="text" formControlName="name" name="name" id="name" placeholder="name">
+        <input class=" w-1/4 rounded-t-lg text-center" type="text" formControlName="name" name="name" id="name" placeholder="name">
 
-        <div *ngIf="userForm.get('name').invalid && userForm.get('name').touched" class="text-red-100">
+        <div *ngIf="userForm.get('name').invalid && userForm.get('name').touched
+        && userForm.get('name').dirty" class="text-red-100">
             Nombre obligatorio
         </div>
 
-        <input type="text" formControlName="email" name="email" id="email" placeholder="email">
-
+        <div class="w-full">
+        <input class="w-1/4 text-center" type="text" formControlName="email" name="email" id="email" placeholder="email">
+        </div>
+        
         <div *ngIf="userForm.get('email').invalid && userForm.get('email').touched
         && userForm.get('email').dirty " class="text-red-100">
             email obligatorio
         </div>
 
-        <input type="password" formControlName="password" name="password" id="password">
+        <input class="w-1/4 text-center" type="password" formControlName="password" name="password" id="password" placeholder="Password">
 
-        <div *ngIf="userForm.get('password').invalid " class="text-red-100">
+        <div *ngIf="userForm.get('rpassword').invalid && userForm.get('password').touched   " class="text-red-100">
             password obligatorio
         </div>
 
 
-        <input type="password" formControlName="rpassword" name="rpassword" id="rpassword">
+        <div>
+        <input class="w-1/4 text-center" type="password" formControlName="rpassword" name="rpassword" id="rpassword" placeholder="Repeat Password">
+        </div>
 
         <div *ngIf="userForm.get('rpassword').invalid " class="text-red-100">
             password obligatorio
         </div>
 
-
-        <input type="number" formControlName="age" name="age" id="age" placeholder="age" min>
-
+<div class="w-full">
+        <input class=" w-1/4 rounded-b-lg text-center" type="number" formControlName="age" name="age" id="age" placeholder="age" min>
+    </div>
 
         <button (click)="register()" class="text-white">Register</button>
     </form>
