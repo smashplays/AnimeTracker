@@ -67,7 +67,7 @@
     <button class="p-2 rounded rounded-lg" (click)="characterBool()" [class.bg-[#7F5F93]]="characters">Characters</button>
   </div>
 
-  <div *ngIf="trailer">
+  <div *ngIf="trailer" class="mb-5">
     <iframe
       width="560"
       height="315"
@@ -101,4 +101,5 @@
       </div>
     </div>
   </div>
+  <app-footer></app-footer>
 </div>

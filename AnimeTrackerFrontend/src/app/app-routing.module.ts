@@ -13,8 +13,6 @@ import { AdminUsersComponent } from './admin/pages/admin-users/admin-users.compo
 import { CharacterComponent } from './anime/pages/character/character.component';
 import { InfoComponent } from './anime/pages/info/info.component';
 import { PopularListComponent } from './anime/pages/popular-list/popular-list.component';
-import { ProducerComponent } from './anime/pages/producer/producer.component';
-import { ResultsComponent } from './anime/pages/results/results.component';
 
 const routes: Routes = [
     {
@@ -63,10 +61,6 @@ const routes: Routes = [
         component: CharacterComponent
     },
     {
-        path: 'producer/:id',
-        component: ProducerComponent
-    },
-    {
         path: 'anime/:id',
         component: InfoComponent
     },
@@ -74,10 +68,6 @@ const routes: Routes = [
         path: 'popular',
         component: PopularListComponent,
         pathMatch: 'full'
-    },
-    {
-        path: 'search/:name',
-        component: ResultsComponent
     },
     {
         path: '**',
