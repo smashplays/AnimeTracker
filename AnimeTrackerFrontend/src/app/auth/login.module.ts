@@ -4,15 +4,14 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
-import { AppRoutingModule } from '../app-routing.module';
-
-
-
+import { AuthRoutingModule } from './auth-routing.module';
+import { MainComponent } from './pages/main/main.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
     RegisterComponent,
+    MainComponent,
     
   ],
   exports:[
@@ -25,7 +24,7 @@ import { AppRoutingModule } from '../app-routing.module';
     ReactiveFormsModule,
     FormsModule,
     SharedModule,
-    AppRoutingModule
+    AuthRoutingModule
   ]
 })
 export class LoginModule { }

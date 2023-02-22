@@ -1,84 +1,37 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/pages/login/login.component';
-import { RegisterComponent } from './login/pages/register/register.component';
-import { CalendarComponent } from './user/pages/calendar/calendar.component';
-import { ConfigComponent } from './user/pages/config/config.component';
-import { PasswordComponent } from './user/pages/password/password.component';
-import { NotificationsComponent } from './user/pages/notifications/notifications.component';
-import { ProfileComponent } from './user/pages/profile/profile.component';
-import { AdminUsersComponent } from './admin/pages/admin-users/admin-users.component';
-import { CharacterComponent } from './anime/pages/character/character.component';
-import { InfoComponent } from './anime/pages/info/info.component';
-import { PopularListComponent } from './anime/pages/popular-list/popular-list.component';
+import { RouterModule, Routes, CanActivate } from '@angular/router';
 import { AuthGuard } from './auth.guard';
+import { LoginComponent } from './auth/pages/login/login.component';
+// import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
-    {
-        path: 'login',
-        component: LoginComponent,
-        pathMatch: 'full'
-    },
-    {
-        path: 'register',
-        component: RegisterComponent,
-        
-    },
-    {
-        path: 'calendar',
-        component: CalendarComponent,
-        canActivate:[AuthGuard]
-        
-    },
-    {
-        path: 'config',
-        component: ConfigComponent,
-        canActivate:[AuthGuard]
-    },
-    {
-        path: 'config/password',
-        component: PasswordComponent,
-        canActivate:[AuthGuard]
-
-    },
-    {
-        path: 'notifications',
-        component: NotificationsComponent
-    },
-    {
-        path: 'profile',
-        component: ProfileComponent
-    },
-    {
-        path: 'admin-users',
-        component: AdminUsersComponent
-    },
-    {
-        path: 'character/:id',
-        component: CharacterComponent
-    },
-    {
-        path: 'anime/:id',
-        component: InfoComponent
-    },
-    {
-        path: 'popular',
-        component: PopularListComponent,
-        pathMatch: 'full',
-        canActivate:[AuthGuard]
-    },
-    {
-        path: '**',
-        redirectTo: 'login'
-    }
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth-routing.module').then(m => m.AuthRoutingModule)
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin-routing.module').then(m => m.AdminRoutingModule),
+    canActivate: [ AuthGuard]
+  },
+  {
+    path: 'user',
+    loadChildren: () => import('./user/user-routing.module').then(m => m.UserRoutingModule),
+    canActivate: [ AuthGuard]
+  },
+  {
+    path: 'anime',
+    loadChildren: () => import('./anime/anime-routing.module').then(m => m.AnimeRoutingModule),
+    canActivate: [ AuthGuard]
+  },
+  {
+    path: '**',
+    redirectTo: 'auth',
+  }
 ];
 
 @NgModule({
-    imports: [
-        RouterModule.forRoot( routes )
-    ],
-    exports: [
-        RouterModule
-    ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {}

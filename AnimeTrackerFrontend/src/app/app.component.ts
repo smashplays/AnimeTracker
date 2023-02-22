@@ -17,16 +17,10 @@ import {
 })
 export class AppComponent {
   title = 'AnimeTrackerFrontend';
-
-  input: string = '';
+  
   showOverlay = true;
-  suggestedAnimes: Data[];
-  suggestedAnimesCopy: Data[];
-  moreButton: boolean = false;
 
-  constructor(private animeService: AnimeService, private router: Router) {
-    
-  }
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.router.events.subscribe((event: RouterEvent) => {
@@ -49,35 +43,5 @@ export class AppComponent {
     if (event instanceof NavigationError) {
       this.showOverlay = false;
     }
-  }
-
-  sugerencias(input: string): void {
-    this.input = input;
-    this.moreButton = false;
-
-    if (!input.trim()) {
-      this.suggestedAnimes = [];
-      this.suggestedAnimesCopy = [];
-      this.moreButton = false;
-      return;
-    }
-
-    this.animeService.getAnimeSearch(input).subscribe((search) => {
-      this.suggestedAnimesCopy = search;
-      if (this.suggestedAnimesCopy.length > 5) {
-        this.moreButton = true;
-      }
-      this.suggestedAnimes = this.suggestedAnimesCopy.splice(0, 5);
-    });
-  }
-
-  more() {
-    this.suggestedAnimes = this.suggestedAnimesCopy;
-    this.suggestedAnimesCopy = [];
-    this.moreButton = false;
-  }
-
-  animeSelect() {
-    this.sugerencias('');
   }
 }

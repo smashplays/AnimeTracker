@@ -6,6 +6,9 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { PasswordComponent } from './pages/password/password.component';
 import { ConfigComponent } from './pages/config/config.component';
 import { SharedModule } from '../shared/shared.module';
+import { UserRoutingModule } from './user-routing.module';
+import { RouterModule } from '@angular/router';
+import { MainComponent } from './pages/main/main.component';
 
 
 
@@ -15,7 +18,8 @@ import { SharedModule } from '../shared/shared.module';
     NotificationsComponent,
     ProfileComponent,
     PasswordComponent,
-    ConfigComponent
+    ConfigComponent,
+    MainComponent
   ],
   exports: [
     CalendarComponent,
@@ -26,7 +30,8 @@ import { SharedModule } from '../shared/shared.module';
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    RouterModule
   ]
 })
 export class UserModule { }

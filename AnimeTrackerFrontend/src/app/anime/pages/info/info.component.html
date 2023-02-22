@@ -90,7 +90,7 @@
       *ngFor="let character of animeCharacters.data"
       class="rounded overflow-hidden shadow-xs"
     >
-      <a routerLink="/character/{{ character.character.mal_id }}"
+      <a routerLink="/anime/character/{{ character.character.mal_id }}"
         ><img
           class="w-[225px] rounded rounded-lg"
           src="{{ character.character.images.jpg.image_url }}"
@@ -101,5 +101,4 @@
       </div>
     </div>
   </div>
-  <app-footer></app-footer>
 </div>

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Data } from '@angular/router';
 import { AnimeSearch } from '../../interfaces/anime-search';
 import { AnimeService } from '../../services/anime.service';
 

@@ -5,10 +5,10 @@ import { AnimeModule } from './anime/anime.module';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { LoginModule } from './login/login.module';
+import { LoginModule } from './auth//login.module';
 import { UserModule } from './user/user.module';
-import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -21,8 +21,8 @@ import { SharedModule } from './shared/shared.module';
     UserModule,
     AdminModule,
     SharedModule,
-    AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

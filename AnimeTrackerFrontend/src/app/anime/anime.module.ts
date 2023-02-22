@@ -5,13 +5,15 @@ import { PopularListComponent } from './pages/popular-list/popular-list.componen
 import { InfoComponent } from './pages/info/info.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { MainComponent } from './pages/main/main.component';
 
 
 @NgModule({
   declarations: [
     CharacterComponent,
     PopularListComponent,
-    InfoComponent  
+    InfoComponent,
+    MainComponent  
   ],
   exports: [
     CharacterComponent,

@@ -4,17 +4,20 @@ import { AnimeSearchComponent } from './anime-search/anime-search.component';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from '../app-routing.module';
 import { FooterComponent } from './footer/footer.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
 
 
 
 @NgModule({
   declarations: [
     AnimeSearchComponent,
-    FooterComponent
+    FooterComponent,
+    NavBarComponent
   ],
   exports: [
     AnimeSearchComponent,
-    FooterComponent
+    FooterComponent,
+    NavBarComponent
   ],
   imports: [
     CommonModule,
