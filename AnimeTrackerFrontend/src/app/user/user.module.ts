@@ -9,6 +9,7 @@ import { SharedModule } from '../shared/shared.module';
 import { UserRoutingModule } from './user-routing.module';
 import { RouterModule } from '@angular/router';
 import { MainComponent } from './pages/main/main.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 
 
@@ -31,7 +32,8 @@ import { MainComponent } from './pages/main/main.component';
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule
+    RouterModule,
+    FullCalendarModule
   ]
 })
 export class UserModule { }
