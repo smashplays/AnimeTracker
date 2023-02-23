@@ -32,9 +32,9 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   
    
-    // if (this.loginservice.auth()) {
-    //   this.router.navigate(['popular'])
-    // }
+    if (this.loginservice.auth()) {
+     this.router.navigate(['/anime/popular'])
+     }
     
   }
     register():void{

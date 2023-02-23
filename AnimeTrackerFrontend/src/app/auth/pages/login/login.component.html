@@ -17,6 +17,11 @@
     <input  type="password" class=" w-1/4 py-3 rounded-b-lg text-center " placeholder="Password"  name="password" id="password" [(ngModel)]="password">
     </div>
 
+    <div *ngIf="error">
+
+        <p class="text-red-500 py-2">{{mensaje}}</p>
+    </div>
+
     <div class="w-full">
         <button type="submit" class="bg-black text-white text-center " (click)="login()"> Login </button>
     </div>

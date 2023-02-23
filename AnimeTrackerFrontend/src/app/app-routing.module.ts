@@ -12,21 +12,24 @@ const routes: Routes = [
   {
     path: 'admin',
     loadChildren: () => import('./admin/admin-routing.module').then(m => m.AdminRoutingModule),
-    canActivate: [ AuthGuard]
+    // canActivate: [ AuthGuard]
+    canActivateChild:[ AuthGuard]
   },
   {
     path: 'user',
     loadChildren: () => import('./user/user-routing.module').then(m => m.UserRoutingModule),
-    canActivate: [ AuthGuard]
+    //canActivate: [ AuthGuard]
+    canActivateChild:[ AuthGuard]
   },
   {
     path: 'anime',
     loadChildren: () => import('./anime/anime-routing.module').then(m => m.AnimeRoutingModule),
-    canActivate: [ AuthGuard]
+    // canActivate: [ AuthGuard]
+    canActivateChild:[ AuthGuard]
   },
   {
     path: '**',
-    redirectTo: 'auth',
+    redirectTo: 'auth/login',
   }
 ];
 

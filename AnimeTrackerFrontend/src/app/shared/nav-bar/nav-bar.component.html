@@ -1,11 +1,11 @@
 <nav class="bg-[#8509D3]">
     <div class="flex items-center justify-between py-2 px-3 flex-wrap">
-      <a class="w-full md:w-1/4" routerLink="/auth/login">
+      <a class="w-full md:w-1/4" routerLink="/anime/popular">
         <img src="../assets/img/logo.png" alt="Logo" />
       </a>
   
-      <div class="w-full md:w-1/3 mt-4 md:mt-0">
-        <ul class="flex justify-between text-white">
+      <div class="w-full md:w-1/3 mt-4  md:mt-0">
+        <ul class="flex justify-between text-white mx-2">
           <a routerLink="/user/calendar" class="flex-1" (click)="animeSelect()">
             <li class="hover:bg-[#4E047D] text-xl text-center py-3">Home</li>
           </a>
@@ -65,9 +65,18 @@
             alt="Notifications"
           />
         </a>
-        <a class="inline-block" routerLink="/user/config" (click)="animeSelect()">
+        <!-- <a class="inline-block" routerLink="/user/config" (click)="animeSelect()">
           <img src="../assets/img/user.png" class="w-8" alt="User" />
-        </a>
+        </a> -->
+        <div class="inline-block mr-5 w-25em sm:w-20em md:w-15em lg:w-12em">
+          <button class="inline-block" (click)="toggleUser()">
+            <img src="../assets/img/user.png" class="w-8" alt="User" />
+          </button>
+          <ul [hidden]="hidden" class="absolute  w-fit z-50 rounded-b-lg">
+            <a class="w-full" routerLink="/user/config"><li class="p-1 w-full text-center cursor-pointer text-white bg-[#4E047D] hover:bg-red-100  rounded-t-lg ">Profile</li></a>
+            <li class="p-1 w-full text-center cursor-pointer text-white bg-[#4E047D] hover:bg-red-100 rounded-b-lg " (click)="logout()">Logout</li>
+          </ul>
+        </div>
       </div>
     </div>
   </nav>

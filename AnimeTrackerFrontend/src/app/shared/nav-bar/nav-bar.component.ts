@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Data } from 'src/app/anime/interfaces/anime-search';
 import { AnimeService } from 'src/app/anime/services/anime.service';
+import { LoginService } from '../../auth/services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
@@ -13,8 +15,12 @@ export class NavBarComponent {
   suggestedAnimes: Data[];
   suggestedAnimesCopy: Data[];
   moreButton: boolean = false;
+  hidden:boolean=true;
 
-  constructor(private animeService: AnimeService) {
+  constructor(
+    private animeService: AnimeService,
+    private loginservice :LoginService,
+    private router : Router) {
     
   }
 
@@ -34,7 +40,7 @@ export class NavBarComponent {
       if (this.suggestedAnimesCopy.length > 5) {
         this.moreButton = true;
       }
-      this.suggestedAnimes = this.suggestedAnimesCopy.splice(0, 5);
+      this.suggestedAnimes = this.suggestedAnimesCopy.slice(0, 5);
     });
   }
 
@@ -47,4 +53,28 @@ export class NavBarComponent {
   animeSelect() {
     this.sugerencias('');
   }
+
+
+  logout():void {
+
+    if (localStorage.getItem('token')) {
+      this.loginservice.logout().subscribe(res => {
+        if (res.success) {
+          localStorage.removeItem('token');
+          this.router.navigate(['login']);
+        }
+      });
+    }
+
+    else {
+      console.log('No estas logeado')
+    }
+
+  }
+
+  toggleUser(){
+    this.hidden=!this.hidden;
+  }
+
+
 }

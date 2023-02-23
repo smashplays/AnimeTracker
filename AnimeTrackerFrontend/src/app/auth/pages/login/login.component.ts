@@ -1,7 +1,7 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import { Data } from '../../interfaces/login';
-import { Observable } from 'rxjs';
+import { catchError, EMPTY, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,6 +15,8 @@ export class LoginComponent implements OnInit {
   name?: string;
   password?: string;
   logged: Observable<boolean> | boolean;
+  mensaje:string;
+  error:boolean=false;
 
 
 
@@ -32,7 +34,7 @@ export class LoginComponent implements OnInit {
 
     if (this.loginservice.auth()) {
 
-      this.router.navigate(['popular'])
+      this.router.navigate(['anime/popular'])
     }
   }
 
@@ -48,11 +50,22 @@ export class LoginComponent implements OnInit {
     }
 
     if (!localStorage.getItem('token')) {
-      this.loginservice.login(data).subscribe(res => {
+      this.loginservice.login(data)
+      .pipe(catchError( err=>{
+
+        if(err.status ===404){
+          console.log(err);
+          this.error=!err.error.success;
+          this.mensaje=err.error.message;
+        }
+        
+        return EMPTY;
+      }))
+      .subscribe(res => {
         if (res.success) {
           localStorage.setItem("token", res.data);
-          // console.log(res.success)
-          this.router.navigate(['popular']);
+          console.log(res.data);
+          this.router.navigate(['anime/popular']);
 
         }
 

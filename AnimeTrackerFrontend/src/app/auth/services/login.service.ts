@@ -50,7 +50,7 @@ export class LoginService {
     ,{"headers":this.headers})
   }
 
-  auth():Observable<boolean> {
+  auth():Observable<boolean>  {
 
     if (!localStorage.getItem('token')){
       return of(false);
@@ -64,7 +64,7 @@ export class LoginService {
     return this.http.get<Respuesta>(this.URL+'me'
     ,{"headers":headers}).pipe(map(res=> {
      
-     if (res.success){
+     if (res.success ){
       return true
      }
      
