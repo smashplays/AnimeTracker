@@ -8,4 +8,31 @@ use Illuminate\Database\Eloquent\Model;
 class Anime_User extends Model
 {
     use HasFactory;
+
+
+    protected $fillable=[
+        'id',
+        'user_id',
+        'anime_id',
+     ];
+
+
+
+
+     public function user() {
+        return $this->belongsTo(User::class);
+       
+    }
+
+
+    public function anime() {
+        return $this->hasMany(Anime::class);
+       
+    }
+
+
+
+    
+    
+    
 }

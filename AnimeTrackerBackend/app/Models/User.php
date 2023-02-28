@@ -31,6 +31,9 @@ class User extends Authenticatable
         'created_at'
     ];
 
+
+    
+
     /**
      * The attributes that should be cast.
      *
@@ -39,6 +42,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function animes() {
+        return $this->hasMany(Anime_User::class);
+       
+    }
+
+
+    public function chapters() {
+        return $this->hasMany(Chapter_User::class);
+       
+    }
+
     public function calendar()
     {
         return $this->hasOne(Calendar::class);

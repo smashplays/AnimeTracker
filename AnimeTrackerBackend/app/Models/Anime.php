@@ -22,4 +22,15 @@ class Anime extends Model
     ];
 
    
+    public function users() {
+        return $this->hasMany(Anime_User::class); 
+    }
+
+
+    public function chapters() {
+        return $this->hasMany(Chapter_Anime::class);
+    }
+
+  
+    
 }
