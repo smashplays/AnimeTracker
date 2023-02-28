@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { CalendarComponent } from './pages/calendar/calendar.component';
 import { ConfigComponent } from './pages/config/config.component';
 import { MainComponent } from './pages/main/main.component';
-import { NotificationsComponent } from './pages/notifications/notifications.component';
 import { PasswordComponent } from './pages/password/password.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 
@@ -19,10 +18,6 @@ const routes: Routes = [
         {
           path: 'config',
           component: ConfigComponent
-        },
-        {
-          path: 'notifications',
-          component: NotificationsComponent
         },
         {
           path: 'password',

@@ -45,10 +45,10 @@ export class LoginService {
     
   }
 
-  me():Observable<Respuesta>{
-    return this.http.get<Respuesta>(this.URL+'me'
-    ,{"headers":this.headers})
-  }
+  // me():Observable<Respuesta>{
+  //   return this.http.get<Respuesta>(this.URL+'me'
+  //   ,{"headers":this.headers})
+  // }
 
   auth():Observable<boolean>  {
 

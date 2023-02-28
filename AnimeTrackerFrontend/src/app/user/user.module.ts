@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CalendarComponent } from './pages/calendar/calendar.component';
-import { NotificationsComponent } from './pages/notifications/notifications.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { PasswordComponent } from './pages/password/password.component';
 import { ConfigComponent } from './pages/config/config.component';
@@ -16,7 +15,6 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 @NgModule({
   declarations: [
     CalendarComponent,
-    NotificationsComponent,
     ProfileComponent,
     PasswordComponent,
     ConfigComponent,
@@ -24,7 +22,6 @@ import { FullCalendarModule } from '@fullcalendar/angular';
   ],
   exports: [
     CalendarComponent,
-    NotificationsComponent,
     ProfileComponent,
     PasswordComponent,
     ConfigComponent
@@ -33,7 +30,8 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     CommonModule,
     SharedModule,
     RouterModule,
-    FullCalendarModule
+    FullCalendarModule,
+    UserRoutingModule
   ]
 })
 export class UserModule { }

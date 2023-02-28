@@ -54,26 +54,12 @@
       </div>
   
       <div class="w-full md:w-1/6 mt-4 md:mt-0 text-right">
-        <a
-          class="inline-block mr-4"
-          routerLink="/user/notifications"
-          (click)="animeSelect()"
-        >
-          <img
-            src="../assets/img/notifications.png"
-            class="w-8"
-            alt="Notifications"
-          />
-        </a>
-        <!-- <a class="inline-block" routerLink="/user/config" (click)="animeSelect()">
-          <img src="../assets/img/user.png" class="w-8" alt="User" />
-        </a> -->
         <div class="inline-block mr-5 w-25em sm:w-20em md:w-15em lg:w-12em">
           <button class="inline-block" (click)="toggleUser()">
             <img src="../assets/img/user.png" class="w-8" alt="User" />
           </button>
           <ul [hidden]="hidden" class="absolute  w-fit z-50 rounded-b-lg">
-            <a class="w-full" routerLink="/user/config"><li class="p-1 w-full text-center cursor-pointer text-white bg-[#4E047D] hover:bg-red-100  rounded-t-lg ">Profile</li></a>
+            <a class="w-full" routerLink="/user/config"><li class="p-1 w-full text-center cursor-pointer text-white bg-[#4E047D] hover:bg-red-100  rounded-t-lg ">Config</li></a>
             <li class="p-1 w-full text-center cursor-pointer text-white bg-[#4E047D] hover:bg-red-100 rounded-b-lg " (click)="logout()">Logout</li>
           </ul>
         </div>
