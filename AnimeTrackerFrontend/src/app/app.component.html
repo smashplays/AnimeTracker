@@ -1,10 +1,7 @@
 <!--TODO: Meter NavBar o no dependiendo de si está logeado o no-->
-<div *ngIf="showOverlay">
-  <div class="w-full flex items-center justify-center ">
-    <div class="w-1/2 ">
-      <img  class=" rounded "src="../assets/img/loading.gif " alt="">
-    </div>
-  </div>
+
+<div *ngIf="showOverlay" class="w-full flex justify-center">
+  <img class="rounded" src="../assets/img/loading.gif" alt="">
 </div>
 
 <div *ngIf="!showOverlay">
