@@ -24,8 +24,7 @@ class AnimesSeeder extends Seeder
             'start_date' => 'October 12, 2022',
             'end_date' => 'December 28, 2022',
             'image' => 'image.jpg',
-            'trailer' => 'www.trailer.com',
-            'producer_id' => 1        
+            'trailer' => 'www.trailer.com',     
         ]);
     }
 }

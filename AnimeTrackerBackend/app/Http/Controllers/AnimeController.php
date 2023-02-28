@@ -180,36 +180,4 @@ class AnimeController extends Controller
             return response($response, 500);
         }
     }
-
-    public function producer(Request $request, $id)
-    {
-        try {
-            if (Anime::find($id)) {
-                $anime = Anime::findOrFail($id);
-
-                $response = [
-                    'success' => true,
-                    'message' => "Producer obtained successfully",
-                    'data' => $anime->producer
-                ];
-                return response($response, 200);
-            } else {
-                $response = [
-                    'success' => false,
-                    'message' => "Anime Not Found",
-                    'data' => null
-                ];
-
-                return response($response, 404);
-            }
-        } catch (PDOException $exception) {
-            $response = [
-                'success' => false,
-                'message' => "Connection Failed",
-                'data' => $exception->errorInfo
-            ];
-
-            return response($response, 500);
-        }
-    }
 }
