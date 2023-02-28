@@ -21,8 +21,5 @@ class Anime extends Model
         'trailer'
     ];
 
-    public function producer(){
-        return $this->belongsTo(Producer::class);
-    }
-
+   
 }
