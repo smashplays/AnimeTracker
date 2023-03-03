@@ -3,10 +3,10 @@
     <img
       src="{{ selectedAnime.data.images.jpg.image_url }}"
       alt="{{ selectedAnime.data.title }}"
-      class="rounded rounded-lg"
+      class="rounded-lg"
     />
 
-    <div class="bg-[#7F5F93] rounded rounded-lg w-[225px] mt-5 pl-2">
+    <div class="bg-[#7F5F93] rounded-lg w-[225px] mt-5 pl-2">
       <div *ngIf="selectedAnime.data.aired.prop.from.month">
         START DATE
         <div class="text-[#221F1F]">
@@ -51,8 +51,8 @@
     <h1 class="text-white text-3xl mb-2">
       {{ selectedAnime.data.title | uppercase }}
     </h1>
-    <button class="bg-[#9229D5] text-white rounded rounded-lg w-[30px] mb-2">
-      +
+    <button class="bg-[#9229D5] text-white rounded-lg w-[30px] mb-2" (click)="addAnime()">
+      {{ addButton }}
     </button>
   </div>
 
@@ -63,8 +63,9 @@
   <hr />
 
   <div class="text-center mt-5">
-    <button *ngIf="selectedAnime.data.trailer.embed_url" class="p-2 mr-5 rounded rounded-lg" (click)="trailerBool()" [class.bg-[#7F5F93]]="trailer">Trailer</button>
-    <button class="p-2 rounded rounded-lg" (click)="characterBool()" [class.bg-[#7F5F93]]="characters">Characters</button>
+    <button *ngIf="selectedAnime.data.trailer.embed_url" class="p-2 mr-5 rounded-lg" (click)="trailerBool()" [class.bg-[#7F5F93]]="trailer">Trailer</button>
+    <button class="p-2 mr-5 rounded-lg" (click)="characterBool()" [class.bg-[#7F5F93]]="characters">Characters</button>
+    <button *ngIf="animeAdded" class="p-2 rounded-lg" (click)="chaptersBool()" [class.bg-[#7F5F93]]="chapters">Chapters</button>
   </div>
 
   <div *ngIf="trailer" class="mb-5">
@@ -92,7 +93,7 @@
     >
       <a routerLink="/anime/character/{{ character.character.mal_id }}"
         ><img
-          class="w-[225px] rounded rounded-lg"
+          class="w-[225px] rounded-lg"
           src="{{ character.character.images.jpg.image_url }}"
           alt="{{ character.character.name }}"
       /></a>
