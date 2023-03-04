@@ -73,7 +73,7 @@ class ChapterAnimeController extends Controller
         try {
             Chapter_Anime::create($request->validate([
                 'name' => 'required|string',
-                'aired' => 'required|boolean',
+                'aired' => 'required|string',
                 'anime_id' => 'required|integer',
             ]));
 
@@ -102,7 +102,7 @@ class ChapterAnimeController extends Controller
 
                 Chapter_Anime::findOrFail($id)->update($request->validate([
                     'name' => 'nullable|string',
-                    'aired' => 'nullable|boolean',
+                    'aired' => 'nullable|string',
                     'anime_id' => 'nullable|integer',
                 ]));
 

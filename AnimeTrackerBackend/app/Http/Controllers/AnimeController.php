@@ -72,15 +72,9 @@ class AnimeController extends Controller
     {
         try {
             Anime::create($request->validate([
+                'mal_id'=> 'required|integer',
                 'name' => 'required|string',
-                'description' => 'required|string',
-                'genre' => 'required|string',
-                'chapters' => 'required|integer',
-                'status' => 'required|integer',
-                'start_date' => 'required|string',
-                'end_date' => 'required|string',
                 'image' => 'required|string',
-                'trailer' => 'required|string',
             ]));
 
             $response = [
@@ -107,15 +101,9 @@ class AnimeController extends Controller
             if (Anime::find($id)) {
 
                 Anime::findOrFail($id)->update($request->validate([
+                    'mal_id'=> 'required|integer',
                     'name' => 'string',
-                    'description' => 'string',
-                    'genre' => 'string',
-                    'chapters' => 'integer',
-                    'status' => 'integer',
-                    'start_date' => 'string',
-                    'end_date' => 'string',
                     'image' => 'string',
-                    'trailer' => 'string',
                 ]));
 
                 $response = [

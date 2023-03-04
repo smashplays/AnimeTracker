@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Chapter_User;
+use App\Models\Chapter_Anime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PDOException;
@@ -12,7 +13,8 @@ class ChapterUserController extends Controller
     public function getAll(Request $request)
     {
         try {
-            $chapter_user = Chapter_User::all();
+            $chapter_user = Chapter_User::all()->chapter->anime;
+            $chapter_info = Chapter_Anime::all()->chapter;
 
             $response = [
                 'success' => true,

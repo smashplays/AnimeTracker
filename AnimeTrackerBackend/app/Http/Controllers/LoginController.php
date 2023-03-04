@@ -32,12 +32,12 @@ class LoginController extends Controller
             } else {
                 $response = [
                     "success" => false,
-                    "message" => "Failed password or user",
+                    "message" => "User and Password are required",
                     "data" => null
                 ];
 
 
-                return response($response, 404);
+                return response($response, 400);
             };
 
 
@@ -61,7 +61,7 @@ class LoginController extends Controller
                     "data" => Auth::user()
                 ];
 
-                return response($response, 400);
+                return response($response, 404);
             }
         } {
             $response = [
