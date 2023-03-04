@@ -5,7 +5,7 @@ import { map, Observable, of } from 'rxjs';
 import { Characters } from '../interfaces/characters';
 import { AnimeSearch, Data } from '../interfaces/anime-search';
 import { AnimeAdd } from '../interfaces/anime-add';
-import { Respuesta } from '../../../../../../comprobacion/AnimeTracker/AnimeTrackerFrontend/src/app/auth/interfaces/login';
+import { Respuesta } from 'src/app/user/interfaces/user';
 
 @Injectable({
   providedIn: 'root',
@@ -51,23 +51,28 @@ export class AnimeService {
   }
 
   public addAnime(data: AnimeAdd): Observable<AnimeAdd> {
-    return this.http.post<AnimeAdd>(this.URL + 'animes', data, { headers: this.headers });
+    return this.http.post<AnimeAdd>(this.URL + 'animes', data, {
+      headers: this.headers,
+    });
   }
 
-  public deleteAnime(id: number): Observable<AnimeAdd>{
-    return this.http.delete<AnimeAdd>(this.URL + `animes/${id}`, { headers: this.headers });
+  public deleteAnime(id: number): Observable<AnimeAdd> {
+    return this.http.delete<AnimeAdd>(this.URL + `animes/${id}`, {
+      headers: this.headers,
+    });
   }
 
-  public checkAnime(id: number): Observable<boolean>{
-    return this.http.get<Respuesta>(this.URL + `animes/${id}`, { headers: this.headers }).pipe(map(res=>{
-      
-    
-      if (!res.success){
-      return false;
-     }
-     else{
-      return true;
-     }
-    }))
+  public checkAnime(id: number): Observable<boolean> {
+    return this.http
+      .get<Respuesta>(this.URL + `animes/${id}`, { headers: this.headers })
+      .pipe(
+        map((res) => {
+          if (!res.success) {
+            return false;
+          } else {
+            return true;
+          }
+        })
+      );
   }
 }

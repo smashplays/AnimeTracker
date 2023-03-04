@@ -20,7 +20,7 @@ export class InfoComponent implements OnInit {
   trailer: boolean = false;
   chapters: boolean = false;
   animeAdded: boolean = false;
-  addButton: string = "➕";
+  addButton: string = '➕';
 
   constructor(
     private route: ActivatedRoute,
@@ -30,10 +30,9 @@ export class InfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.paramMapSubscription();
-
   }
 
-  paramMapSubscription(): void{
+  paramMapSubscription(): void {
     this.route.paramMap.subscribe((params) => {
       this.getAnimeById(params);
       this.getAnimeCharacters(params);
@@ -41,16 +40,16 @@ export class InfoComponent implements OnInit {
     });
   }
 
-  getAnimeById(params: ParamMap): void{
+  getAnimeById(params: ParamMap): void {
     this.animeService
-    .getAnimeById(+params.get('id'))
-    .subscribe((anime) => (this.selectedAnime = anime));
+      .getAnimeById(+params.get('id'))
+      .subscribe((anime) => (this.selectedAnime = anime));
   }
 
-  getAnimeCharacters(params: ParamMap): void{
+  getAnimeCharacters(params: ParamMap): void {
     this.animeService
-    .getAnimeCharacters(+params.get('id'))
-    .subscribe((characters) => (this.animeCharacters = characters));
+      .getAnimeCharacters(+params.get('id'))
+      .subscribe((characters) => (this.animeCharacters = characters));
   }
 
   characterBool() {
@@ -71,40 +70,55 @@ export class InfoComponent implements OnInit {
     this.trailer = false;
   }
 
+  addedFalse() {
+    this.addButton = '➕';
+    this.animeAdded = false;
+    this.characters = true;
+    this.chapters = false;
+    this.animeService.deleteAnime(this.selectedAnime.data.mal_id).subscribe();
+  }
+
+  addedTrue() {
+      this.addButton = '✔';
+      console.log(this.selectedAnime);
+      if(!this.animeAdded){
+        this.animeService
+        .addAnime({
+          name: this.selectedAnime.data.title,
+          mal_id: this.selectedAnime.data.mal_id,
+          image: this.selectedAnime.data.images.jpg.image_url,
+        })
+        .subscribe((animeAdd) => (this.animeAdd = animeAdd));
+      }
+      this.animeAdded = true;
+  }
+
   sanitizedUrl(url: string) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
   addAnime(): void {
-    this.animeAdded = !this.animeAdded;
-    if(!this.animeAdded){
-      this.addButton = "➕";
-      this.characters = true;
-      this.chapters = false;
-      this.animeService.deleteAnime(this.selectedAnime.data.mal_id).subscribe();
-    }else{
-      this.addButton = "✔";
-      console.log(this.selectedAnime);
-      this.animeService.addAnime({
-        "name" : this.selectedAnime.data.title,
-        "mal_id" : this.selectedAnime.data.mal_id,
-        "image" : this.selectedAnime.data.images.jpg.image_url
-      }).subscribe((animeAdd) => this.animeAdd = animeAdd);
+    if (this.animeAdded) {
+      this.addedFalse();
+    } else {
+      this.addedTrue();
     }
   }
 
-  checkAnime(params:ParamMap):void{
-   
-
-   this.animeService.checkAnime(+params.get('id')).pipe(catchError((err2)=>{
-    if(err2.status === 404){
-      console.log('not found')
-    }
-    return EMPTY;
-   })).subscribe(
-    res=> console.log(res)
-   );
-   
-    
+  checkAnime(params: ParamMap): void {
+    this.animeService
+      .checkAnime(+params.get('id'))
+      .pipe(
+        catchError((err2) => {
+          if (err2.status === 404) {
+            console.log('not found');
+            this.addedFalse();
+          }
+          return EMPTY;
+        })
+      )
+      .subscribe((res) => {
+        this.addedTrue();
+      });
   }
 }
