@@ -3,7 +3,10 @@
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CalendarController;
-use App\Http\Controllers\AnimeController;
+use App\Http\Controllers\ChapterAnimeController;
+use App\Http\Controllers\ChapterUserController;
+use App\Http\Controllers\AnimeUserController;
+use App\Models\Chapter_Anime;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -61,6 +64,38 @@ Route::prefix('/animes')->group(function () {
     Route::middleware('validate.id')->delete('/{id}', [AnimeController::class, 'delete']);
     Route::middleware('validate.id')->patch('/{id}', [AnimeController::class, 'update']);
 });
+
+
+
+Route::prefix('/chapters')->group(function () {
+    Route::get('', [ChapterAnimeController::class, 'getAll']);
+    Route::middleware('validate.id')->get('/{id}', [ChapterAnimeController::class, 'getById']);
+    Route::post('', [ChapterAnimeController::class, 'post']);
+    Route::middleware('validate.id')->delete('/{id}', [ChapterAnimeController::class, 'delete']);
+    Route::middleware('validate.id')->patch('/{id}', [ChapterAnimeController::class, 'update']);
+});
+
+
+
+Route::prefix('/chapters-user')->group(function () {
+    Route::get('', [ChapterUserController::class, 'getAll']);
+    Route::middleware('validate.id')->get('/{id}', [ChapterUserController::class, 'getById']);
+    Route::post('', [ChapterUserController::class, 'post']);
+    Route::middleware('validate.id')->delete('/{id}', [ChapterUserController::class, 'delete']);
+    Route::middleware('validate.id')->patch('/{id}', [ChapterUserController::class, 'update']);
+});
+
+
+Route::prefix('/anime-user')->group(function () {
+    Route::get('', [AnimeUserController::class, 'getAll']);
+    Route::middleware('validate.id')->get('/{id}', [AnimeUserController::class, 'getById']);
+    Route::post('', [AnimeUserController::class, 'post']);
+    Route::middleware('validate.id')->delete('/{id}', [AnimeUserController::class, 'delete']);
+    Route::middleware('validate.id')->patch('/{id}', [AnimeUserController::class, 'update']);
+});
+
+
+
 
 
 
