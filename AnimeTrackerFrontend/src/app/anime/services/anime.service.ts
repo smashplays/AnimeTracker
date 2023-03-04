@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Anime } from '../interfaces/anime';
 import { map, Observable, of } from 'rxjs';
 import { Characters } from '../interfaces/characters';
 import { AnimeSearch, Data } from '../interfaces/anime-search';
+import { AnimeAdd } from '../interfaces/anime-add';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +13,12 @@ export class AnimeService {
   constructor(private http: HttpClient) {}
 
   private animeUrl: string = 'https://api.jikan.moe/v4/anime';
+  private URL: string = 'http://localhost:8000/api/';
+
+  private headers = new HttpHeaders()
+    .set('content-type', 'application/json')
+    .set('Access-Control-Allow-Origin', '*')
+    .set('Authorization', 'Bearer ' + localStorage.getItem('token'));
 
   public getAnimeById(id: number): Observable<Anime> {
     return this.http
@@ -40,5 +47,13 @@ export class AnimeService {
         this.animeUrl + '?page=' + page + '&order_by=score' + '&sort=desc'
       )
       .pipe(map((resp: AnimeSearch) => resp));
+  }
+
+  public addAnime(data: AnimeAdd): Observable<AnimeAdd> {
+    return this.http.post<AnimeAdd>(this.URL + 'animes', data, { headers: this.headers });
+  }
+
+  public deleteAnime(id: number): Observable<AnimeAdd>{
+    return this.http.delete<AnimeAdd>(this.URL + `animes/${id}`, { headers: this.headers });
   }
 }
