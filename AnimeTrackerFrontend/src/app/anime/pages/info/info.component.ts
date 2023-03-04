@@ -36,7 +36,12 @@ export class InfoComponent implements OnInit {
     this.route.paramMap.subscribe((params) => {
       this.getAnimeById(params);
       this.getAnimeCharacters(params);
-      this.checkAnime(params);
+      this.animeService.checkAnime(+params.get('id')).subscribe(res =>{
+        if(res){
+          this.addButton = '✔';
+          this.animeAdded = true;
+        }
+      })
     });
   }
 
@@ -80,8 +85,7 @@ export class InfoComponent implements OnInit {
 
   addedTrue() {
       this.addButton = '✔';
-      console.log(this.selectedAnime);
-      if(!this.animeAdded){
+      if(this.animeService.checkAnime(this.selectedAnime.data.mal_id)){
         this.animeService
         .addAnime({
           name: this.selectedAnime.data.title,
@@ -103,22 +107,5 @@ export class InfoComponent implements OnInit {
     } else {
       this.addedTrue();
     }
-  }
-
-  checkAnime(params: ParamMap): void {
-    this.animeService
-      .checkAnime(+params.get('id'))
-      .pipe(
-        catchError((err2) => {
-          if (err2.status === 404) {
-            console.log('not found');
-            this.addedFalse();
-          }
-          return EMPTY;
-        })
-      )
-      .subscribe((res) => {
-        this.addedTrue();
-      });
   }
 }
