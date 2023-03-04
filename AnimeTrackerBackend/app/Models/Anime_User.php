@@ -26,7 +26,7 @@ class Anime_User extends Model
 
 
     public function anime() {
-        return $this->hasMany(Anime::class);
+        return $this->belongsTo(Anime::class);
        
     }
 
