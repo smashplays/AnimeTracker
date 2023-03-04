@@ -5,6 +5,7 @@ import { AnimeService } from '../../services/anime.service';
 import { Characters } from '../../interfaces/characters';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AnimeAdd } from '../../interfaces/anime-add';
+import { catchError, EMPTY } from 'rxjs';
 
 @Component({
   selector: 'app-info',
@@ -29,12 +30,14 @@ export class InfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.paramMapSubscription();
+
   }
 
   paramMapSubscription(): void{
     this.route.paramMap.subscribe((params) => {
       this.getAnimeById(params);
       this.getAnimeCharacters(params);
+      this.checkAnime(params);
     });
   }
 
@@ -78,7 +81,7 @@ export class InfoComponent implements OnInit {
       this.addButton = "➕";
       this.characters = true;
       this.chapters = false;
-      this.animeService.deleteAnime(3).subscribe();
+      this.animeService.deleteAnime(this.selectedAnime.data.mal_id).subscribe();
     }else{
       this.addButton = "✔";
       console.log(this.selectedAnime);
@@ -88,5 +91,20 @@ export class InfoComponent implements OnInit {
         "image" : this.selectedAnime.data.images.jpg.image_url
       }).subscribe((animeAdd) => this.animeAdd = animeAdd);
     }
+  }
+
+  checkAnime(params:ParamMap):void{
+   
+
+   this.animeService.checkAnime(+params.get('id')).pipe(catchError((err2)=>{
+    if(err2.status === 404){
+      console.log('not found')
+    }
+    return EMPTY;
+   })).subscribe(
+    res=> console.log(res)
+   );
+   
+    
   }
 }

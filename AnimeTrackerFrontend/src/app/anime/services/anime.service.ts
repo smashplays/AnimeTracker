@@ -5,6 +5,7 @@ import { map, Observable, of } from 'rxjs';
 import { Characters } from '../interfaces/characters';
 import { AnimeSearch, Data } from '../interfaces/anime-search';
 import { AnimeAdd } from '../interfaces/anime-add';
+import { Respuesta } from '../../../../../../comprobacion/AnimeTracker/AnimeTrackerFrontend/src/app/auth/interfaces/login';
 
 @Injectable({
   providedIn: 'root',
@@ -55,5 +56,18 @@ export class AnimeService {
 
   public deleteAnime(id: number): Observable<AnimeAdd>{
     return this.http.delete<AnimeAdd>(this.URL + `animes/${id}`, { headers: this.headers });
+  }
+
+  public checkAnime(id: number): Observable<boolean>{
+    return this.http.get<Respuesta>(this.URL + `animes/${id}`, { headers: this.headers }).pipe(map(res=>{
+      
+    
+      if (!res.success){
+      return false;
+     }
+     else{
+      return true;
+     }
+    }))
   }
 }

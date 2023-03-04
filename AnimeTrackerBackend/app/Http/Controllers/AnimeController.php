@@ -35,9 +35,10 @@ class AnimeController extends Controller
 
     public function getById(Request $request, $id)
     {
+        
         try {
-            if (Anime::find($id)) {
-                $anime = Anime::findOrFail($id);
+            if (Anime::select('*')->where('mal_id',$id)->first()) {
+                $anime = Anime::where('mal_id','=',$id)->first();
 
                 $response = [
                     'success' => true,
@@ -136,11 +137,11 @@ class AnimeController extends Controller
     public function delete(Request $request, $id)
     {
         try {
-            if (Anime::find($id)) {
+            if (Anime::where('mal_id',$id)) {
 
-                $anime = Anime::findOrFail($id);
+                $anime = Anime::where('mal_id',$id);
 
-                Anime::findOrFail($id)->delete();
+                Anime::where('mal_id',$id)->delete();
 
                 $response = [
                     'success' => true,
