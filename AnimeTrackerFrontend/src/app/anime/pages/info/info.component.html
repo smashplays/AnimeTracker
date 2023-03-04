@@ -23,13 +23,13 @@
           }}/{{ selectedAnime.data.aired.prop.to.year }}
         </div>
       </div>
-      <div>
+      <div *ngIf="selectedAnime.data.episodes">
         CHAPTERS
         <div class="text-[#221F1F]">
           {{ selectedAnime.data.episodes }}
         </div>
       </div>
-      <div>
+      <div *ngIf="selectedAnime.data.genres">
         GENRES
         <div
           class="text-[#221F1F]"
@@ -38,7 +38,7 @@
           {{ genre.name }}
         </div>
       </div>
-      <div>
+      <div *ngIf="selectedAnime.data.score">
         MAL SCORE
         <div class="text-[#221F1F]">
           {{ selectedAnime.data.score }}

@@ -15,12 +15,12 @@ return new class extends Migration
     {
         //
         Schema::table('user_chapters',function(Blueprint $table){
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
         });
 
 
         Schema::table('user_chapters',function(Blueprint $table){
-            $table->foreignId('anime_chapter_id')->constrained();
+            $table->foreignId('anime_chapter_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
         });
     }
     

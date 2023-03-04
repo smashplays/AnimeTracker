@@ -16,12 +16,12 @@ return new class extends Migration
         //
 
         Schema::table('anime_user',function(Blueprint $table){
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
         });
 
 
         Schema::table('anime_user',function(Blueprint $table){
-            $table->foreignId('anime_id')->constrained();
+            $table->foreignId('anime_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

@@ -16,7 +16,7 @@ return new class extends Migration
         //
 
         Schema::table('anime_chapters',function(Blueprint $table){
-            $table->foreignId('anime_id')->constrained();
+            $table->foreignId('anime_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

@@ -62,6 +62,8 @@ export class InfoComponent implements OnInit {
     this.animeAdded = !this.animeAdded;
     if(!this.animeAdded){
       this.addButton = "➕";
+      this.characters = true;
+      this.chapters = false;
     }else{
       this.addButton = "✔";
     }

@@ -16,14 +16,8 @@ return new class extends Migration
         Schema::create('animes', function (Blueprint $table) {
             $table->id();
             $table->string('name', 64);
-            $table->text('description');
-            $table->string('genre', 64);
-            $table->unsignedInteger('chapters');
-            $table->string('status', 64);
-            $table->string('start_date', 64);
-            $table->string('end_date', 64);
+            $table->integer('mal_id');
             $table->string('image', 128);
-            $table->string('trailer', 128);
             $table->timestamps();
         });
     }
