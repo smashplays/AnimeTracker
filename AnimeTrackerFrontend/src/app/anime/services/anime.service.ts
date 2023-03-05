@@ -52,7 +52,7 @@ export class AnimeService {
   }
 
   public getAnimesByUser(id:number): Observable<AnimeUser> {
-    return this.http.get<AnimeUser>(this.URL + 'anime-user/'+id);
+    return this.http.get<AnimeUser>(this.URL + 'users/'+id).pipe(map((res:AnimeUser)=>{console.log(res);   return res}));
   }
 
 

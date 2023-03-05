@@ -1,9 +1,13 @@
 export interface AnimeUser {
-  data: [
-    {
+  data:[ {
+    anime: {
       mal_id: number;
       name: string;
       image: string;
     }
-  ];
+  }
+]
 }
+
+
+
