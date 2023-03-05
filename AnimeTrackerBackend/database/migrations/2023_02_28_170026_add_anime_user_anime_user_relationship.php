@@ -15,13 +15,14 @@ return new class extends Migration
     {
         //
 
-        Schema::table('anime_user',function(Blueprint $table){
+        Schema::table('anime_users',function(Blueprint $table){
             $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
         });
 
 
-        Schema::table('anime_user',function(Blueprint $table){
-            $table->foreignId('anime_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+        Schema::table('anime_users',function(Blueprint $table){
+            $table->integer('anime_id');
+            $table->foreign('anime_id')->references('mal_id')->on('animes')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -34,14 +35,14 @@ return new class extends Migration
     {
         //
 
-        Schema::table('anime_user',function(Blueprint $table){
-            $table->dropForeign('anime_user_user_id_foreign');
+        Schema::table('anime_users',function(Blueprint $table){
+            $table->dropForeign('anime_users_user_id_foreign');
             $table->dropColumn('user_id');
          });
 
 
-         Schema::table('anime_user',function(Blueprint $table){
-            $table->dropForeign('anime_user_anime_id_foreign');
+         Schema::table('anime_users',function(Blueprint $table){
+            $table->dropForeign('anime_users_anime_id_foreign');
             $table->dropColumn('anime_id');
          });
 

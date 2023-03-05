@@ -24,8 +24,6 @@ export class ProfileComponent implements OnInit {
       this.userName = name;
       console.log(this.userName);
     });
-    this.animeService.getAnimesByUser().subscribe((animes) => {
-      this.animes = animes;
-    })
+    this.animeService.getAnimesByUser(this.userName.data.id).subscribe(res => console.log(res))
   }
 }

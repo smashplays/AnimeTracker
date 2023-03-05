@@ -6,6 +6,8 @@ import { Characters } from '../../interfaces/characters';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AnimeAdd } from '../../interfaces/anime-add';
 import { catchError, EMPTY } from 'rxjs';
+import { Respuesta } from 'src/app/user/interfaces/user';
+import { UserService } from '../../../user/services/user.service';
 
 @Component({
   selector: 'app-info',
@@ -21,15 +23,22 @@ export class InfoComponent implements OnInit {
   chapters: boolean = false;
   animeAdded: boolean = false;
   addButton: string = "➕";
+  userInfor:Respuesta;
 
   constructor(
     private route: ActivatedRoute,
     private animeService: AnimeService,
+    private userService: UserService,
     private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit(): void {
     this.paramMapSubscription();
+
+    this.userService.me().subscribe(res=> {
+      this.userInfor= res;
+
+    })
   }
 
   paramMapSubscription(): void {
@@ -96,6 +105,8 @@ export class InfoComponent implements OnInit {
         })
         .subscribe((animeAdd) => (this.animeAdd = animeAdd));
     }
+    
+    this.animeService.addAnimeUser(this.userInfor.data.id,this.selectedAnime.data.mal_id).subscribe( res=> console.log('agregado'));
     this.animeAdded = true;
   }
 

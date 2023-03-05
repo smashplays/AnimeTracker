@@ -51,12 +51,26 @@ export class AnimeService {
       .pipe(map((resp: AnimeSearch) => resp));
   }
 
-  public getAnimesByUser(): Observable<AnimeUser> {
-    return this.http.get<AnimeUser>(this.URL + 'animes');
+  public getAnimesByUser(id:number): Observable<AnimeUser> {
+    return this.http.get<AnimeUser>(this.URL + 'anime-user/'+id);
   }
+
+
 
   public addAnime(data: AnimeAdd): Observable<AnimeAdd> {
     return this.http.post<AnimeAdd>(this.URL + 'animes', data, {
+      headers: this.headers,
+    });
+  }
+
+
+  public addAnimeUser(user:number,anime:number): Observable<AnimeAdd> {
+    
+    let data = {
+      "user_id":user,
+      "anime_id":anime
+    }
+    return this.http.post<AnimeAdd>(this.URL + 'anime-user', data, {
       headers: this.headers,
     });
   }

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Anime_User extends Model
+class AnimeUser extends Model
 {
     use HasFactory;
 
@@ -25,7 +25,7 @@ class Anime_User extends Model
 
 
     public function anime() {
-        return $this->belongsTo(Anime::class);
+        return $this->belongsTo(Anime::class,'anime_id','mal_id');
        
     }
 

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('animes', function (Blueprint $table) {
             $table->id();
             $table->string('name', 64);
-            $table->integer('mal_id');
+            $table->integer('mal_id')->unique();
             $table->string('image', 128);
             $table->timestamps();
         });
