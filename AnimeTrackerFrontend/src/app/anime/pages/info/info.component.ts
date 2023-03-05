@@ -20,7 +20,7 @@ export class InfoComponent implements OnInit {
   trailer: boolean = false;
   chapters: boolean = false;
   animeAdded: boolean = false;
-  addButton: string = '➕';
+  addButton: string = "➕";
 
   constructor(
     private route: ActivatedRoute,
@@ -36,12 +36,14 @@ export class InfoComponent implements OnInit {
     this.route.paramMap.subscribe((params) => {
       this.getAnimeById(params);
       this.getAnimeCharacters(params);
-      this.animeService.checkAnime(+params.get('id')).subscribe(res =>{
-        if(res){
+      this.animeService.checkAnime(+params.get('id')).subscribe((res) => {
+        this.addButton = '➕';
+        this.animeAdded = false;
+        if (res) {
           this.addButton = '✔';
           this.animeAdded = true;
         }
-      })
+      });
     });
   }
 
@@ -84,17 +86,17 @@ export class InfoComponent implements OnInit {
   }
 
   addedTrue() {
-      this.addButton = '✔';
-      if(this.animeService.checkAnime(this.selectedAnime.data.mal_id)){
-        this.animeService
+    this.addButton = '✔';
+    if (this.animeService.checkAnime(this.selectedAnime.data.mal_id)) {
+      this.animeService
         .addAnime({
           name: this.selectedAnime.data.title,
           mal_id: this.selectedAnime.data.mal_id,
           image: this.selectedAnime.data.images.jpg.image_url,
         })
         .subscribe((animeAdd) => (this.animeAdd = animeAdd));
-      }
-      this.animeAdded = true;
+    }
+    this.animeAdded = true;
   }
 
   sanitizedUrl(url: string) {

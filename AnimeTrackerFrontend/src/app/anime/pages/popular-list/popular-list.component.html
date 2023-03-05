@@ -11,12 +11,12 @@
     class="rounded overflow-hidden shadow-xs"
   >
     <span
-      class="absolute ml-auto font-bold text-3xl text-white bg-[#8509D3] rounded rounded-lg "
+      class="absolute ml-auto font-bold text-3xl text-white bg-[#8509D3] rounded-lg "
       >Nº{{ i + 1 + (page - 1) * 25 }}</span
     >
     <a routerLink="/anime/{{ anime.mal_id }}"
       ><img
-        class="w-[225px] rounded rounded-lg"
+        class="w-[225px] rounded-lg"
         src="{{ anime.images.jpg.image_url }}"
         alt="{{ anime.title }}"
     /></a>

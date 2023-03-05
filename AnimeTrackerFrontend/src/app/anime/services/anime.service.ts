@@ -6,6 +6,7 @@ import { Characters } from '../interfaces/characters';
 import { AnimeSearch, Data } from '../interfaces/anime-search';
 import { AnimeAdd } from '../interfaces/anime-add';
 import { Respuesta } from 'src/app/user/interfaces/user';
+import { AnimeUser } from '../interfaces/anime-user';
 
 @Injectable({
   providedIn: 'root',
@@ -48,6 +49,10 @@ export class AnimeService {
         this.animeUrl + '?page=' + page + '&order_by=score' + '&sort=desc'
       )
       .pipe(map((resp: AnimeSearch) => resp));
+  }
+
+  public getAnimesByUser(): Observable<AnimeUser> {
+    return this.http.get<AnimeUser>(this.URL + 'animes');
   }
 
   public addAnime(data: AnimeAdd): Observable<AnimeAdd> {
