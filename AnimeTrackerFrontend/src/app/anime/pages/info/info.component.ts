@@ -8,6 +8,7 @@ import { AnimeAdd } from '../../interfaces/anime-add';
 import { catchError, EMPTY } from 'rxjs';
 import { Respuesta } from 'src/app/user/interfaces/user';
 import { UserService } from '../../../user/services/user.service';
+import { B } from '@fullcalendar/core/internal-common';
 
 @Component({
   selector: 'app-info',
@@ -24,6 +25,7 @@ export class InfoComponent implements OnInit {
   animeAdded: boolean = false;
   addButton: string = "➕";
   userInfor:Respuesta;
+  charge:boolean=false;
 
   constructor(
     private route: ActivatedRoute,
@@ -37,7 +39,7 @@ export class InfoComponent implements OnInit {
 
     this.userService.me().subscribe(res=> {
       this.userInfor= res;
-
+      this.charge=true;
     })
   }
 
@@ -52,8 +54,9 @@ export class InfoComponent implements OnInit {
           this.addButton = '✔';
           this.animeAdded = true;
         }
-      });
+        });
     });
+   
   }
 
   getAnimeById(params: ParamMap): void {
