@@ -11,7 +11,6 @@ class Chapter_Anime extends Model
 
 
     protected $fillable=[
-        'id',
         'name',
         'date',
         'anime_id'

@@ -11,7 +11,6 @@ class Anime_User extends Model
 
 
     protected $fillable=[
-        'id',
         'user_id',
         'anime_id',
      ];

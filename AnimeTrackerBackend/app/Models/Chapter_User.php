@@ -10,7 +10,6 @@ class Chapter_User extends Model
     use HasFactory;
 
  protected $fillable=[
-    'id',
     'user_id',
     'chapter_id',
     'watched'

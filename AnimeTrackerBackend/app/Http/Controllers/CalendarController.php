@@ -113,7 +113,6 @@ class CalendarController extends Controller
     {
         try {
             Calendar::create($request->validate([
-                'id' => 'required|integer',
                 'user_id' => 'required|integer|unique:calendars'
             ]));
             $response = [
@@ -140,7 +139,6 @@ class CalendarController extends Controller
             if (Calendar::find($id)) {
 
                 Calendar::findOrFail($id)->update($request->validate([
-                    'id' => 'nullable|integer',
                     'user_id' => 'nullable|integer|unique:calendars'
 
                 ]));

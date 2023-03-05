@@ -13,8 +13,7 @@ class ChapterUserController extends Controller
     public function getAll(Request $request)
     {
         try {
-            $chapter_user = Chapter_User::all()->chapter->anime;
-            $chapter_info = Chapter_Anime::all()->chapter;
+            $chapter_user = Chapter_User::all();
 
             $response = [
                 'success' => true,

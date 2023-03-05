@@ -10,7 +10,6 @@ class Calendar extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id',
         'user_id'
     ];
 
@@ -24,10 +23,8 @@ class Calendar extends Model
         'created_at'
     ];
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
-       
     }
-
-   
 }

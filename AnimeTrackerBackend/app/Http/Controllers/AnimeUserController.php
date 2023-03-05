@@ -72,7 +72,6 @@ class AnimeUserController extends Controller
     {
         try {
             Anime_User::create($request->validate([
-                'id' => 'required|integer',
                 'user_id' => 'required|integer',
                 'anime_id' => 'required|integer'
             ]));
@@ -101,7 +100,6 @@ class AnimeUserController extends Controller
             if (Anime_User::find($id)) {
 
                 Anime_User::findOrFail($id)->update($request->validate([
-                    'id' => 'nullable|integer',
                     'user_id' => 'nullable|integer',
                     'anime_id' => 'nullable|integer'
                 ]));
