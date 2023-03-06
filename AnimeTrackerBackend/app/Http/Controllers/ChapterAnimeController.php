@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Chapter_Anime;
+use App\Models\AnimeChapter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PDOException;
@@ -12,12 +12,12 @@ class ChapterAnimeController extends Controller
     public function getAll(Request $request)
     {
         try {
-            $chapter_anime = Chapter_Anime::all();
+            $AnimeChapter = AnimeChapter::all();
 
             $response = [
                 'success' => true,
                 'message' => "Chapters anime obtained successfully",
-                'data' => $chapter_anime
+                'data' => $AnimeChapter
             ];
 
             return response($response, 200);
@@ -36,13 +36,13 @@ class ChapterAnimeController extends Controller
     public function getById(Request $request, $id)
     {
         try {
-            if (Chapter_Anime::find($id)) {
-                $chapter_anime = Chapter_Anime::findOrFail($id);
+            if (AnimeChapter::find($id)) {
+                $AnimeChapter = AnimeChapter::findOrFail($id);
 
                 $response = [
                     'success' => true,
                     'message' => "Chapter Anime obtained successfully",
-                    'data' => $chapter_anime
+                    'data' => $AnimeChapter
                 ];
 
                 return response($response, 200);
@@ -71,7 +71,7 @@ class ChapterAnimeController extends Controller
     public function post(Request $request)
     {
         try {
-            Chapter_Anime::create($request->validate([
+            AnimeChapter::create($request->validate([
                 'name' => 'required|string',
                 'aired' => 'required|string',
                 'anime_id' => 'required|integer',
@@ -80,7 +80,7 @@ class ChapterAnimeController extends Controller
             $response = [
                 'success' => true,
                 'message' => "Chapter Anime Created",
-                'data' => Chapter_Anime::find(DB::getPdo()->lastInsertId())
+                'data' => AnimeChapter::find(DB::getPdo()->lastInsertId())
             ];
 
             return response($response, 201);
@@ -98,9 +98,9 @@ class ChapterAnimeController extends Controller
     public function update(Request  $request, $id)
     {
         try {
-            if (Chapter_Anime::find($id)) {
+            if (AnimeChapter::find($id)) {
 
-                Chapter_Anime::findOrFail($id)->update($request->validate([
+                AnimeChapter::findOrFail($id)->update($request->validate([
                     'name' => 'nullable|string',
                     'aired' => 'nullable|string',
                     'anime_id' => 'nullable|integer',
@@ -109,7 +109,7 @@ class ChapterAnimeController extends Controller
                 $response = [
                     'success' => true,
                     'message' => "Chapter Anime Updated",
-                    'data' => Chapter_Anime::find($id)
+                    'data' => AnimeChapter::find($id)
                 ];
 
                 return response($response, 200);
@@ -136,16 +136,16 @@ class ChapterAnimeController extends Controller
     public function delete(Request $request, $id)
     {
         try {
-            if (Chapter_Anime::find($id)) {
+            if (AnimeChapter::find($id)) {
 
-                $chapter_anime = Chapter_Anime::findOrFail($id);
+                $AnimeChapter = AnimeChapter::findOrFail($id);
 
-                Chapter_Anime::findOrFail($id)->delete();
+                AnimeChapter::findOrFail($id)->delete();
 
                 $response = [
                     'success' => true,
                     'message' => "Chapter Anime deleted",
-                    'data' => $chapter_anime
+                    'data' => $AnimeChapter
                 ];
 
                 return response($response, 200);

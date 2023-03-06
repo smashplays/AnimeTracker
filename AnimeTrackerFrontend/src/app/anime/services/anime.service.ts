@@ -7,6 +7,8 @@ import { AnimeSearch, Data } from '../interfaces/anime-search';
 import { AnimeAdd } from '../interfaces/anime-add';
 import { Respuesta } from 'src/app/user/interfaces/user';
 import { AnimeUser } from '../interfaces/anime-user';
+import { Episode } from '../interfaces/episodes';
+import { Chapters } from '../interfaces/chapters';
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +28,12 @@ export class AnimeService {
     return this.http
       .get<Anime>(this.animeUrl + '/' + id)
       .pipe(map((resp: Anime) => resp));
+  }
+
+  public getAnimeEpisodes(id: number): Observable<Episode>{
+    return this.http
+      .get<Episode>(this.animeUrl + '/' + id + '/episodes')
+      .pipe(map((resp: Episode) => resp));
   }
 
   public getAnimeSearch(query: string): Observable<Data[]> {
@@ -59,6 +67,17 @@ export class AnimeService {
 
   public addAnime(data: AnimeAdd): Observable<AnimeAdd> {
     return this.http.post<AnimeAdd>(this.URL + 'animes', data, {
+      headers: this.headers,
+    });
+  }
+
+  public addAnimeEpisodes(name: string, aired: string, anime_id: number): Observable<Chapters>{
+    let data = {
+      "name": name,
+      "aired": aired,
+      "anime_id": anime_id
+    }
+    return this.http.post<Chapters>(this.URL + 'chapters', data, {
       headers: this.headers,
     });
   }

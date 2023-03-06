@@ -9,6 +9,8 @@ import { catchError, EMPTY } from 'rxjs';
 import { Respuesta } from 'src/app/user/interfaces/user';
 import { UserService } from '../../../user/services/user.service';
 import { B } from '@fullcalendar/core/internal-common';
+import { Episode } from '../../interfaces/episodes';
+import { Chapters } from '../../interfaces/chapters';
 
 @Component({
   selector: 'app-info',
@@ -19,13 +21,16 @@ export class InfoComponent implements OnInit {
   selectedAnime: Anime;
   animeAdd: AnimeAdd;
   animeCharacters: Characters;
+  episodes: Episode;
+  chaptersAnime: Chapters;
+
   characters: boolean = true;
   trailer: boolean = false;
   chapters: boolean = false;
   animeAdded: boolean = false;
-  addButton: string = "➕";
-  userInfor:Respuesta;
-  charge:boolean=false;
+  addButton: string = '➕';
+  userInfor: Respuesta;
+  charge: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -36,16 +41,16 @@ export class InfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.paramMapSubscription();
-
-    this.userService.me().subscribe(res=> {
-      this.userInfor= res;
-      this.charge=true;
-    })
+    this.userService.me().subscribe((res) => {
+      this.userInfor = res;
+      this.charge = true;
+    });
   }
 
   paramMapSubscription(): void {
     this.route.paramMap.subscribe((params) => {
       this.getAnimeById(params);
+      this.getAnimeEpisodes(params);
       this.getAnimeCharacters(params);
       this.animeService.checkAnime(+params.get('id')).subscribe((res) => {
         this.addButton = '➕';
@@ -54,15 +59,20 @@ export class InfoComponent implements OnInit {
           this.addButton = '✔';
           this.animeAdded = true;
         }
-        });
+      });
     });
-   
   }
 
   getAnimeById(params: ParamMap): void {
     this.animeService
       .getAnimeById(+params.get('id'))
       .subscribe((anime) => (this.selectedAnime = anime));
+  }
+
+  getAnimeEpisodes(params: ParamMap): void {
+    this.animeService
+      .getAnimeEpisodes(+params.get('id'))
+      .subscribe((episodes) => (this.episodes = episodes));
   }
 
   getAnimeCharacters(params: ParamMap): void {
@@ -106,10 +116,23 @@ export class InfoComponent implements OnInit {
           mal_id: this.selectedAnime.data.mal_id,
           image: this.selectedAnime.data.images.jpg.image_url,
         })
-        .subscribe((animeAdd) => (this.animeAdd = animeAdd));
+        .subscribe((animeAdd) => {
+          this.animeAdd = animeAdd;
+          this.episodes.data.forEach((element, index) => {
+            this.animeService.addAnimeEpisodes(
+              this.selectedAnime.data.title + ' Episode ' + (index + 1) + ' ' + this.episodes.data[index].title,
+              this.episodes.data[index].aired,
+              this.selectedAnime.data.mal_id
+            ).subscribe((chapters) => {
+              this.chaptersAnime = chapters;
+            });
+          });
+        });
     }
-    
-    this.animeService.addAnimeUser(this.userInfor.data.id,this.selectedAnime.data.mal_id).subscribe( res=> console.log('agregado'));
+
+    this.animeService
+      .addAnimeUser(this.userInfor.data.id, this.selectedAnime.data.mal_id)
+      .subscribe((res) => console.log('agregado'));
     this.animeAdded = true;
   }
 
