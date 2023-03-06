@@ -9,6 +9,7 @@ import { Respuesta } from 'src/app/user/interfaces/user';
 import { UserService } from '../../../user/services/user.service';
 import { Episode } from '../../interfaces/episodes';
 import { Chapters } from '../../interfaces/chapters';
+import { ChapterInfo } from '../../interfaces/chapter-info';
 
 @Component({
   selector: 'app-info',
@@ -20,6 +21,7 @@ export class InfoComponent implements OnInit {
   animeCharacters: Characters;
   episodes: Episode;
   chaptersAnime: Chapters;
+  chapterInfo: ChapterInfo;
 
   characters: boolean = true;
   trailer: boolean = false;
@@ -49,6 +51,7 @@ export class InfoComponent implements OnInit {
       this.getAnimeById(params);
       this.getAnimeEpisodes(params);
       this.getAnimeCharacters(params);
+      this.getAnimeChaptersInfo(params);
       this.animeService.checkAnime(+params.get('id')).subscribe((res) => {
         this.addButton = '➕';
         this.animeAdded = false;
@@ -70,6 +73,12 @@ export class InfoComponent implements OnInit {
     this.animeService
       .getAnimeEpisodes(+params.get('id'))
       .subscribe((episodes) => (this.episodes = episodes));
+  }
+
+  getAnimeChaptersInfo(params: ParamMap): void {
+    this.animeService
+      .getAnimeChaptersInfo(+params.get('id'))
+      .subscribe((chapterInfo) => (this.chapterInfo = chapterInfo));
   }
 
   getAnimeCharacters(params: ParamMap): void {

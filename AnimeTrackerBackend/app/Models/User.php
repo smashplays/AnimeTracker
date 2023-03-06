@@ -46,7 +46,6 @@ class User extends Authenticatable
 
     public function animes() {
         return $this->hasMany(AnimeUser::class);
-       
     }
 
 

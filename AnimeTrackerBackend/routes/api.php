@@ -72,6 +72,7 @@ Route::prefix('/animes')->group(function () {
 
 Route::prefix('/chapters')->group(function () {
     Route::get('', [ChapterAnimeController::class, 'getAll']);
+    Route::middleware('validate.id')->get('/anime/{id}', [ChapterAnimeController::class, 'getByIdAnime']);
     Route::middleware('validate.id')->get('/{id}', [ChapterAnimeController::class, 'getById']);
     Route::post('', [ChapterAnimeController::class, 'post']);
     Route::middleware('validate.id')->delete('/{id}', [ChapterAnimeController::class, 'delete']);

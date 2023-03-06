@@ -123,4 +123,10 @@
       </div>
     </div>
   </div>
+
+  <div *ngIf="chapters">
+    <div *ngFor="let chapter of chapterInfo.data" class="text-center">
+      {{chapter.name}} {{chapter.aired}}
+    </div>
+  </div>
 </div>

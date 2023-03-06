@@ -9,6 +9,7 @@ import { Respuesta } from 'src/app/user/interfaces/user';
 import { AnimeUser } from '../interfaces/anime-user';
 import { Episode } from '../interfaces/episodes';
 import { Chapters } from '../interfaces/chapters';
+import { ChapterInfo } from '../interfaces/chapter-info';
 
 @Injectable({
   providedIn: 'root',
@@ -34,6 +35,12 @@ export class AnimeService {
     return this.http
       .get<Episode>(this.animeUrl + '/' + id + '/episodes')
       .pipe(map((resp: Episode) => resp));
+  }
+
+  public getAnimeChaptersInfo(id: number): Observable<ChapterInfo> {
+    return this.http
+      .get<ChapterInfo>(this.URL + 'chapters/anime/' + id)
+      .pipe(map((resp: ChapterInfo) => resp));
   }
 
   public getAnimeSearch(query: string): Observable<Data[]> {

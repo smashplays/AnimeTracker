@@ -45,8 +45,6 @@ class UserController extends Controller
             if (User::find($id)) {
                 $user = User::findOrFail($id);
 
-
-
                 $response = [
                     'success' => true,
                     'message' => "User obtained successfully",
@@ -78,13 +76,9 @@ class UserController extends Controller
 
     public function getByIdAnime(Request $request, $id)
     {
-
-
         try {
             if (User::find($id)) {
                 $user = User::findOrFail($id)->animes()->with('anime')->get();
-
-
 
                 $response = [
                     'success' => true,

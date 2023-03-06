@@ -68,6 +68,39 @@ class ChapterAnimeController extends Controller
         }
     }
 
+    public function getByIdAnime(Request $request, $id)
+    {
+        try {
+            if (AnimeChapter::where('anime_id', $id)->get()) {
+                $AnimeChapters = AnimeChapter::where('anime_id', $id)->get();
+                $response = [
+                    'success' => true,
+                    'message' => "Anime Chapters obtained successfully",
+                    'data' => $AnimeChapters
+                ];
+
+                return response($response, 200);
+            } else {
+
+                $response = [
+                    'success' => false,
+                    'message' => "Anime Not Found",
+                    'data' => null
+                ];
+
+                return response($response, 404);
+            }
+        } catch (PDOException $ex) {
+
+            $response = [
+                'success' => false,
+                'message' => "Connection Failed",
+                'data' => $ex->errorInfo
+            ];
+            return response($response, 500);
+        }
+    }
+
     public function post(Request $request)
     {
         try {

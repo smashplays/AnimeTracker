@@ -16,8 +16,6 @@ class AnimeChapter extends Model
         'anime_id'
      ];
 
-
-
      public function anime() {
         return $this->hasOne(Anime::class);
        
