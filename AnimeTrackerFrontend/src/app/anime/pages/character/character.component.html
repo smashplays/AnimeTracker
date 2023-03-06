@@ -3,7 +3,7 @@
     <img
       src="{{ selectedCharacter.data.images.jpg.image_url }}"
       alt="{{ selectedCharacter.data.name }}"
-      class="w-[225px] rounded rounded-lg"
+      class="w-[225px] rounded-lg"
     />
   </div>
 
@@ -20,8 +20,20 @@
   <hr />
 
   <div class="text-center mt-5">
-    <button class="p-2 mr-5 rounded rounded-lg" (click)="animeBool()" [class.bg-[#7F5F93]]="anime">Animes</button>
-    <button class="p-2 rounded rounded-lg" (click)="voiceActorBool()" [class.bg-[#7F5F93]]="actor">Voice Actors</button>
+    <button
+      class="p-2 mr-5 rounded-lg"
+      (click)="animeBool()"
+      [class.bg-[#7F5F93]]="anime"
+    >
+      Animes
+    </button>
+    <button
+      class="p-2 rounded-lg"
+      (click)="voiceActorBool()"
+      [class.bg-[#7F5F93]]="actor"
+    >
+      Voice Actors
+    </button>
   </div>
 
   <div
@@ -36,7 +48,7 @@
         ><img
           src="{{ anime.anime.images.jpg.image_url }}"
           alt="{{ anime.anime.title }}"
-          class="w-[225px] rounded rounded-lg"
+          class="w-[225px] rounded-lg"
       /></a>
       <div class="flex flex-box w-[225px] font-bold text-xl mb-2 text-white">
         {{ anime.anime.title }}
@@ -55,10 +67,10 @@
       <img
         src="{{ voices.person.images.jpg.image_url }}"
         alt="{{ voices.person.name }}"
-        class="w-[225px] rounded rounded-lg"
+        class="w-[225px] rounded-lg"
       />
       <div class="flex flex-box w-[225px] font-bold text-xl mb-2 text-white">
-        {{ voices.person.name }} ({{voices.language}})
+        {{ voices.person.name }} ({{ voices.language }})
       </div>
     </div>
   </div>

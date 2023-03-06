@@ -26,6 +26,8 @@ Route::prefix('/users')->group(function () {
 
     Route::middleware('validate.id')->get('/{id}', [UserController::class, 'getById']);
 
+    Route::middleware('validate.id')->get('/{id}/animes', [UserController::class, 'getByIdAnime']);
+
     Route::post('', [UserController::class, 'post']);
 
     Route::middleware('validate.id')->delete('/{id}', [UserController::class, 'delete']);

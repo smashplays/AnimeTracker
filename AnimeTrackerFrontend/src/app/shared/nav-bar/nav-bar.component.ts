@@ -6,8 +6,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
-  templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.css']
+  templateUrl: './nav-bar.component.html'
 })
 export class NavBarComponent {
   input: string = '';
@@ -15,14 +14,13 @@ export class NavBarComponent {
   suggestedAnimes: Data[];
   suggestedAnimesCopy: Data[];
   moreButton: boolean = false;
-  hidden:boolean=true;
+  hidden: boolean = true;
 
   constructor(
     private animeService: AnimeService,
-    private loginservice :LoginService,
-    private router : Router) {
-    
-  }
+    private loginservice: LoginService,
+    private router: Router
+  ) {}
 
   sugerencias(input: string): void {
     this.input = input;
@@ -54,27 +52,20 @@ export class NavBarComponent {
     this.sugerencias('');
   }
 
-
-  logout():void {
-
+  logout(): void {
     if (localStorage.getItem('token')) {
-      this.loginservice.logout().subscribe(res => {
+      this.loginservice.logout().subscribe((res) => {
         if (res.success) {
           localStorage.removeItem('token');
           this.router.navigate(['login']);
         }
       });
+    } else {
+      console.log('No estas logeado');
     }
-
-    else {
-      console.log('No estas logeado')
-    }
-
   }
 
-  toggleUser(){
-    this.hidden=!this.hidden;
+  toggleUser() {
+    this.hidden = !this.hidden;
   }
-
-
 }

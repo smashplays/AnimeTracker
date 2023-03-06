@@ -5,17 +5,14 @@ import { AnimeService } from '../../services/anime.service';
 import { Characters } from '../../interfaces/characters';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AnimeAdd } from '../../interfaces/anime-add';
-import { catchError, EMPTY } from 'rxjs';
 import { Respuesta } from 'src/app/user/interfaces/user';
 import { UserService } from '../../../user/services/user.service';
-import { B } from '@fullcalendar/core/internal-common';
 import { Episode } from '../../interfaces/episodes';
 import { Chapters } from '../../interfaces/chapters';
 
 @Component({
   selector: 'app-info',
   templateUrl: './info.component.html',
-  styleUrls: ['./info.component.css'],
 })
 export class InfoComponent implements OnInit {
   selectedAnime: Anime;
@@ -119,13 +116,19 @@ export class InfoComponent implements OnInit {
         .subscribe((animeAdd) => {
           this.animeAdd = animeAdd;
           this.episodes.data.forEach((element, index) => {
-            this.animeService.addAnimeEpisodes(
-              this.selectedAnime.data.title + ' Episode ' + (index + 1) + ' ' + this.episodes.data[index].title,
-              this.episodes.data[index].aired,
-              this.selectedAnime.data.mal_id
-            ).subscribe((chapters) => {
-              this.chaptersAnime = chapters;
-            });
+            this.animeService
+              .addAnimeEpisodes(
+                this.selectedAnime.data.title +
+                  ' Episode ' +
+                  (index + 1) +
+                  ' ' +
+                  this.episodes.data[index].title,
+                this.episodes.data[index].aired,
+                this.selectedAnime.data.mal_id
+              )
+              .subscribe((chapters) => {
+                this.chaptersAnime = chapters;
+              });
           });
         });
     }

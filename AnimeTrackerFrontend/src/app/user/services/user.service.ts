@@ -16,19 +16,12 @@ export class UserService {
     .set('Access-Control-Allow-Origin', '*')
     .set('Authorization', 'Bearer ' + localStorage.getItem('token'));
 
-
-
-
-    
   me(): Observable<Respuesta> {
+    let headers = new HttpHeaders()
+      .set('content-type', 'application/json')
+      .set('Access-Control-Allow-Origin', '*')
+      .set('Authorization', 'Bearer ' + localStorage.getItem('token'));
 
-   let headers = new HttpHeaders()
-    .set('content-type', 'application/json')
-    .set('Access-Control-Allow-Origin', '*')
-    .set('Authorization', 'Bearer ' + localStorage.getItem('token'));
-
-
-    
     return this.http.get<Respuesta>(this.URL + 'me', { headers: headers });
   }
 }

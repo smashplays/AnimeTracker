@@ -6,32 +6,32 @@ export interface Anime {
       jpg: { image_url: string };
     };
     trailer: {
-      youtube_id: string
-      embed_url: string
-      url: string
+      youtube_id: string;
+      embed_url: string;
+      url: string;
     };
     title: string;
     synopsis: string;
     aired: {
-        prop: {
-            from: {
-                day: number,
-                month: number,
-                year: number
-            },
-            to: {
-                day: number,
-                month: number,
-                year: number
-            }
-        }
+      prop: {
+        from: {
+          day: number;
+          month: number;
+          year: number;
+        };
+        to: {
+          day: number;
+          month: number;
+          year: number;
+        };
+      };
     };
     episodes: number;
     members: number;
     genres: [
-        {
-            name: string
-        }
+      {
+        name: string;
+      }
     ];
     score: number;
   };

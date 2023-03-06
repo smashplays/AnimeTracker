@@ -8,7 +8,6 @@ import { Voices } from '../interfaces/voices';
 @Injectable({
   providedIn: 'root',
 })
-
 export class CharacterService {
   constructor(private http: HttpClient) {}
 
@@ -26,7 +25,7 @@ export class CharacterService {
       .pipe(map((resp: AnimeCharacter) => resp));
   }
 
-  public getCharacterVoices(id: number): Observable<Voices>{
+  public getCharacterVoices(id: number): Observable<Voices> {
     return this.http
       .get<Voices>(this.characterUrl + '/' + id + '/voices')
       .pipe(map((resp: Voices) => resp));

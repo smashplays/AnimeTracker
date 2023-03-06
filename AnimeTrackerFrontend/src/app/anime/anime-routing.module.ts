@@ -7,35 +7,31 @@ import { MainComponent } from './pages/main/main.component';
 
 const routes: Routes = [
   {
-      path: '',
-      component: MainComponent,
-      children: [
-        {
-          path: 'popular',
-          component: PopularListComponent
-        },
-        {
-          path: ':id',
-          component: InfoComponent
-        },
-        {
-          path: 'character/:id',
-          component: CharacterComponent
-        },
-        {
-          path: '**',
-          redirectTo: 'popular'
-        }
-      ]
-  }
-]
+    path: '',
+    component: MainComponent,
+    children: [
+      {
+        path: 'popular',
+        component: PopularListComponent,
+      },
+      {
+        path: ':id',
+        component: InfoComponent,
+      },
+      {
+        path: 'character/:id',
+        component: CharacterComponent,
+      },
+      {
+        path: '**',
+        redirectTo: 'popular',
+      },
+    ],
+  },
+];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(routes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-export class AnimeRoutingModule { }
+export class AnimeRoutingModule {}

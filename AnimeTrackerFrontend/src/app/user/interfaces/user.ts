@@ -1,6 +1,6 @@
 export interface Respuesta {
   data: {
-    id:number;
+    id: number;
     name: string;
   };
   message: string;

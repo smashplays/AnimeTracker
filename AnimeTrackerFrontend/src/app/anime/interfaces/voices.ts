@@ -3,13 +3,13 @@ export interface Voices {
     {
       language: string;
       person: {
-        images:{
-            jpg:{
-                image_url: string;
-            }
-        }
+        images: {
+          jpg: {
+            image_url: string;
+          };
+        };
         name: string;
-      }
+      };
     }
   ];
 }

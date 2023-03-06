@@ -5,7 +5,6 @@ import { AnimeService } from '../../services/anime.service';
 @Component({
   selector: 'app-popular-list',
   templateUrl: './popular-list.component.html',
-  styleUrls: ['./popular-list.component.css'],
 })
 export class PopularListComponent implements OnInit {
   constructor(private animeService: AnimeService) {}
@@ -17,7 +16,7 @@ export class PopularListComponent implements OnInit {
     this.getAnimePopular();
   }
 
-  getAnimePopular(){
+  getAnimePopular() {
     this.animeService.getAnimePopular(this.page).subscribe((animes) => {
       this.popularAnime = animes;
     });

@@ -37,10 +37,7 @@
         />
 
         <div
-          *ngIf="
-            userForm.get('email').invalid &&
-            userForm.get('email').touched 
-          "
+          *ngIf="userForm.get('email').invalid && userForm.get('email').touched"
           class="text-red-100 mt-2"
         >
           Email obligatorio
@@ -57,9 +54,12 @@
           class="bg-[#7F5F93] placeholder-white text-white block w-full rounded-lg py-3 px-4 focus:outline-none focus:shadow-outline-blue focus:border-blue-300"
         />
 
-        <div *ngIf="userForm.get('password').invalid &&
-            userForm.get('password').touched " 
-            class="text-red-100 mt-2">
+        <div
+          *ngIf="
+            userForm.get('password').invalid && userForm.get('password').touched
+          "
+          class="text-red-100 mt-2"
+        >
           Password obligatorio
         </div>
       </div>
@@ -75,9 +75,10 @@
         />
 
         <div
-          *ngIf="userForm.get('rpassword').invalid
-          &&
-            userForm.get('rpassword').touched"
+          *ngIf="
+            userForm.get('rpassword').invalid &&
+            userForm.get('rpassword').touched
+          "
           class="text-red-100 mt-2"
         >
           Password obligatorio
@@ -102,12 +103,12 @@
 
       <div class="flex items-center justify-center">
         <button
-          class="bg-[#9229D5] hover:bg-[#4E047D] text-white font-bold py-3 px-5 rounded-lg mt-4 focus:outline-none focus:shadow-outline  disabled:text-gray-500 disabled:bg-purple-800 disabled:hover:bg-none "
+          class="bg-[#9229D5] hover:bg-[#4E047D] text-white font-bold py-3 px-5 rounded-lg mt-4 focus:outline-none focus:shadow-outline disabled:text-gray-500 disabled:bg-purple-800 disabled:hover:bg-none"
           type="submit"
           (click)="register()"
           [disabled]="validateForm()"
         >
-         Send
+          Send
         </button>
       </div>
     </form>

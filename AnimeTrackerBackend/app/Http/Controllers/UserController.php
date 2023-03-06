@@ -37,7 +37,7 @@ class UserController extends Controller
     }
 
 
-    public function getByIdAnime(Request $request, $id)
+    public function getById(Request $request, $id)
     {
 
 
@@ -76,7 +76,7 @@ class UserController extends Controller
     }
 
 
-    public function getById(Request $request, $id)
+    public function getByIdAnime(Request $request, $id)
     {
 
 

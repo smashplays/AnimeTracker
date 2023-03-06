@@ -7,23 +7,14 @@ import { AppRoutingModule } from '../app-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { MainComponent } from './pages/main/main.component';
 
-
 @NgModule({
   declarations: [
     CharacterComponent,
     PopularListComponent,
     InfoComponent,
-    MainComponent  
+    MainComponent,
   ],
-  exports: [
-    CharacterComponent,
-    PopularListComponent,
-    InfoComponent
-  ],
-  imports: [
-    CommonModule,
-    AppRoutingModule,
-    SharedModule
-  ]
+  exports: [CharacterComponent, PopularListComponent, InfoComponent],
+  imports: [CommonModule, AppRoutingModule, SharedModule],
 })
-export class AnimeModule { }
+export class AnimeModule {}

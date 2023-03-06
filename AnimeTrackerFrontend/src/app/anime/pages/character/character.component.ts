@@ -2,13 +2,11 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Character } from '../../interfaces/character';
 import { CharacterService } from '../../services/character.service';
-import { Location } from '@angular/common';
 import { AnimeCharacter } from '../../interfaces/anime-character';
 import { Voices } from '../../interfaces/voices';
 @Component({
   selector: 'app-character',
   templateUrl: './character.component.html',
-  styleUrls: ['./character.component.css'],
 })
 export class CharacterComponent {
   selectedCharacter: Character;

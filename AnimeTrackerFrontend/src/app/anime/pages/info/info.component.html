@@ -51,7 +51,10 @@
     <h1 class="text-white text-3xl mb-2">
       {{ selectedAnime.data.title | uppercase }}
     </h1>
-    <button class="bg-[#9229D5] text-white rounded-lg w-[30px] mb-2" (click)="addAnime()">
+    <button
+      class="bg-[#9229D5] text-white rounded-lg w-[30px] mb-2"
+      (click)="addAnime()"
+    >
       {{ addButton }}
     </button>
   </div>
@@ -63,16 +66,36 @@
   <hr />
 
   <div class="text-center mt-5">
-    <button *ngIf="selectedAnime.data.trailer.embed_url" class="p-2 mr-5 rounded-lg" (click)="trailerBool()" [class.bg-[#7F5F93]]="trailer">Trailer</button>
-    <button class="p-2 mr-5 rounded-lg" (click)="characterBool()" [class.bg-[#7F5F93]]="characters">Characters</button>
-    <button *ngIf="animeAdded" class="p-2 rounded-lg" (click)="chaptersBool()" [class.bg-[#7F5F93]]="chapters">Chapters</button>
+    <button
+      *ngIf="selectedAnime.data.trailer.embed_url"
+      class="p-2 mr-5 rounded-lg"
+      (click)="trailerBool()"
+      [class.bg-[#7F5F93]]="trailer"
+    >
+      Trailer
+    </button>
+    <button
+      class="p-2 mr-5 rounded-lg"
+      (click)="characterBool()"
+      [class.bg-[#7F5F93]]="characters"
+    >
+      Characters
+    </button>
+    <button
+      *ngIf="animeAdded"
+      class="p-2 rounded-lg"
+      (click)="chaptersBool()"
+      [class.bg-[#7F5F93]]="chapters"
+    >
+      Chapters
+    </button>
   </div>
 
   <div *ngIf="trailer" class="mb-5">
     <iframe
       width="560"
       height="315"
-      [src]=sanitizedUrl(selectedAnime.data.trailer.embed_url)
+      [src]="sanitizedUrl(selectedAnime.data.trailer.embed_url)"
       title="YouTube video player"
       frameborder="0"
       allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

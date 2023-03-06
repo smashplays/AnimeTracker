@@ -30,7 +30,7 @@ export class AnimeService {
       .pipe(map((resp: Anime) => resp));
   }
 
-  public getAnimeEpisodes(id: number): Observable<Episode>{
+  public getAnimeEpisodes(id: number): Observable<Episode> {
     return this.http
       .get<Episode>(this.animeUrl + '/' + id + '/episodes')
       .pipe(map((resp: Episode) => resp));
@@ -59,11 +59,14 @@ export class AnimeService {
       .pipe(map((resp: AnimeSearch) => resp));
   }
 
-  public getAnimesByUser(id:number): Observable<AnimeUser> {
-    return this.http.get<AnimeUser>(this.URL + 'users/'+id).pipe(map((res:AnimeUser)=>{console.log(res);   return res}));
+  public getAnimesByUser(id: number): Observable<AnimeUser> {
+    return this.http.get<AnimeUser>(this.URL + 'users/' + id + '/animes').pipe(
+      map((res: AnimeUser) => {
+        console.log(res);
+        return res;
+      })
+    );
   }
-
-
 
   public addAnime(data: AnimeAdd): Observable<AnimeAdd> {
     return this.http.post<AnimeAdd>(this.URL + 'animes', data, {
@@ -71,24 +74,26 @@ export class AnimeService {
     });
   }
 
-  public addAnimeEpisodes(name: string, aired: string, anime_id: number): Observable<Chapters>{
+  public addAnimeEpisodes(
+    name: string,
+    aired: string,
+    anime_id: number
+  ): Observable<Chapters> {
     let data = {
-      "name": name,
-      "aired": aired,
-      "anime_id": anime_id
-    }
+      name: name,
+      aired: aired,
+      anime_id: anime_id,
+    };
     return this.http.post<Chapters>(this.URL + 'chapters', data, {
       headers: this.headers,
     });
   }
 
-
-  public addAnimeUser(user:number,anime:number): Observable<AnimeAdd> {
-    
+  public addAnimeUser(user: number, anime: number): Observable<AnimeAdd> {
     let data = {
-      "user_id":user,
-      "anime_id":anime
-    }
+      user_id: user,
+      anime_id: anime,
+    };
     return this.http.post<AnimeAdd>(this.URL + 'anime-user', data, {
       headers: this.headers,
     });

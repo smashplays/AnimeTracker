@@ -1,7 +1,7 @@
 <div>
-    <h1 class="text-white text-3xl mb-2 text-center">
-        {{userName.data.name | uppercase}}'S ANIME LIST
-    </h1>
+  <h1 class="text-white text-3xl mb-2 text-center">
+    {{ userName.data.name | uppercase }}'S ANIME LIST
+  </h1>
 </div>
 
 <div
@@ -12,7 +12,7 @@
     *ngFor="let anime of animes.data"
     class="rounded overflow-hidden shadow-xs"
   >
-    <a routerLink="/anime/{{ anime.anime.mal_id}}"
+    <a routerLink="/anime/{{ anime.anime.mal_id }}"
       ><img
         class="w-[225px] rounded-lg"
         src="{{ anime.anime.image }}"

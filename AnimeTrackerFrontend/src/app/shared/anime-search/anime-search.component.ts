@@ -3,8 +3,7 @@ import { debounceTime, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-anime-search',
-  templateUrl: './anime-search.component.html',
-  styleUrls: ['./anime-search.component.css']
+  templateUrl: './anime-search.component.html'
 })
 export class AnimeSearchComponent {
   @Output() onDebounce: EventEmitter<string> = new EventEmitter();

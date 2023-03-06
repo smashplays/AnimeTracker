@@ -1,5 +1,5 @@
 export interface Chapters {
-    "name": string,
-    "aired": string,
-    "anime_id": number
+  name: string;
+  aired: string;
+  anime_id: number;
 }
