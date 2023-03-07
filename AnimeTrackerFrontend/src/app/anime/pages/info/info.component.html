@@ -81,14 +81,6 @@
     >
       Characters
     </button>
-    <button
-      *ngIf="animeAdded"
-      class="p-2 rounded-lg"
-      (click)="chaptersBool()"
-      [class.bg-[#7F5F93]]="chapters"
-    >
-      Chapters
-    </button>
   </div>
 
   <div *ngIf="trailer" class="mb-5">
@@ -121,12 +113,6 @@
       <div class="flex flex-box w-[225px] font-bold text-xl mb-2 text-white">
         {{ character.character.name }}
       </div>
-    </div>
-  </div>
-
-  <div *ngIf="chapters">
-    <div *ngFor="let chapter of chapterInfo.data" class="text-center">
-      {{chapter.name}} {{chapter.aired}}
     </div>
   </div>
 </div>

@@ -106,7 +106,10 @@ export class AnimeService {
     });
   }
 
-  public addChapterUser(user_id: number, anime_chapter_id: number): Observable<ChapterInfo> {
+  public addChapterUser(
+    user_id: number,
+    anime_chapter_id: number
+  ): Observable<ChapterInfo> {
     let data = {
       watched: false,
       user_id: user_id,
@@ -126,6 +129,20 @@ export class AnimeService {
   public checkAnime(id: number): Observable<boolean> {
     return this.http
       .get<Respuesta>(this.URL + `animes/${id}`, { headers: this.headers })
+      .pipe(
+        map((res) => {
+          if (!res.success) {
+            return false;
+          } else {
+            return true;
+          }
+        })
+      );
+  }
+
+  public checkAnimeUser(user: number, anime: number): Observable<boolean> {
+    return this.http
+      .get<Respuesta>(this.URL + `anime-user/${user}/anime/${anime}`, { headers: this.headers })
       .pipe(
         map((res) => {
           if (!res.success) {

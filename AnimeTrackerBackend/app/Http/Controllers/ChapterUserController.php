@@ -37,8 +37,8 @@ class ChapterUserController extends Controller
     public function getById(Request $request, $id)
     {
         try {
-            if (UserChapters::find($id)) {
-                $UserChapters = UserChapters::findOrFail($id);
+            if (UserChapters::where('user_id', $id)->first()) {
+                $UserChapters = UserChapters::where('user_id', $id)->get();
 
                 $response = [
                     'success' => true,

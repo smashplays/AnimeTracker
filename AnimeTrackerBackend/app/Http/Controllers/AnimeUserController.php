@@ -37,7 +37,7 @@ class AnimeUserController extends Controller
     public function getById(Request $request, $id)
     {
         try {
-            if (AnimeUser::where('user_id',$id)) {
+            if (AnimeUser::where('user_id', $id)) {
                 $AnimeUser = AnimeUser::findOrFail($id)->anime;
 
 
@@ -163,6 +163,47 @@ class AnimeUserController extends Controller
                 return response($response, 404);
             }
         } catch (PDOException $exception) {
+            $response = [
+                'success' => false,
+                'message' => "Connection Failed",
+                'data' => $exception->errorInfo
+            ];
+
+            return response($response, 500);
+        }
+    }
+
+    public function CheckAnimeandUser(Request $request, $user, $anime)
+    {
+        try {
+            if (AnimeUser::where([
+                ['user_id', '=', $user],
+                ['anime_id', '=', $anime],
+            ])->first()) {
+                $AnimeUser = AnimeUser::where([
+                    ['user_id', '=', $user],
+                    ['anime_id', '=', $anime],
+                ])->get();
+
+                $response = [
+                    'success' => true,
+                    'message' => "User and Anime obtained successfully",
+                    'data' => $AnimeUser
+                ];
+
+                return response($response, 200);
+            } else {
+
+                $response = [
+                    'success' => false,
+                    'message' => "User and Anime Not Found",
+                    'data' => null
+                ];
+
+                return response($response, 404);
+            }
+        } catch (PDOException $exception) {
+
             $response = [
                 'success' => false,
                 'message' => "Connection Failed",

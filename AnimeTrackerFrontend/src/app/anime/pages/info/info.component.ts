@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Anime } from '../../interfaces/anime';
 import { AnimeService } from '../../services/anime.service';
 import { Characters } from '../../interfaces/characters';
@@ -10,6 +10,7 @@ import { UserService } from '../../../user/services/user.service';
 import { Episode } from '../../interfaces/episodes';
 import { Chapters } from '../../interfaces/chapters';
 import { ChapterInfo } from '../../interfaces/chapter-info';
+import { catchError, EMPTY } from 'rxjs';
 
 @Component({
   selector: 'app-info',
@@ -33,6 +34,7 @@ export class InfoComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private animeService: AnimeService,
     private userService: UserService,
     private sanitizer: DomSanitizer
@@ -42,6 +44,14 @@ export class InfoComponent implements OnInit {
     this.paramMapSubscription();
     this.userService.me().subscribe((res) => {
       this.userInfor = res;
+      this.animeService.checkAnimeUser(this.userInfor.data.id, this.selectedAnime.data.mal_id).subscribe((res) => {
+        this.addButton = '➕';
+        this.animeAdded = false;
+        if (res) {
+          this.addButton = '✔';
+          this.animeAdded = true;
+        }
+      });
       this.charge = true;
     });
   }
@@ -51,20 +61,20 @@ export class InfoComponent implements OnInit {
       this.getAnimeById(params);
       this.getAnimeEpisodes(params);
       this.getAnimeCharacters(params);
-      this.animeService.checkAnime(+params.get('id')).subscribe((res) => {
-        this.addButton = '➕';
-        this.animeAdded = false;
-        if (res) {
-          this.addButton = '✔';
-          this.animeAdded = true;
-        }
-      });
     });
   }
 
   getAnimeById(params: ParamMap): void {
     this.animeService
       .getAnimeById(+params.get('id'))
+      .pipe(
+        catchError((err) => {
+          if (err.status === 404) {
+            this.router.navigate(['anime/popular']);
+          }
+          return EMPTY;
+        })
+      )
       .subscribe((anime) => (this.selectedAnime = anime));
   }
 
