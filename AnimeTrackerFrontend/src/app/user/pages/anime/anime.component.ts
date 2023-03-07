@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Anime } from '../../../anime/interfaces/anime';
-import { ChapterInfo } from '../../../anime/interfaces/chapter-info';
 import { AnimeService } from 'src/app/anime/services/anime.service';
 import { Respuesta } from '../../interfaces/user';
 import { UserService } from '../../services/user.service';
 import { catchError, EMPTY } from 'rxjs';
+import { ChapterUser } from 'src/app/anime/interfaces/chapter-user';
 
 @Component({
   selector: 'app-anime',
@@ -13,7 +13,7 @@ import { catchError, EMPTY } from 'rxjs';
 })
 export class AnimeComponent {
   selectedAnime: Anime;
-  chapterInfo: ChapterInfo;
+  chapterInfo: ChapterUser;
   userInfor: Respuesta;
   error: boolean = true;
 
@@ -45,7 +45,7 @@ export class AnimeComponent {
           .subscribe((res) => {
             if (res) {
               this.getAnimeById(params);
-              this.getAnimeChaptersInfo(params);
+              this.getAnimeChaptersInfo(this.userInfor.data.id, +params.get('id'));
             }
           });
       });
@@ -58,9 +58,16 @@ export class AnimeComponent {
       .subscribe((anime) => (this.selectedAnime = anime));
   }
 
-  getAnimeChaptersInfo(params: ParamMap): void {
+  getAnimeChaptersInfo(user: number, anime: number): void {
     this.animeService
-      .getAnimeChaptersInfo(+params.get('id'))
+      .chapterByAnimeByIdUser(user, anime)
       .subscribe((chapterInfo) => (this.chapterInfo = chapterInfo));
+  }
+
+  toggleWatch(id: number, watched: boolean): void {
+    watched = !watched;
+    this.animeService.toggleWatch(id, watched).subscribe(
+      res => console.log(res.data.watched)
+    );
   }
 }

@@ -11,6 +11,7 @@ import { Episode } from '../interfaces/episodes';
 import { Chapters } from '../interfaces/chapters';
 import { ChapterInfo } from '../interfaces/chapter-info';
 import { ChapterUser } from '../interfaces/chapter-user';
+import { UserChapter } from '../interfaces/user-chapter';
 
 @Injectable({
   providedIn: 'root',
@@ -48,6 +49,21 @@ export class AnimeService {
     return this.http
       .get<ChapterUser>(this.URL + 'users/' + id +'/chapters')
       .pipe(map((resp: ChapterUser) => resp));
+  }
+
+  public chapterByAnimeByIdUser(user: number, anime: number): Observable<ChapterUser>{
+    return this.http
+      .get<ChapterUser>(this.URL + 'users/' + user +'/chapters/' + anime)
+      .pipe(map((resp: ChapterUser) => resp));
+  }
+
+  public toggleWatch(id: number, watched: boolean): Observable<UserChapter>{
+    let data = {
+      watched: watched
+    };
+    return this.http.patch<UserChapter>(this.URL + 'chapters-user/' + id, data, {
+      headers: this.headers,
+    })
   }
 
 

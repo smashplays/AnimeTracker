@@ -15,15 +15,10 @@ class AnimeUser extends Model
         'anime_id',
      ];
 
-
-
-
      public function user() {
         return $this->belongsTo(User::class);
        
     }
-
-
     public function anime() {
         return $this->belongsTo(Anime::class,'anime_id','mal_id');
        

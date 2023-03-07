@@ -51,7 +51,6 @@ class User extends Authenticatable
 
     public function chapters() {
         return $this->hasMany(UserChapters::class);
-       
     }
 
     public function calendar()

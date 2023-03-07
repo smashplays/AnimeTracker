@@ -21,7 +21,11 @@
 
   <div class="">
     <div *ngFor="let chapter of chapterInfo.data" class="mt-5 text-center">
-      <span class="text-blue-500">{{ chapter.name }} {{chapter.aired}}</span>
+      <span class="text-blue-500" *ngIf="chapter.chapter"
+        >{{ chapter.chapter.name }}
+        <button class="bg-white rounded-lg" *ngIf="!chapter.watched" (click)="toggleWatch(chapter.id, chapter.watched)">Mark as viewed</button
+        ><button class="bg-white rounded-lg" *ngIf="chapter.watched" (click)="toggleWatch(chapter.id, chapter.watched)">Mark as not viewed</button></span
+      >
     </div>
   </div>
 </div>
