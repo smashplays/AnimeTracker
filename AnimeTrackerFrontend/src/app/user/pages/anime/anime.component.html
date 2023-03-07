@@ -1,0 +1,27 @@
+<div class="text-white p-5">
+  <div class="float-left mr-10">
+    <img
+      src="{{ selectedAnime.data.images.jpg.image_url }}"
+      alt="{{ selectedAnime.data.title }}"
+      class="rounded-lg"
+    />
+  </div>
+
+  <div>
+    <h1 class="text-white text-3xl mb-2">
+      {{ selectedAnime.data.title | uppercase }}
+    </h1>
+  </div>
+
+  <div class="mb-5">
+    {{ selectedAnime.data.synopsis }}
+  </div>
+
+  <hr />
+
+  <div class="">
+    <div *ngFor="let chapter of chapterInfo.data" class="mt-5 text-center">
+      <span class="text-blue-500">{{ chapter.name }} {{chapter.aired}}</span>
+    </div>
+  </div>
+</div>

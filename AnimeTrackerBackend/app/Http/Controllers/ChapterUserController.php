@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Chapter_User;
+use App\Models\UserChapters;
 use App\Models\Chapter_Anime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,12 +13,12 @@ class ChapterUserController extends Controller
     public function getAll(Request $request)
     {
         try {
-            $chapter_user = Chapter_User::all();
+            $UserChapters = UserChapters::all();
 
             $response = [
                 'success' => true,
                 'message' => "Chapters user obtained successfully",
-                'data' => $chapter_user
+                'data' => $UserChapters
             ];
 
             return response($response, 200);
@@ -37,13 +37,13 @@ class ChapterUserController extends Controller
     public function getById(Request $request, $id)
     {
         try {
-            if (Chapter_User::find($id)) {
-                $chapter_user = Chapter_User::findOrFail($id);
+            if (UserChapters::find($id)) {
+                $UserChapters = UserChapters::findOrFail($id);
 
                 $response = [
                     'success' => true,
                     'message' => "Chapter User obtained successfully",
-                    'data' => $chapter_user
+                    'data' => $UserChapters
                 ];
 
                 return response($response, 200);
@@ -72,7 +72,7 @@ class ChapterUserController extends Controller
     public function post(Request $request)
     {
         try {
-            Chapter_User::create($request->validate([
+            UserChapters::create($request->validate([
                 'watched' => 'required|boolean',
                 'user_id' => 'required|integer',
                 'anime_chapter_id' => 'required|integer',
@@ -81,7 +81,7 @@ class ChapterUserController extends Controller
             $response = [
                 'success' => true,
                 'message' => "Chapter User Created",
-                'data' => Chapter_User::find(DB::getPdo()->lastInsertId())
+                'data' => UserChapters::find(DB::getPdo()->lastInsertId())
             ];
 
             return response($response, 201);
@@ -99,9 +99,9 @@ class ChapterUserController extends Controller
     public function update(Request  $request, $id)
     {
         try {
-            if (Chapter_User::find($id)) {
+            if (UserChapters::find($id)) {
 
-                Chapter_User::findOrFail($id)->update($request->validate([
+                UserChapters::findOrFail($id)->update($request->validate([
                     'watched' => 'nullable|boolean',
                     'user_id' => 'nullable|integer',
                     'anime_chapter_id' => 'nullable|integer',
@@ -110,7 +110,7 @@ class ChapterUserController extends Controller
                 $response = [
                     'success' => true,
                     'message' => "Chapter User Updated",
-                    'data' => Chapter_User::find($id)
+                    'data' => UserChapters::find($id)
                 ];
 
                 return response($response, 200);
@@ -137,16 +137,16 @@ class ChapterUserController extends Controller
     public function delete(Request $request, $id)
     {
         try {
-            if (Chapter_User::find($id)) {
+            if (UserChapters::find($id)) {
 
-                $chapter_user = Chapter_User::findOrFail($id);
+                $UserChapters = UserChapters::findOrFail($id);
 
-                Chapter_User::findOrFail($id)->delete();
+                UserChapters::findOrFail($id)->delete();
 
                 $response = [
                     'success' => true,
                     'message' => "Chapter User deleted",
-                    'data' => $chapter_user
+                    'data' => $UserChapters
                 ];
 
                 return response($response, 200);

@@ -106,6 +106,17 @@ export class AnimeService {
     });
   }
 
+  public addChapterUser(user_id: number, anime_chapter_id: number): Observable<ChapterInfo> {
+    let data = {
+      watched: false,
+      user_id: user_id,
+      anime_chapter_id: anime_chapter_id,
+    };
+    return this.http.post<ChapterInfo>(this.URL + 'chapters-user', data, {
+      headers: this.headers,
+    });
+  }
+
   public deleteAnime(id: number): Observable<AnimeAdd> {
     return this.http.delete<AnimeAdd>(this.URL + `animes/${id}`, {
       headers: this.headers,

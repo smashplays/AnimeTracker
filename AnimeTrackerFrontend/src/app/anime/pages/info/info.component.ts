@@ -51,7 +51,6 @@ export class InfoComponent implements OnInit {
       this.getAnimeById(params);
       this.getAnimeEpisodes(params);
       this.getAnimeCharacters(params);
-      this.getAnimeChaptersInfo(params);
       this.animeService.checkAnime(+params.get('id')).subscribe((res) => {
         this.addButton = '➕';
         this.animeAdded = false;
@@ -69,16 +68,23 @@ export class InfoComponent implements OnInit {
       .subscribe((anime) => (this.selectedAnime = anime));
   }
 
+  getAnimeChaptersInfo(id: number) {
+    this.animeService.getAnimeChaptersInfo(id).subscribe((chapterInfo) => {
+      this.chapterInfo = chapterInfo;
+      if (this.chapterInfo) {
+        this.chapterInfo.data.forEach((element) => {
+          this.animeService
+            .addChapterUser(this.userInfor.data.id, element.id)
+            .subscribe((res) => console.log('agregado'));
+        });
+      }
+    });
+  }
+
   getAnimeEpisodes(params: ParamMap): void {
     this.animeService
       .getAnimeEpisodes(+params.get('id'))
       .subscribe((episodes) => (this.episodes = episodes));
-  }
-
-  getAnimeChaptersInfo(params: ParamMap): void {
-    this.animeService
-      .getAnimeChaptersInfo(+params.get('id'))
-      .subscribe((chapterInfo) => (this.chapterInfo = chapterInfo));
   }
 
   getAnimeCharacters(params: ParamMap): void {
@@ -137,6 +143,9 @@ export class InfoComponent implements OnInit {
               )
               .subscribe((chapters) => {
                 this.chaptersAnime = chapters;
+                if(this.episodes.data.length === index + 1){
+                  this.getAnimeChaptersInfo(this.selectedAnime.data.mal_id);
+                }
               });
           });
         });
@@ -144,7 +153,8 @@ export class InfoComponent implements OnInit {
 
     this.animeService
       .addAnimeUser(this.userInfor.data.id, this.selectedAnime.data.mal_id)
-      .subscribe((res) => console.log('agregado'));
+      .subscribe((res) => {});
+
     this.animeAdded = true;
   }
 

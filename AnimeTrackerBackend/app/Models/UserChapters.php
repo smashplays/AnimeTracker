@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Chapter_User extends Model
+class UserChapters extends Model
 {
     use HasFactory;
 
  protected $fillable=[
     'user_id',
-    'chapter_id',
+    'anime_chapter_id',
     'watched'
  ];
 

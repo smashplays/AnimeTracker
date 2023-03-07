@@ -7,7 +7,6 @@ use App\Http\Controllers\ChapterAnimeController;
 use App\Http\Controllers\ChapterUserController;
 use App\Http\Controllers\AnimeUserController;
 use App\Http\Controllers\AnimeController;
-use App\Models\Chapter_Anime;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------

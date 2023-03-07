@@ -8,6 +8,7 @@ import { UserRoutingModule } from './user-routing.module';
 import { RouterModule } from '@angular/router';
 import { MainComponent } from './pages/main/main.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { AnimeComponent } from './pages/anime/anime.component';
 
 @NgModule({
   declarations: [
@@ -15,11 +16,13 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     ProfileComponent,
     ConfigComponent,
     MainComponent,
+    AnimeComponent,
   ],
   exports: [
     CalendarComponent,
     ProfileComponent,
     ConfigComponent,
+    AnimeComponent
   ],
   imports: [
     CommonModule,
