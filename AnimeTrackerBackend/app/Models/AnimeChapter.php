@@ -21,4 +21,9 @@ class AnimeChapter extends Model
        
     }
 
+    public function chapters(){
+        return $this->hasMany(UserChapters::class);
+    }
+    
+
 }

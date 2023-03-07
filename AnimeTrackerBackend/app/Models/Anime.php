@@ -17,7 +17,7 @@ class Anime extends Model
 
    
     public function users() {
-        return $this->hasMany(Anime_User::class);
+        return $this->hasMany(AnimeUser::class);
        
     }
 

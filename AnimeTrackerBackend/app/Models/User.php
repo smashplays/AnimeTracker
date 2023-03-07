@@ -50,7 +50,7 @@ class User extends Authenticatable
 
 
     public function chapters() {
-        return $this->hasMany(Chapter_User::class);
+        return $this->hasMany(UserChapters::class);
        
     }
 

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PDO;
 use PDOException;
-
+use PhpParser\Node\Expr\FuncCall;
 
 class UserController extends Controller
 {
@@ -79,6 +79,39 @@ class UserController extends Controller
         try {
             if (User::find($id)) {
                 $user = User::findOrFail($id)->animes()->with('anime')->get();
+
+                $response = [
+                    'success' => true,
+                    'message' => "User obtained successfully",
+                    'data' => $user
+                ];
+
+                return response($response, 200);
+            } else {
+
+                $response = [
+                    'success' => false,
+                    'message' => "User Not Found",
+                    'data' => null
+                ];
+
+                return response($response, 404);
+            }
+        } catch (PDOException $ex) {
+
+            $response = [
+                'success' => false,
+                'message' => "Connection Failed",
+                'data' => $ex->errorInfo
+            ];
+            return response($response, 500);
+        }
+    }
+
+    public function getChapterByUser(Request $request, $id){
+        try {
+            if (User::find($id)) {
+                $user = User::findOrFail($id)->chapters()->with('chapter')->get();
 
                 $response = [
                     'success' => true,

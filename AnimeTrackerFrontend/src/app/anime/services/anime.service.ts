@@ -10,6 +10,7 @@ import { AnimeUser } from '../interfaces/anime-user';
 import { Episode } from '../interfaces/episodes';
 import { Chapters } from '../interfaces/chapters';
 import { ChapterInfo } from '../interfaces/chapter-info';
+import { ChapterUser } from '../interfaces/chapter-user';
 
 @Injectable({
   providedIn: 'root',
@@ -42,6 +43,13 @@ export class AnimeService {
       .get<ChapterInfo>(this.URL + 'chapters/anime/' + id)
       .pipe(map((resp: ChapterInfo) => resp));
   }
+
+  public chapterByIdUser(id: number): Observable<ChapterUser> {
+    return this.http
+      .get<ChapterUser>(this.URL + 'users/' + id +'/chapters')
+      .pipe(map((resp: ChapterUser) => resp));
+  }
+
 
   public getAnimeSearch(query: string): Observable<Data[]> {
     if (!query.trim()) {

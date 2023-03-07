@@ -22,7 +22,8 @@ class UserChapters extends Model
 }
 
 public function chapter() {
-    return $this->belongsTo(Chapter_Anime::class);
+    return $this->belongsTo(AnimeChapter::class,'anime_chapter_id','id');
+       
    
 }
 }
