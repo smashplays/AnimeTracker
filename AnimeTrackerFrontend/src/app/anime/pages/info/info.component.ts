@@ -150,73 +150,75 @@ export class InfoComponent implements OnInit {
 
   addedTrue() {
     this.addButton = '✔';
-    if (!this.animeService.checkAnime(this.selectedAnime.data.mal_id)) {
-      this.animeService
-        .addAnime({
-          name: this.selectedAnime.data.title,
-          mal_id: this.selectedAnime.data.mal_id,
-          image: this.selectedAnime.data.images.jpg.image_url,
-        })
-        .subscribe((animeAdd) => {
-          this.animeAdd = animeAdd;
-          this.animeService.getAnimeEpisodes(this.selectedAnime.data.mal_id).subscribe(
-            res=>{
-
-              console.log(res)
-            this.capitulosA= res.data.map(rs => {
-              return {
-              name:rs.title,
-              aired:rs.aired,
-              anime_id: this.selectedAnime.data.mal_id  
-              }
+    if (this.animeService.checkAnime(this.selectedAnime.data.mal_id).pipe(
+      catchError((err) => {
+        if (err.status === 404) {
+           this.animeService
+            .addAnime({
+              name: this.selectedAnime.data.title,
+              mal_id: this.selectedAnime.data.mal_id,
+              image: this.selectedAnime.data.images.jpg.image_url,
             })
-            this.animeService.addAnimeEpisodes(this.capitulosA).subscribe(res => 
-              this.getAnimeChaptersInfo(this.selectedAnime.data.mal_id)
-              
-            )
-          })
+            .subscribe((animeAdd) => {
+              this.animeAdd = animeAdd;
+              this.animeService.getAnimeEpisodes(this.selectedAnime.data.mal_id).subscribe(
+                res=>{
+    
+                  console.log(res)
+                this.capitulosA= res.data.map(rs => {
+                  return {
+                  name:rs.title,
+                  aired:rs.aired,
+                  anime_id: this.selectedAnime.data.mal_id  
+                  }
+                })
+                this.animeService.addAnimeEpisodes(this.capitulosA).subscribe(res => 
+                  this.getAnimeChaptersInfo(this.selectedAnime.data.mal_id)
+                  
+                )
+              })
+            });
+            
           
-          
-          // .forEach((element, index) => {
-          //   this.animeService
-          //     .addAnimeEpisodes(
-          //       this.selectedAnime.data.title +
-          //         ' Episode ' +
-          //         (index + 1) +
-          //         ' ' +
-          //         this.episodes.data[index].title,
-          //       this.episodes.data[index].aired,
-          //       this.selectedAnime.data.mal_id
-          //     )
-          //     .subscribe((chapters) => {
-          //       this.chaptersAnime = chapters;
-          //       if(this.episodes.data.length === index + 1){
-          //         this.getAnimeChaptersInfo(this.selectedAnime.data.mal_id);
-          //       }
-          //     });
-          // });
-        });
-    }
+        }
+        this.animeService
+      .addAnimeUser(this.userInfor.data.id, this.selectedAnime.data.mal_id)
+      .subscribe((res) => {});
 
-    else{
-      this.animeService.getAnimeEpisodes(this.selectedAnime.data.mal_id).subscribe(
-        res=>{
+    this.animeAdded = true;
+        return EMPTY;
+      })
+    ).subscribe(res =>{
+        
+
 
           console.log(res)
-        this.capitulosA= res.data.map(rs => {
-          return {
-          name:rs.title,
-          aired:rs.aired,
-          anime_id: this.selectedAnime.data.mal_id  
-          }
-        })
-        this.animeService.addAnimeEpisodes(this.capitulosA).subscribe(res => 
-          this.getAnimeChaptersInfo(this.selectedAnime.data.mal_id)
+          console.log('Ya estaba registrado');
+        
+    })) 
+    
+     
+    
+
+    // else{
+    //   this.animeService.getAnimeEpisodes(this.selectedAnime.data.mal_id).subscribe(
+    //     res=>{
+
+    //       console.log(res)
+    //     this.capitulosA= res.data.map(rs => {
+    //       return {
+    //       name:rs.title,
+    //       aired:rs.aired,
+    //       anime_id: this.selectedAnime.data.mal_id  
+    //       }
+    //     })
+    //     this.animeService.addAnimeEpisodes(this.capitulosA).subscribe(res => 
+    //       this.getAnimeChaptersInfo(this.selectedAnime.data.mal_id)
           
-        )
-      })
+    //     )
+    //   })
       
-    }
+    // }
 
     this.animeService
       .addAnimeUser(this.userInfor.data.id, this.selectedAnime.data.mal_id)
