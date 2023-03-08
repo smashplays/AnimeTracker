@@ -104,11 +104,17 @@ class ChapterAnimeController extends Controller
     public function post(Request $request)
     {
         try {
-            AnimeChapter::create($request->validate([
-                'name' => 'required|string',
-                'aired' => 'required|string',
-                'anime_id' => 'required|integer',
-            ]));
+            $cap = $request->all();
+            
+            $validate = $request->validate([
+                '*.name' => 'required|string',
+                '*.aired' => 'required|string',
+                '*.anime_id' => 'required|integer',
+            ]);
+
+            foreach($cap as $c){
+                 AnimeChapter::create($c);
+             }
 
             $response = [
                 'success' => true,

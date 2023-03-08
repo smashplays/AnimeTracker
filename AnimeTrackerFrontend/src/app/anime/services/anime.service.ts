@@ -8,9 +8,10 @@ import { AnimeAdd } from '../interfaces/anime-add';
 import { Respuesta } from 'src/app/user/interfaces/user';
 import { AnimeUser } from '../interfaces/anime-user';
 import { Episode } from '../interfaces/episodes';
-import { Chapters } from '../interfaces/chapters';
+import { Chapters, ChaptersI, ChaptersA } from '../interfaces/chapters';
 import { ChapterInfo } from '../interfaces/chapter-info';
 import { ChapterUser } from '../interfaces/chapter-user';
+import { UserAnime } from '../interfaces/user-anime';
 
 @Injectable({
   providedIn: 'root',
@@ -90,15 +91,13 @@ export class AnimeService {
   }
 
   public addAnimeEpisodes(
-    name: string,
-    aired: string,
-    anime_id: number
+    data:ChaptersA[]
   ): Observable<Chapters> {
-    let data = {
-      name: name,
-      aired: aired,
-      anime_id: anime_id,
-    };
+    // let data = {
+    //   name: name,
+    //   aired: aired,
+    //   anime_id: anime_id,
+    // };
     return this.http.post<Chapters>(this.URL + 'chapters', data, {
       headers: this.headers,
     });
@@ -115,14 +114,13 @@ export class AnimeService {
   }
 
   public addChapterUser(
-    user_id: number,
-    anime_chapter_id: number
+    data:ChaptersI[]
   ): Observable<ChapterInfo> {
-    let data = {
-      watched: false,
-      user_id: user_id,
-      anime_chapter_id: anime_chapter_id,
-    };
+    // let data = {
+    //   watched: false,
+    //   user_id: user_id,
+    //   anime_chapter_id: anime_chapter_id,
+    // };
     return this.http.post<ChapterInfo>(this.URL + 'chapters-user', data, {
       headers: this.headers,
     });
@@ -160,5 +158,22 @@ export class AnimeService {
           }
         })
       );
+  }
+
+
+  public deleteAnimeByUser(anime: number, user: number): Observable<UserAnime> {
+   let headers = new HttpHeaders()
+    .set('content-type', 'application/json')
+    .set('Access-Control-Allow-Origin', '*')
+    .set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    
+  
+    
+    return this.http.delete<UserAnime>(
+      this.URL + `anime-user/${user}/anime/${anime}`,
+      {
+        headers: headers,
+      }
+    );
   }
 }

@@ -173,6 +173,52 @@ class AnimeUserController extends Controller
         }
     }
 
+    public function deleteAnimeByUser(Request $request, $user, $anime)
+    {
+        try {
+            if (AnimeUser::where([
+                ['user_id', '=', $user],
+                ['anime_id', '=', $anime],
+            ])->first()) {
+                $AnimeUser = AnimeUser::where([
+                    ['user_id', '=', $user],
+                    ['anime_id', '=', $anime],
+                ])->get();
+
+                AnimeUser::where([
+                    ['user_id', '=', $user],
+                    ['anime_id', '=', $anime],
+                ])->delete();
+
+                $response = [
+                    'success' => true,
+                    'message' => "User and Anime deleted successfully",
+                    'data' => $AnimeUser
+                ];
+
+                return response($response, 200);
+            } else {
+
+                $response = [
+                    'success' => false,
+                    'message' => "User and Anime Not Found",
+                    'data' => null
+                ];
+
+                return response($response, 404);
+            }
+        } catch (PDOException $exception) {
+
+            $response = [
+                'success' => false,
+                'message' => "Connection Failed",
+                'data' => $exception->errorInfo
+            ];
+
+            return response($response, 500);
+        }
+    }
+
     public function CheckAnimeandUser(Request $request, $user, $anime)
     {
         try {

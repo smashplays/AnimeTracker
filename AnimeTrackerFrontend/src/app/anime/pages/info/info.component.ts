@@ -8,9 +8,9 @@ import { AnimeAdd } from '../../interfaces/anime-add';
 import { Respuesta } from 'src/app/user/interfaces/user';
 import { UserService } from '../../../user/services/user.service';
 import { Episode } from '../../interfaces/episodes';
-import { Chapters } from '../../interfaces/chapters';
+import { Chapters, ChaptersI, ChaptersA } from '../../interfaces/chapters';
 import { ChapterInfo } from '../../interfaces/chapter-info';
-import { catchError, EMPTY } from 'rxjs';
+import { catchError, EMPTY, map } from 'rxjs';
 
 @Component({
   selector: 'app-info',
@@ -31,6 +31,8 @@ export class InfoComponent implements OnInit {
   addButton: string = '➕';
   userInfor: Respuesta;
   charge: boolean = false;
+  capitulos:ChaptersI[];
+  capitulosA:ChaptersA[];
 
   constructor(
     private route: ActivatedRoute,
@@ -79,14 +81,30 @@ export class InfoComponent implements OnInit {
   }
 
   getAnimeChaptersInfo(id: number) {
+    
     this.animeService.getAnimeChaptersInfo(id).subscribe((chapterInfo) => {
       this.chapterInfo = chapterInfo;
+      
+      
       if (this.chapterInfo) {
-        this.chapterInfo.data.forEach((element) => {
-          this.animeService
-            .addChapterUser(this.userInfor.data.id, element.id)
-            .subscribe((res) => console.log('agregado'));
-        });
+        this.userService.me().subscribe(res =>{
+          this.capitulos=  this.chapterInfo.data.map(chapter =>{
+            return {
+                user_id:res.data.id,
+                anime_chapter_id:chapter.id,
+                watched:false
+            }
+        })
+        this.animeService.addChapterUser(this.capitulos).subscribe()
+        })
+       
+        console.log(this.capitulos)
+        // this.chapterInfo.data.forEach((element) => {
+        //   console.log('hola')
+        //   this.animeService
+        //     .addChapterUser(this.userInfor.data.id, element.id)
+        //   //   .subscribe((res) => console.log('agregado'));
+        // });
       }
     });
   }
@@ -125,13 +143,14 @@ export class InfoComponent implements OnInit {
     this.addButton = '➕';
     this.animeAdded = false;
     this.characters = true;
-    this.chapters = false;
-    this.animeService.deleteAnime(this.selectedAnime.data.mal_id).subscribe();
+    this.animeService
+      .deleteAnimeByUser(this.selectedAnime.data.mal_id, this.userInfor.data.id)
+      .subscribe();
   }
 
   addedTrue() {
     this.addButton = '✔';
-    if (this.animeService.checkAnime(this.selectedAnime.data.mal_id)) {
+    if (!this.animeService.checkAnime(this.selectedAnime.data.mal_id)) {
       this.animeService
         .addAnime({
           name: this.selectedAnime.data.title,
@@ -140,25 +159,63 @@ export class InfoComponent implements OnInit {
         })
         .subscribe((animeAdd) => {
           this.animeAdd = animeAdd;
-          this.episodes.data.forEach((element, index) => {
-            this.animeService
-              .addAnimeEpisodes(
-                this.selectedAnime.data.title +
-                  ' Episode ' +
-                  (index + 1) +
-                  ' ' +
-                  this.episodes.data[index].title,
-                this.episodes.data[index].aired,
-                this.selectedAnime.data.mal_id
-              )
-              .subscribe((chapters) => {
-                this.chaptersAnime = chapters;
-                if(this.episodes.data.length === index + 1){
-                  this.getAnimeChaptersInfo(this.selectedAnime.data.mal_id);
-                }
-              });
-          });
+          this.animeService.getAnimeEpisodes(this.selectedAnime.data.mal_id).subscribe(
+            res=>{
+
+              console.log(res)
+            this.capitulosA= res.data.map(rs => {
+              return {
+              name:rs.title,
+              aired:rs.aired,
+              anime_id: this.selectedAnime.data.mal_id  
+              }
+            })
+            this.animeService.addAnimeEpisodes(this.capitulosA).subscribe(res => 
+              this.getAnimeChaptersInfo(this.selectedAnime.data.mal_id)
+              
+            )
+          })
+          
+          
+          // .forEach((element, index) => {
+          //   this.animeService
+          //     .addAnimeEpisodes(
+          //       this.selectedAnime.data.title +
+          //         ' Episode ' +
+          //         (index + 1) +
+          //         ' ' +
+          //         this.episodes.data[index].title,
+          //       this.episodes.data[index].aired,
+          //       this.selectedAnime.data.mal_id
+          //     )
+          //     .subscribe((chapters) => {
+          //       this.chaptersAnime = chapters;
+          //       if(this.episodes.data.length === index + 1){
+          //         this.getAnimeChaptersInfo(this.selectedAnime.data.mal_id);
+          //       }
+          //     });
+          // });
         });
+    }
+
+    else{
+      this.animeService.getAnimeEpisodes(this.selectedAnime.data.mal_id).subscribe(
+        res=>{
+
+          console.log(res)
+        this.capitulosA= res.data.map(rs => {
+          return {
+          name:rs.title,
+          aired:rs.aired,
+          anime_id: this.selectedAnime.data.mal_id  
+          }
+        })
+        this.animeService.addAnimeEpisodes(this.capitulosA).subscribe(res => 
+          this.getAnimeChaptersInfo(this.selectedAnime.data.mal_id)
+          
+        )
+      })
+      
     }
 
     this.animeService
@@ -179,4 +236,5 @@ export class InfoComponent implements OnInit {
       this.addedTrue();
     }
   }
+  
 }

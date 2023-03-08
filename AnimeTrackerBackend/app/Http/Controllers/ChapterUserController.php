@@ -71,17 +71,34 @@ class ChapterUserController extends Controller
 
     public function post(Request $request)
     {
+       
         try {
-            UserChapters::create($request->validate([
-                'watched' => 'required|boolean',
-                'user_id' => 'required|integer',
-                'anime_chapter_id' => 'required|integer',
-            ]));
+
+            $cap = $request->all();
+            
+            $validate = $request->validate([
+                '*.watched' => 'required|boolean',
+                '*.user_id' => 'required|integer',
+                '*.anime_chapter_id' => 'required|integer',
+            ]);
+
+            foreach($cap as $c){
+                 UserChapters::create($c);
+             }
+
+            // UserChapters::createMany($request->all());
+            
+          
+            // UserChapters::create($request->validate([
+            //     'watched' => 'required|boolean',
+            //     'user_id' => 'required|integer',
+            //     'anime_chapter_id' => 'required|integer',
+            // ]));
 
             $response = [
                 'success' => true,
                 'message' => "Chapter User Created",
-                'data' => UserChapters::find(DB::getPdo()->lastInsertId())
+                'data' =>$request->all()
             ];
 
             return response($response, 201);
