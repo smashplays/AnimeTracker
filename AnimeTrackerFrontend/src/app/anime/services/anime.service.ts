@@ -12,6 +12,7 @@ import { Chapters, ChaptersI, ChaptersA } from '../interfaces/chapters';
 import { ChapterInfo } from '../interfaces/chapter-info';
 import { ChapterUser } from '../interfaces/chapter-user';
 import { UserAnime } from '../interfaces/user-anime';
+import { UserChapter } from '../interfaces/user-chapter';
 
 @Injectable({
   providedIn: 'root',
