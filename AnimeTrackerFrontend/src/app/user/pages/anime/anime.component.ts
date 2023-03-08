@@ -45,11 +45,29 @@ export class AnimeComponent {
           .subscribe((res) => {
             if (res) {
               this.getAnimeById(params);
-              this.getAnimeChaptersInfo(this.userInfor.data.id, +params.get('id'));
+              this.getAnimeChaptersInfo(
+                this.userInfor.data.id,
+                +params.get('id')
+              );
             }
           });
       });
     });
+  }
+
+  deleteAnime() {
+    this.animeService
+      .deleteAnimeByUser(this.selectedAnime.data.mal_id, this.userInfor.data.id)
+      .subscribe((res) =>
+        this.animeService
+          .deleteChaptersByUser(
+            this.selectedAnime.data.mal_id,
+            this.userInfor.data.id
+          )
+          .subscribe((respu) => {
+            this.router.navigate(['user/list']);
+          })
+      );
   }
 
   getAnimeById(params: ParamMap): void {
@@ -66,10 +84,8 @@ export class AnimeComponent {
 
   toggleWatch(id: number, watched: boolean): void {
     watched = !watched;
-    this.animeService.toggleWatch(id, watched).subscribe(
-      res => {
-        this.paramMapSubscription();
-      }
-    );
+    this.animeService.toggleWatch(id, watched).subscribe((res) => {
+      this.paramMapSubscription();
+    });
   }
 }
