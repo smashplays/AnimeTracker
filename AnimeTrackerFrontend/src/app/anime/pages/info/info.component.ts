@@ -165,9 +165,9 @@ export class InfoComponent implements OnInit {
                 res=>{
     
                   console.log(res)
-                this.capitulosA= res.data.map(rs => {
+                this.capitulosA= res.data.map((rs, index) => {
                   return {
-                  name:rs.title,
+                  name:this.selectedAnime.data.title + ' - Episode ' + (index + 1) + ': ' + rs.title,
                   aired:rs.aired,
                   anime_id: this.selectedAnime.data.mal_id  
                   }
