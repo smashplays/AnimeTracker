@@ -1,0 +1,116 @@
+<div class="text-center">
+  <img
+    src="../assets/img/logo.png"
+    alt="Logo"
+    class="mx-auto my-4 lg:my-0 lg:max-w-lg lg:w-full"
+  />
+  <h1 class="text-white text-3xl">REGISTER</h1>
+
+  <div class="w-full lg:w-1/2 xl:w-1/3 mx-auto">
+    <form [formGroup]="userForm" class="mt-8" autocomplete="off">
+      <div class="mb-4">
+        <input
+          type="text"
+          formControlName="name"
+          name="name"
+          id="name"
+          placeholder="Name"
+          class="bg-[#7F5F93] placeholder-white text-white block w-full rounded-lg py-3 px-4 focus:outline-none focus:shadow-outline-blue focus:border-blue-300"
+        />
+
+        <div
+          *ngIf="userForm.get('name').invalid && userForm.get('name').touched"
+          class="text-red-100 mt-2"
+        >
+          Nombre obligatorio
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <input
+          type="text"
+          formControlName="email"
+          name="email"
+          id="email"
+          placeholder="Email"
+          class="bg-[#7F5F93] placeholder-white text-white block w-full rounded-lg py-3 px-4 focus:outline-none focus:shadow-outline-blue focus:border-blue-300"
+        />
+
+        <div
+          *ngIf="userForm.get('email').invalid && userForm.get('email').touched"
+          class="text-red-100 mt-2"
+        >
+          Email obligatorio
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <input
+          type="password"
+          formControlName="password"
+          name="password"
+          id="password"
+          placeholder="Password"
+          class="bg-[#7F5F93] placeholder-white text-white block w-full rounded-lg py-3 px-4 focus:outline-none focus:shadow-outline-blue focus:border-blue-300"
+        />
+
+        <div
+          *ngIf="
+            userForm.get('password').invalid && userForm.get('password').touched
+          "
+          class="text-red-100 mt-2"
+        >
+          Password obligatorio
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <input
+          type="password"
+          formControlName="rpassword"
+          name="rpassword"
+          id="rpassword"
+          placeholder="Repeat password"
+          class="bg-[#7F5F93] placeholder-white text-white block w-full rounded-lg py-3 px-4 focus:outline-none focus:shadow-outline-blue focus:border-blue-300"
+        />
+
+        <div
+          *ngIf="
+            userForm.get('rpassword').invalid &&
+            userForm.get('rpassword').touched
+          "
+          class="text-red-100 mt-2"
+        >
+          Password obligatorio
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <input
+          type="number"
+          formControlName="age"
+          name="age"
+          id="age"
+          placeholder="Age"
+          min
+          class="bg-[#7F5F93] placeholder-white text-white block w-full rounded-lg py-3 px-4 focus:outline-none focus:shadow-outline-blue focus:border-blue-300"
+        />
+      </div>
+
+      <div *ngIf="passwordMatch">
+        <p class="text-red-100 mt-2">The password are not equal</p>
+      </div>
+
+      <div class="flex items-center justify-center">
+        <button
+          class="bg-[#9229D5] hover:bg-[#4E047D] text-white font-bold py-3 px-5 rounded-lg mt-4 focus:outline-none focus:shadow-outline disabled:text-gray-500 disabled:bg-purple-800 disabled:hover:bg-none"
+          type="submit"
+          (click)="register()"
+          [disabled]="validateForm()"
+        >
+          Send
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
