@@ -95,6 +95,16 @@
           min
           class="bg-[#7F5F93] placeholder-white text-white block w-full rounded-lg py-3 px-4 focus:outline-none focus:shadow-outline-blue focus:border-blue-300"
         />
+
+        <div
+        *ngIf="
+          userForm.get('age').invalid &&
+          userForm.get('age').touched
+        "
+        class="text-red-500 mt-2"
+      >
+        Edad no valida
+      </div>
       </div>
 
       <div *ngIf="passwordMatch">

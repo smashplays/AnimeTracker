@@ -186,4 +186,51 @@ class ChapterUserController extends Controller
             return response($response, 500);
         }
     }
+
+
+    public function deleteAnimeByUser(Request $request, $user, $anime)
+    {
+        try {
+            if (UserChapters::where([
+                ['user_id', '=', $user],
+                ['anime_id', '=', $anime],
+            ])->first()) {
+                $UserChapters = UserChapters::where([
+                    ['user_id', '=', $user],
+                    ['anime_id', '=', $anime],
+                ])->get();
+
+                UserChapters::where([
+                    ['user_id', '=', $user],
+                    ['anime_id', '=', $anime],
+                ])->delete();
+
+                $response = [
+                    'success' => true,
+                    'message' => "User and Anime deleted successfully",
+                    'data' => $UserChapters
+                ];
+
+                return response($response, 200);
+            } else {
+
+                $response = [
+                    'success' => false,
+                    'message' => "User and Anime Not Found",
+                    'data' => null
+                ];
+
+                return response($response, 404);
+            }
+        } catch (PDOException $exception) {
+
+            $response = [
+                'success' => false,
+                'message' => "Connection Failed",
+                'data' => $exception->errorInfo
+            ];
+
+            return response($response, 500);
+        }
+    }
 }

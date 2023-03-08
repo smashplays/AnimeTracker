@@ -9,8 +9,9 @@ export interface Chapters {
 
 export interface ChaptersI{
   user_id:number,
-  anime_chapter_id:number
-  watched:boolean
+  anime_chapter_id:number,
+  watched:boolean,
+  anime_id:number,
 }
 
 

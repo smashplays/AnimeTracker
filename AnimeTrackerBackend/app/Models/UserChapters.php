@@ -12,7 +12,8 @@ class UserChapters extends Model
  protected $fillable=[
     'user_id',
     'anime_chapter_id',
-    'watched'
+    'watched',
+    'anime_id'
  ];
 
 

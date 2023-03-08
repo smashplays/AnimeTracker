@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->boolean('watched')->default(false);
+            $table->integer('anime_id');
         });
     }
 

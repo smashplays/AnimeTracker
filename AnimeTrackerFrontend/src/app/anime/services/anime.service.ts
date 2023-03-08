@@ -192,4 +192,21 @@ export class AnimeService {
       }
     );
   }
+
+
+  public deleteChaptersByUser(anime: number, user: number): Observable<UserAnime> {
+    let headers = new HttpHeaders()
+     .set('content-type', 'application/json')
+     .set('Access-Control-Allow-Origin', '*')
+     .set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+     
+   
+     
+     return this.http.delete<UserAnime>(
+       this.URL + `chapters-user/${user}/anime/${anime}`,
+       {
+         headers: headers,
+       }
+     );
+   }
 }
