@@ -108,14 +108,15 @@ class UserController extends Controller
         }
     }
 
-    public function getChapterByUser(Request $request, $id){
+    public function getChapterByUser(Request $request, $id)
+    {
         try {
             if (User::find($id)) {
                 $user = User::findOrFail($id)->chapters()->with('chapter')->get();
 
                 $response = [
                     'success' => true,
-                    'message' => "User obtained successfully",
+                    'message' => "Chapters User obtained successfully",
                     'data' => $user
                 ];
 
@@ -141,7 +142,39 @@ class UserController extends Controller
         }
     }
 
+    public function getChapterByAnimeByUser(Request $request, $id, $anime)
+    {
+        try {
+            if (User::find($id)) {
+                $user = User::findOrFail($id)->chapters()->with(['chapter' => fn ($query) => $query->where('anime_id', '=', $anime)])->get();
 
+                $response = [
+                    'success' => true,
+                    'message' => "Chapters User obtained successfully",
+                    'data' => $user
+                ];
+
+                return response($response, 200);
+            } else {
+
+                $response = [
+                    'success' => false,
+                    'message' => "User Not Found",
+                    'data' => null
+                ];
+
+                return response($response, 404);
+            }
+        } catch (PDOException $ex) {
+
+            $response = [
+                'success' => false,
+                'message' => "Connection Failed",
+                'data' => $ex->errorInfo
+            ];
+            return response($response, 500);
+        }
+    }
 
     public function delete(Request $request, $id)
     {

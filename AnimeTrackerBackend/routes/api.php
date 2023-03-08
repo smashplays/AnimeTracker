@@ -27,6 +27,7 @@ Route::prefix('/users')->group(function () {
 
     Route::middleware('validate.id')->get('/{id}/animes', [UserController::class, 'getByIdAnime']);
     Route::middleware('validate.id')->get('/{id}/chapters', [UserController::class, 'getChapterByUser']);
+    Route::middleware('validate.id')->get('/{id}/chapters/{anime}', [UserController::class, 'getChapterByAnimeByUser']);
 
     Route::post('', [UserController::class, 'post']);
 

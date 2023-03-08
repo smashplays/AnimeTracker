@@ -51,6 +51,21 @@ export class AnimeService {
       .pipe(map((resp: ChapterUser) => resp));
   }
 
+  public chapterByAnimeByIdUser(user: number, anime: number): Observable<ChapterUser>{
+    return this.http
+      .get<ChapterUser>(this.URL + 'users/' + user +'/chapters/' + anime)
+      .pipe(map((resp: ChapterUser) => resp));
+  }
+
+  public toggleWatch(id: number, watched: boolean): Observable<UserChapter>{
+    let data = {
+      watched: watched
+    };
+    return this.http.patch<UserChapter>(this.URL + 'chapters-user/' + id, data, {
+      headers: this.headers,
+    })
+  }
+
 
   public getAnimeSearch(query: string): Observable<Data[]> {
     if (!query.trim()) {
