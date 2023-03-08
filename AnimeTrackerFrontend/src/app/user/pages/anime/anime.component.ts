@@ -67,7 +67,9 @@ export class AnimeComponent {
   toggleWatch(id: number, watched: boolean): void {
     watched = !watched;
     this.animeService.toggleWatch(id, watched).subscribe(
-      res => console.log(res.data.watched)
+      res => {
+        this.paramMapSubscription();
+      }
     );
   }
 }
