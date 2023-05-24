@@ -62,6 +62,10 @@ Iremos a la carpeta AnimeTrackerFrontend e instalaremos las dependencias (requie
 
 Una vez finalizada la instalación, ejecutaremos el siguiente comando para abrir la aplicación en nuestro navegador por defecto (requiere tener instalado [Angular CLI](https://angular.io/cli) de manera global)
 
+```bash
+  ng serve --open
+```
+
 ## Capturas y explicación
 
 Lo primero que veremos al ejecutar será la pantalla de login, la cual tiene también un botón para ir a la pantalla de registro en caso de no tener una cuenta
